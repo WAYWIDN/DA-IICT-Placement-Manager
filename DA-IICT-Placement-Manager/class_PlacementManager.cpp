@@ -188,7 +188,7 @@ private:
 
         if (NewNode == NULL)
         {
-            cerr << "\nUnable to allocate Memory For Creating Node for Round1\n";
+            cerr << "\nUnable to allocate Memory For Creating Node for Round2\n";
             return;
         }
         else
@@ -362,7 +362,7 @@ private:
 
         if (NewNode == NULL)
         {
-            cerr << "\nUnable to allocate Memory For Creating Node for Final \n";
+            cerr << "\nUnable to allocate Memory For Creating Node for Final Round\n";
             return;
         }
         else
@@ -737,27 +737,27 @@ public:
     void InputData()
     {
         string CompanyName;
-        cout << "\nEnter Company Name : ";
+        cout << "\nEnter Company's Name : ";
         cin >> CompanyName;
 
         string filepath;
-        cout << "\nEnter File Path for Round 1 : ";
+        cout << "\nEnter File Path for Round 1's file : ";
         cin >> filepath;
         ReadFileForRound1(filepath, CompanyName); // Collect Data From Round1's File
 
-        cout << "\nEnter File Path for Round 2 : ";
+        cout << "\nEnter File Path for Round 2's file : ";
         cin >> filepath;
         ReadFileForRound2(filepath, CompanyName); // Collect Data From Round2's File
 
-        cout << "\nEnter File Path for Round 3 : ";
+        cout << "\nEnter File Path for Round 3's file : ";
         cin >> filepath;
         ReadFileForRound3(filepath, CompanyName); // Collect Data From Round3's File
 
-        cout << "\nEnter File Path for Round 4 : ";
+        cout << "\nEnter File Path for Round 4's file : ";
         cin >> filepath;
         ReadFileForRound4(filepath, CompanyName); // Collect Data From Round4's File
 
-        cout << "\nEnter File Path for Final Round : ";
+        cout << "\nEnter File Path for Final Round's file : ";
         cin >> filepath;
         ReadFileForFinalRound(filepath, CompanyName); // Collect Data From Final Round's File
     }
