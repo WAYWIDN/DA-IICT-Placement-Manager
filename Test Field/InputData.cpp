@@ -863,12 +863,16 @@ void filterAndWriteToFile2(Node2* head, const string& branch, ofstream& outputFi
     }
 }
 void filterStudentsByBranchAndRound() {
+    cout<<"Enter The Round No. You Want To Filter:";
     int round;
     cin>>round;
+    cout<<"\n Enter The Branch You Want In New File:";
     string branch;
     cin>>branch;
-    string filename = branch + to_string(round);
-    ofstream outputFile(filename + ".csv");
+    cout<<endl;
+    string filename = branch + to_string(round) + ".csv";
+    string path = "Output/" + filename;
+    ofstream outputFile(path);
     if (!outputFile) {
         cerr << "Failed to open the file: "<< endl;
         return;
