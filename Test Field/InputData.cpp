@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <unordered_map>
 using namespace std;
 
 //------------------------------------------------------------------------------------------------------------------------------------------>
@@ -16,7 +17,6 @@ public:
     long long id;
     string name;
     int batch;
-    string branch;
     string program;
     string email;
     long long contactNO;
@@ -24,12 +24,11 @@ public:
     string company;
     Node1 *next;
 
-    Node1(long long id, string name, int batch,string branch, string program, string email, long long contactNO, long long whatsappNO, string company)
+    Node1(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company)
     {
         this->id = id;
         this->name = name;
         this->batch = batch;
-        this->branch = branch;
         this->program = program;
         this->email = email;
         this->contactNO = contactNO;
@@ -47,7 +46,6 @@ public:
     long long id;
     string name;
     int batch;
-    string branch;
     string program;
     string email;
     long long contactNO;
@@ -56,12 +54,11 @@ public:
     float pakage;
     Node2 *next;
 
-    Node2(long long id, string name, int batch,string branch, string program, string email, long long contactNO, long long whatsappNO, string company, float pakage)
+    Node2(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, float pakage)
     {
         this->id = id;
         this->name = name;
         this->batch = batch;
-        this->branch = branch;
         this->program = program;
         this->email = email;
         this->contactNO = contactNO;
@@ -71,6 +68,8 @@ public:
         next = NULL;
     }
 };
+
+//--------------- Variables for Creating List and to Manage Placement Statics  -------->
 
 // Head and Tail Pointers for Round 1
 
@@ -97,6 +96,14 @@ Node1 *TailR4;
 Node2 *HeadFR;
 Node2 *TailFR;
 
+// Variables to keep Track on student's attempt and Job Offers
+
+unordered_map<long long, int> R1Attempts;
+unordered_map<long long, int> R2Attempts;
+unordered_map<long long, int> R3Attempts;
+unordered_map<long long, int> R4Attempts;
+unordered_map<long long, int> TotalOffers;
+
 // Variables to keep Track on whole Placement Statics
 
 int NOofStudentR1;
@@ -104,7 +111,7 @@ int NOofStudentR2;
 int NOofStudentR3;
 int NOofStudentR4;
 int NOofStudentFR;
-float TotalPakages;
+float TotalPackage;
 
 //------------------------------------------------------------------------------------------------------------------------------------------>
 //------------------------------------------------------------------------------------------------------------------------------------------>
@@ -116,10 +123,9 @@ float TotalPakages;
 //------------------------------------------------Function to add Node in Round1's list-------------------------------->
 //--------------------------------------------------------------------------------------------------------------------->
 
-void addToListR1(long long id, string name,string branch ,string program, string email, long long contactNO, long long whatsappNO, string company)
+void addToListR1(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company)
 {
-    int batch = stoi(to_string(id).substr(0, 4));
-    Node1 *NewNode = new Node1(id, name, batch,branch,program, email, contactNO, whatsappNO, company);
+    Node1 *NewNode = new Node1(id, name, batch, program, email, contactNO, whatsappNO, company);
 
     if (NewNode == NULL)
     {
@@ -175,10 +181,9 @@ void addToListR1(long long id, string name,string branch ,string program, string
 //------------------------------------------------Function to add Node in Round2's list-------------------------------->
 //--------------------------------------------------------------------------------------------------------------------->
 
-void addToListR2(long long id, string name, string branch, string program, string email, long long contactNO, long long whatsappNO, string company)
+void addToListR2(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company)
 {
-    int batch = stoi(to_string(id).substr(0, 4));
-    Node1 *NewNode = new Node1(id, name,batch,branch, program, email, contactNO, whatsappNO, company);
+    Node1 *NewNode = new Node1(id, name, batch, program, email, contactNO, whatsappNO, company);
 
     if (NewNode == NULL)
     {
@@ -234,10 +239,9 @@ void addToListR2(long long id, string name, string branch, string program, strin
 //------------------------------------------------Function to add Node in Round3's list-------------------------------->
 //--------------------------------------------------------------------------------------------------------------------->
 
-void addToListR3(long long id, string name,string branch,string program, string email, long long contactNO, long long whatsappNO, string company)
+void addToListR3(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company)
 {
-    int batch = stoi(to_string(id).substr(0, 4));
-    Node1 *NewNode = new Node1(id, name, batch, branch,program, email, contactNO, whatsappNO, company);
+    Node1 *NewNode = new Node1(id, name, batch, program, email, contactNO, whatsappNO, company);
 
     if (NewNode == NULL)
     {
@@ -293,10 +297,9 @@ void addToListR3(long long id, string name,string branch,string program, string 
 //------------------------------------------------Function to add Node in Round4's list-------------------------------->
 //--------------------------------------------------------------------------------------------------------------------->
 
-void addToListR4(long long id, string name,string branch,string program, string email, long long contactNO, long long whatsappNO, string company)
+void addToListR4(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company)
 {
-    int batch = stoi(to_string(id).substr(0, 4));
-    Node1 *NewNode = new Node1(id, name, batch,branch, program, email, contactNO, whatsappNO, company);
+    Node1 *NewNode = new Node1(id, name, batch, program, email, contactNO, whatsappNO, company);
 
     if (NewNode == NULL)
     {
@@ -352,10 +355,9 @@ void addToListR4(long long id, string name,string branch,string program, string 
 //-------------------------------------------Function to add Node in Final Round's list-------------------------------->
 //--------------------------------------------------------------------------------------------------------------------->
 
-void addToListFR(long long id, string name,string branch, string program, string email, long long contactNO, long long whatsappNO, string company, float pakage)
+void addToListFR(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, float pakage)
 {
-    int batch = stoi(to_string(id).substr(0, 4));
-    Node2 *NewNode = new Node2(id, name, batch, branch,program, email, contactNO, whatsappNO, company, pakage);
+    Node2 *NewNode = new Node2(id, name, batch, program, email, contactNO, whatsappNO, company, pakage);
 
     if (NewNode == NULL)
     {
@@ -417,7 +419,9 @@ void addToListFR(long long id, string name,string branch, string program, string
 //-------------------------------------------Function to Read Round 1's File------------------------------------------->
 //--------------------------------------------------------------------------------------------------------------------->
 
-void ReadFileForRound1(const string &filepath, const string &CompanyName){
+void ReadFileForRound1(const string &filepath, const string &CompanyName)
+{
+
     ifstream file(filepath);
 
     if (!file.is_open())
@@ -427,6 +431,7 @@ void ReadFileForRound1(const string &filepath, const string &CompanyName){
     }
     else
     {
+
         cout << "\nFatching Data from The Round1's File---->\n";
 
         string line;
@@ -437,34 +442,39 @@ void ReadFileForRound1(const string &filepath, const string &CompanyName){
         {
             stringstream ss(line);
 
-            // Variables to Extract Data
+            //--->Extract data from each line
+
+            // Variables to Extact Data
+
             string WordToSkip; // To Skip Unnecessary data
-            string id_str, name, program, email, branch,conatctNO_str, whatsappNO_str;
+
+            string id_str, name, program, email, conatctNO_str, whatsappNO_str;
+            int batch;
             long long id, contactNO, whatsappNO;
 
             getline(ss, WordToSkip, ','); // Ignore the Sr No.
             getline(ss, id_str, ',');
             id = stoll(id_str);
+            batch = stoi(id_str.substr(0, 4)); // First 4 digits are batch
             getline(ss, name, ',');
             getline(ss, program, ',');
-            getline(ss,branch,',');
-            // getline(ss, WordToSkip, ','); // Igonre Batch
-            getline(ss, WordToSkip, ','); // Igonre Interview Date
+            getline(ss, WordToSkip, ','); // Ignore Interview Date
             getline(ss, email, ',');
             getline(ss, conatctNO_str, ',');
             contactNO = stoll(conatctNO_str);
             getline(ss, whatsappNO_str, ',');
             whatsappNO = stoll(whatsappNO_str);
 
-            // Insert the extracted data into the list
-            addToListR1(id, name,branch,program,email, contactNO, whatsappNO, CompanyName);
+            addToListR1(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
+
+            R1Attempts[id]++; // Increment in Number of Attempts in R1 by student
 
             NOofStudentR1++; // Increment in Number of student who passed in Round 1
         }
 
         cout << "<----Successfully Data Fatched From the Round1's File \n";
     }
-    }
+}
 
 //--------------------------------------------------------------------------------------------------------------------->
 //-------------------------------------------Function to Read Round 2's File------------------------------------------->
@@ -499,26 +509,27 @@ void ReadFileForRound2(const string &filepath, const string &CompanyName)
 
             string WordToSkip; // To Skip Unnecessary data
 
-            string id_str, name, program, branch, email, conatctNO_str, whatsappNO_str;
+            string id_str, name, program, email, conatctNO_str, whatsappNO_str;
             int batch;
             long long id, contactNO, whatsappNO;
 
             getline(ss, WordToSkip, ','); // Ignore the Sr No.
             getline(ss, id_str, ',');
             id = stoll(id_str);
+            batch = stoi(id_str.substr(0, 4)); // First 4 digits are batch
             getline(ss, name, ',');
             getline(ss, program, ',');
-            getline(ss, branch, ',');
-            getline(ss, WordToSkip, ','); // Igonre Interview Date
+            getline(ss, WordToSkip, ','); // Ignore Interview Date
             getline(ss, email, ',');
             getline(ss, conatctNO_str, ',');
             contactNO = stoll(conatctNO_str);
             getline(ss, whatsappNO_str, ',');
             whatsappNO = stoll(whatsappNO_str);
 
-            // Insert the extracted data into the list
+            addToListR2(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
 
-            addToListR2(id, name,branch,program,email, contactNO, whatsappNO, CompanyName);
+            R2Attempts[id]++; // Increment in Number of Attempts in R1 by student
+
             NOofStudentR2++; // Increment in Number of student who passed in Round 2
         }
 
@@ -559,27 +570,27 @@ void ReadFileForRound3(const string &filepath, const string &CompanyName)
 
             string WordToSkip; // To Skip Unnecessary data
 
-            string id_str, name, program, branch, email, conatctNO_str, whatsappNO_str;
+            string id_str, name, program, email, conatctNO_str, whatsappNO_str;
             int batch;
             long long id, contactNO, whatsappNO;
 
             getline(ss, WordToSkip, ','); // Ignore the Sr No.
             getline(ss, id_str, ',');
             id = stoll(id_str);
+            batch = stoi(id_str.substr(0, 4)); // First 4 digits are batch
             getline(ss, name, ',');
             getline(ss, program, ',');
-            getline(ss, branch, ',');
-            // batch = stoi(batch_str);
-            getline(ss, WordToSkip, ','); // Igonre Interview Date
+            getline(ss, WordToSkip, ','); // Ignore Interview Date
             getline(ss, email, ',');
             getline(ss, conatctNO_str, ',');
             contactNO = stoll(conatctNO_str);
             getline(ss, whatsappNO_str, ',');
             whatsappNO = stoll(whatsappNO_str);
 
-            // Insert the extracted data into the list
+            addToListR3(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
 
-            addToListR3(id, name,branch,program,email, contactNO, whatsappNO, CompanyName);
+            R3Attempts[id]++; // Increment in Number of Attempts in R1 by student
+
             NOofStudentR3++; // Increment in Number of student who passed in Round 3
         }
 
@@ -620,27 +631,26 @@ void ReadFileForRound4(const string &filepath, const string &CompanyName)
 
             string WordToSkip; // To Skip Unnecessary data
 
-            string id_str, name, program, branch, email, conatctNO_str, whatsappNO_str;
+            string id_str, name, program, email, conatctNO_str, whatsappNO_str;
             int batch;
             long long id, contactNO, whatsappNO;
 
             getline(ss, WordToSkip, ','); // Ignore the Sr No.
             getline(ss, id_str, ',');
             id = stoll(id_str);
+            batch = stoi(id_str.substr(0, 4)); // First 4 digits are batch
             getline(ss, name, ',');
             getline(ss, program, ',');
-            getline(ss, branch, ',');
-            // batch = stoi(batch_str);
-            getline(ss, WordToSkip, ','); // Igonre Interview Date
+            getline(ss, WordToSkip, ','); // Ignore Interview Date
             getline(ss, email, ',');
             getline(ss, conatctNO_str, ',');
             contactNO = stoll(conatctNO_str);
             getline(ss, whatsappNO_str, ',');
             whatsappNO = stoll(whatsappNO_str);
 
-            // Insert the extracted data into the list
+            addToListR4(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
 
-            addToListR4(id, name,branch,program, email, contactNO, whatsappNO, CompanyName);
+            R4Attempts[id]++; // Increment in Number of Attempts in R1 by student
 
             NOofStudentR4++; // Increment in Number of student who passed in Round 4
         }
@@ -682,44 +692,40 @@ void ReadFileForFinalRound(const string &filepath, const string &CompanyName)
 
             string WordToSkip; // To Skip Unnecessary data
 
-            string id_str, name, program, branch, email, conatctNO_str, whatsappNO_str, pakage_str;
+            string id_str, name, program, email, conatctNO_str, whatsappNO_str, package_str;
             int batch;
             long long id, contactNO, whatsappNO;
-            float pakage;
+            float package;
 
             getline(ss, WordToSkip, ','); // Ignore the Sr No.
             getline(ss, id_str, ',');
             id = stoll(id_str);
+            batch = stoi(id_str.substr(0, 4)); // First 4 digits are batch
             getline(ss, name, ',');
             getline(ss, program, ',');
-            getline(ss, branch, ',');
-            // batch = stoi(batch_str);
-            getline(ss, WordToSkip, ','); // Igonre Interview Date
+            getline(ss, WordToSkip, ','); // Ignore Interview Date
             getline(ss, email, ',');
             getline(ss, conatctNO_str, ',');
             contactNO = stoll(conatctNO_str);
             getline(ss, whatsappNO_str, ',');
             whatsappNO = stoll(whatsappNO_str);
-            getline(ss, pakage_str, ',');
-            pakage = stof(pakage_str);
+            getline(ss, package_str, ',');
+            package = stof(package_str);
 
-            // Insert the extracted data into the list
+            addToListFR(id, name, batch, program, email, contactNO, whatsappNO, CompanyName, package); // Insert the extracted data into the list
 
-            addToListFR(id, name,branch,program, email, contactNO, whatsappNO, CompanyName, pakage);
+            TotalOffers[id]++; // Increment in Job Offers Student got
 
-            NOofStudentFR++;        // Increment in Number of student who passed in Final Round
-            TotalPakages += pakage; // Increment in Total Amount of Pakage Offered
+            NOofStudentFR++; // Increment in Number of student who passed in Final Round
+
+            TotalPackage += package; // Increment in Total Amount of Pakage Offered
         }
 
         cout << "<----Successfully Data Fatched From the Final Round's File \n";
     }
 }
 
-//--------------------------------------------------------------------------------------------------------------------->
-//---------------------------------------Function to Input Data -------------------------------------------------------->
-//--------------------------------------------------------------------------------------------------------------------->
-
-void InputData()
+void InputPlacementData()
 {
     string CompanyName;
     cout << "\nEnter Company's Name : ";
@@ -745,167 +751,4 @@ void InputData()
     cout << "\nEnter File Path for Final Round's file : ";
     cin >> filepath;
     ReadFileForFinalRound(filepath, CompanyName); // Collect Data From Final Round's File
-}
-//------------------------------------------------------------------------------------------------------------------------------------------>
-//------------------------------------------------------------------------------------------------------------------------------------------>
-//---------------------------------------------------------- Function to Display Data -------------------------------------------------------->
-//------------------------------------------------------------------------------------------------------------------------------------------>
-//------------------------------------------------------------------------------------------------------------------------------------------>
-
-void DisplayRound1()
-{
-    cout << "\n\n<----Data of Students who Passed Round 1---->\n";
-    Node1 *Temp = HeadR1;
-    while (Temp != NULL)
-    {
-        cout << "\nID : " << Temp->id << "\nName : " << Temp->name << "\nBatch : " << Temp->batch<<"\nBranch : "<<Temp->branch << "\nProgram : " << Temp->program << "\nEmail : " << Temp->email << "\nContact No. : " << Temp->contactNO << "\nWhatsapp No. : " << Temp->whatsappNO << "\nCompany : " << Temp->company << "\n";
-        Temp = Temp->next;
-    }
-    cout << "\nTotal Number of Students Passed in Round 1 : " << NOofStudentR1 << "\n";
-}
-
-void DisplayRound2()
-{
-    cout << "\n\n<----Data of Students who Passed Round 2---->\n";
-    Node1 *Temp = HeadR2;
-    while (Temp != NULL)
-    {
-        cout << "\nID : " << Temp->id << "\nName : " << Temp->name << "\nBatch : " << Temp->batch <<"\nBranch : "<<Temp->branch<< "\nProgram : "<<Temp->program << "\nEmail : " << Temp->email << "\nContact No. : " << Temp->contactNO << "\nWhatsapp No. : " << Temp->whatsappNO << "\nCompany : " << Temp->company << "\n";
-        Temp = Temp->next;
-    }
-    cout << "\nTotal Number of Students Passed in Round 2 : " << NOofStudentR2 << "\n";
-}
-
-void DisplayRound3()
-{
-    cout << "\n\n<----Data of Students who Passed Round 3---->\n";
-    Node1 *Temp = HeadR3;
-    while (Temp != NULL)
-    {
-        cout << "\nID : " << Temp->id << "\nName : " << Temp->name << "\nBatch : " << "\nBranch : "<<Temp->branch<<Temp->batch << "\nProgram : " << Temp->program << "\nEmail : " << Temp->email << "\nContact No. : " << Temp->contactNO << "\nWhatsapp No. : " << Temp->whatsappNO << "\nCompany : " << Temp->company << "\n";
-        Temp = Temp->next;
-    }
-    cout << "\nTotal Number of Students Passed in Round 3 : " << NOofStudentR3 << "\n";
-}
-
-void DisplayRound4()
-{
-    cout << "\n\n<----Data of Students who Passed Round 4---->\n";
-    Node1 *Temp = HeadR4;
-    while (Temp != NULL)
-    {
-        cout << "\nID : " << Temp->id << "\nName : " << Temp->name << "\nBatch : "<< Temp->batch <<"\nBranch : "<<Temp->branch << "\nProgram : " << Temp->program << "\nEmail : " << Temp->email << "\nContact No. : " << Temp->contactNO << "\nWhatsapp No. : " << Temp->whatsappNO << "\nCompany : " << Temp->company << "\n";
-        Temp = Temp->next;
-    }
-    cout << "\nTotal Number of Students Passed in Round 4 : " << NOofStudentR4 << "\n";
-}
-
-void DisplayFinalRound()
-{
-    cout << "\n\n<----Data of Students who Passed Final Round---->\n";
-    Node2 *Temp2 = HeadFR;
-    while (Temp2 != NULL)
-    {
-        cout << "\nID : " << Temp2->id << "\nName : " << Temp2->name << "\nBatch : "<< Temp2->batch<<"\nBranch : "<<Temp2->branch   << "\nProgram : " << Temp2->program << "\nEmail : " << Temp2->email << "\nContact No. : " << Temp2->contactNO << "\nWhatsapp No. : " << Temp2->whatsappNO << "\nCompany : " << Temp2->company << "\nPackage : " << Temp2->pakage << "\n";
-        Temp2 = Temp2->next;
-    }
-    cout << "\nTotal Number of Students Passed in Final Round : " << NOofStudentFR << "\n";
-    cout << "\nTotal Pakages Offered : " << TotalPakages << "\n";
-}
-
-void DisplayData(){
-    DisplayRound1();
-    DisplayRound2();
-    DisplayRound3();
-    DisplayRound4();
-    DisplayFinalRound();
-}
-
-
-void searchByID(){
-    cout<<"Enter ID to Search Data:"<<endl;
-    long long ID;
-    cin>>ID;
-    Node1* temp = HeadR1;
-    while(temp != NULL && temp->id != ID){
-        temp = temp->next;
-    }
-    if(temp == NULL){
-        cout<<"Not In The List  Press "  "(space) to try Again ...."<<endl;
-        char ch;
-        cin>>ch;
-        if(ch == ' '){
-            searchByID();
-        }
-        return;
-    }
-    cout << "\nID : " << temp->id << "\nName : " << temp->name << "\nBatch : "<< temp->batch<<"\nBranch : "<<temp->branch   << "\nProgram : " << temp->program << "\nEmail : " << temp->email << "\nContact No. : " << temp->contactNO << "\nWhatsapp No. : " << temp->whatsappNO << "\nCompany : " << temp->company << "\n";
-
-}
-void filterAndWriteToFile(Node1* head, const string& branch, ofstream& outputFile) {
-    Node1* temp = head;
-    while (temp != nullptr) {
-        if (temp->branch == branch) {
-            outputFile << temp->id << "," << temp->name << "," << temp->branch << "," << temp->program << "," << temp->email << "," << temp->contactNO << "," << temp->whatsappNO << "," << temp->company;
-            outputFile << endl;
-        }
-        temp = temp->next;
-    }
-}
-void filterAndWriteToFile2(Node2* head, const string& branch, ofstream& outputFile) {
-    Node2* temp = head;
-    while (temp != nullptr) {
-        if (temp->branch == branch) {
-            outputFile << temp->id << "," << temp->name << "," << temp->branch << "," << temp->program << "," << temp->email << "," << temp->contactNO << "," << temp->whatsappNO << "," << temp->company<<","<<temp->pakage;
-            outputFile << endl;
-        }
-        temp = temp->next;
-    }
-}
-void filterStudentsByBranchAndRound() {
-    cout<<"Enter The Round No. You Want To Filter:";
-    int round;
-    cin>>round;
-    cout<<"\n Enter The Branch You Want In New File:";
-    string branch;
-    cin>>branch;
-    cout<<endl;
-    string filename = branch + to_string(round) + ".csv";
-    string path = "Output/" + filename;
-    ofstream outputFile(path);
-    if (!outputFile) {
-        cerr << "Failed to open the file: "<< endl;
-        return;
-    }
-
-    outputFile << "ID,Name,Branch,Program,Email,Contact Number,WhatsApp Number,Company";
-    if (round == 5) {
-        outputFile << ",Package" << endl;
-    } else {
-        outputFile << endl;
-    }
-
-    switch (round) {
-        case 1:
-            filterAndWriteToFile(HeadR1, branch, outputFile);
-            break;
-        case 2:
-            filterAndWriteToFile(HeadR2, branch, outputFile);
-            break;
-        case 3:
-            filterAndWriteToFile(HeadR3, branch, outputFile);
-            break;
-        case 4:
-            filterAndWriteToFile(HeadR4, branch, outputFile);
-            break;
-        case 5:
-            filterAndWriteToFile2(HeadFR, branch, outputFile);
-            break;
-        default:
-            cerr << "Invalid round number" << endl;
-            break;
-    }
-
-    outputFile.close();
-    cout << "Filtered data has been written to file"<< endl;
 }
