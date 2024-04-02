@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <unordered_map>
+#include <vector>
 #include <iomanip>
 #include <limits>
 using namespace std;
@@ -108,15 +109,30 @@ private:
     Node2 *HeadFR;
     Node2 *TailFR;
 
-    // Variables to keep Track on student's attempt and Job Offers
+    // Variables to Help in Finding Details of Student
+
+    unordered_map<long long, string> StudentName;
+    unordered_map<long long, int> StudentBatch;
+    unordered_map<long long, string> StudentProgram;
+    unordered_map<long long, string> StudentEmail;
+    unordered_map<long long, long long> StudentContactNumber;
+    unordered_map<long long, long long> StudentWhatsappNumber;
+
+    // Variables to keep Track on student's attempt and Job Offers and Company Details in which Student had Tried or Got Job Offer
 
     unordered_map<long long, int> R1StudnetAttempts;
     unordered_map<long long, int> R2StudentAttempts;
     unordered_map<long long, int> R3StudentAttempts;
     unordered_map<long long, int> R4StudentAttempts;
     unordered_map<long long, int> TotalStudnetOffers;
+    unordered_map<long long, vector<string>> R1StudentCompany;
+    unordered_map<long long, vector<string>> R2StudentCompany;
+    unordered_map<long long, vector<string>> R3StudentCompany;
+    unordered_map<long long, vector<string>> R4StudentCompany;
+    unordered_map<long long, vector<string>> OfferedStudentCompany;
+    unordered_map<long long, vector<float>> PackageOfferedStudent;
 
-    // Variables to keep Track on students attempt and Job Offers of perticular batch
+    // Variables to keep Track on students attempt and Job Offers of particular batch
 
     unordered_map<int, int> R1BatchAttempts;
     unordered_map<int, int> R2BatchAttempts;
@@ -124,13 +140,21 @@ private:
     unordered_map<int, int> R4BatchgAttempts;
     unordered_map<int, int> TotalBatchOffers;
 
-    // Variables to keep Track on How many students attempted and Got Job Offers for perticular Company
+    // Variables to keep Track on How many students attempted and Got Job Offers for particular Company
 
     unordered_map<string, int> R1CompanyAttempts;
     unordered_map<string, int> R2CompanyAttempts;
     unordered_map<string, int> R3CompanyAttempts;
     unordered_map<string, int> R4CompanyAttempts;
     unordered_map<string, int> TotalCompanyOffers;
+
+    // Variables to keep Track on How many students attempted and Got Job Offers for particular Program
+
+    unordered_map<string, int> R1ProgramAttempts;
+    unordered_map<string, int> R2ProgramAttempts;
+    unordered_map<string, int> R3ProgramAttempts;
+    unordered_map<string, int> R4ProgramAttempts;
+    unordered_map<string, int> TotalProgramOffers;
 
     // Variables to keep Track on whole Placement Statics
 
@@ -143,6 +167,7 @@ private:
     float MaxPackage = numeric_limits<float>::min();
     float TotalPackage;
     float AveragePackage;
+    vector<float> PackagesOffered;
 
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
@@ -498,9 +523,21 @@ private:
 
                 addToListR1(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
 
+                // Store Student Details
+
+                StudentName[id] = name;
+                StudentBatch[id] = batch;
+                StudentProgram[id] = program;
+                StudentEmail[id] = email;
+                StudentContactNumber[id] = contactNO;
+                StudentWhatsappNumber[id] = whatsappNO;
+
                 R1StudnetAttempts[id]++;          // Increment in Number of Attempts in R1 by student
-                R1BatchAttempts[batch]++;         // Increment in Number of Student of perticular Batch who had attempted in Round 1
-                R1CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 1 of perticular Company
+                R1BatchAttempts[batch]++;         // Increment in Number of Student of particular Batch who had attempted in Round 1
+                R1CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 1 of particular Company
+                R1ProgramAttempts[program]++;     // Increment in Number of Student who had attemped in Round 1 of particular Program
+
+                R1StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 1
 
                 NOofStudentR1++; // Increment in Number of student who passed in Round 1
             }
@@ -564,8 +601,11 @@ private:
                 addToListR2(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
 
                 R2StudentAttempts[id]++;          // Increment in Number of Attempts in R2 by student
-                R2BatchAttempts[batch]++;         // Increment in Number of Student of perticular Batch who had attempted in Round 2
-                R2CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 2 of perticular Company
+                R2BatchAttempts[batch]++;         // Increment in Number of Student of particular Batch who had attempted in Round 2
+                R2CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 2 of particular Company
+                R2ProgramAttempts[program]++;     // Increment in Number of Student who had attemped in Round 2 of particular Program
+
+                R2StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 2
 
                 NOofStudentR2++; // Increment in Number of student who passed in Round 2
             }
@@ -629,8 +669,11 @@ private:
                 addToListR3(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
 
                 R3StudentAttempts[id]++;          // Increment in Number of Attempts in R3 by student
-                R3BatchAttempts[batch]++;         // Increment in Number of Student of perticular Batch who had attempted in Round 3
-                R3CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 3 of perticular Company
+                R3BatchAttempts[batch]++;         // Increment in Number of Student of particular Batch who had attempted in Round 3
+                R3CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 3 of particular Company
+                R3ProgramAttempts[program]++;     // Increment in Number of Student who had attemped in Round 3 of particular Program
+
+                R3StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 3
 
                 NOofStudentR3++; // Increment in Number of student who passed in Round 3
             }
@@ -694,8 +737,11 @@ private:
                 addToListR4(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
 
                 R4StudentAttempts[id]++;          // Increment in Number of Attempts in R4 by student
-                R4BatchgAttempts[batch]++;        // Increment in Number of Student of perticular Batch who had attempted in Round 4
-                R4CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 4 of perticular Company
+                R4BatchgAttempts[batch]++;        // Increment in Number of Student of particular Batch who had attempted in Round 4
+                R4CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 4 of particular Company
+                R4ProgramAttempts[program]++;     // Increment in Number of Stusent who had attemped in Round 4 of particular Program
+
+                R4StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 4
 
                 NOofStudentR4++; // Increment in Number of student who passed in Round 4
             }
@@ -762,8 +808,12 @@ private:
                 addToListFR(id, name, batch, program, email, contactNO, whatsappNO, CompanyName, package); // Insert the extracted data into the list
 
                 TotalStudnetOffers[id]++;          // Increment in Number of Job Offeres offered to student
-                TotalBatchOffers[batch]++;         // Increment in Number of Student of perticulr Batch who had got Job Offer
-                TotalCompanyOffers[CompanyName]++; // Increment in Number of Student who had got Job Offer in perticular Company
+                TotalBatchOffers[batch]++;         // Increment in Number of Student of particulr Batch who had got Job Offer
+                TotalCompanyOffers[CompanyName]++; // Increment in Number of Student who had got Job Offer in particular Company
+                TotalProgramOffers[program]++;     // Increment in Number of Student who had got Job Offer of particular Company
+
+                OfferedStudentCompany[id].push_back(CompanyName); // Push Company Name in which Student got Job Offer
+                PackageOfferedStudent[id].push_back(package);     // Push Package Offerd to Student
 
                 NOofStudentFR++; // Increment in Number of student who passed in Final Round
 
@@ -775,6 +825,8 @@ private:
                 TotalPackage += package; // Increment in Total Amount of Pakage Offered
 
                 AveragePackage = TotalPackage / NOofStudentFR; // Average Pakage Offered
+
+                PackagesOffered.push_back(package); // Push the Package Offered
             }
 
             file.close();
@@ -1121,10 +1173,11 @@ private:
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << "\n";
+
+                i++;
             }
 
             Current = Current->next;
-            i++;
         }
 
         if (!batch_found)
@@ -1165,10 +1218,11 @@ private:
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
                            << Current->package << "\n";
+
+                i++;
             }
 
             Current = Current->next;
-            i++;
         }
 
         if (!batch_found)
@@ -1335,10 +1389,11 @@ private:
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << "\n";
+
+                i++;
             }
 
             Current = Current->next;
-            i++;
         }
 
         if (!program_found)
@@ -1379,10 +1434,11 @@ private:
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
                            << Current->package << "\n";
+
+                i++;
             }
 
             Current = Current->next;
-            i++;
         }
 
         if (!program_found)
@@ -1551,10 +1607,11 @@ private:
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << "\n";
+
+                i++;
             }
 
             Current = Current->next;
-            i++;
         }
 
         if (!company_found)
@@ -1595,10 +1652,11 @@ private:
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
                            << Current->package << "\n";
+
+                i++;
             }
 
             Current = Current->next;
-            i++;
         }
 
         if (!company_found)
@@ -1763,10 +1821,11 @@ private:
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << "\n";
+
+                i++;
             }
 
             Current = Current->next;
-            i++;
         }
 
         if (!programOFbatch_found)
@@ -1807,10 +1866,11 @@ private:
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
                            << Current->package << "\n";
+
+                i++;
             }
 
             Current = Current->next;
-            i++;
         }
 
         if (!programOFbatch_found)
