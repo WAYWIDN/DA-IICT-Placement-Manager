@@ -6,6 +6,9 @@
 #include <vector>
 #include <iomanip>
 #include <limits>
+#include <algorithm>
+#include <set>
+
 using namespace std;
 
 //------------------------------------------------------------------------------------------------------------------------------------------>
@@ -109,7 +112,7 @@ private:
     Node2 *HeadFR;
     Node2 *TailFR;
 
-    // Variables to Help in Finding Details of Student
+    // Variables to Find Details of Student
 
     unordered_map<long long, string> StudentName;
     unordered_map<long long, int> StudentBatch;
@@ -118,7 +121,7 @@ private:
     unordered_map<long long, long long> StudentContactNumber;
     unordered_map<long long, long long> StudentWhatsappNumber;
 
-    // Variables to keep Track on student's attempt and Job Offers and Company Details in which Student had Tried or Got Job Offer
+    // Variables to keep Track on student's attempt and Job Offers , Package Details and Company Details in which Student had Tried or Got Job Offer
 
     unordered_map<long long, int> R1StudnetAttempts;
     unordered_map<long long, int> R2StudentAttempts;
@@ -132,7 +135,7 @@ private:
     unordered_map<long long, vector<string>> OfferedStudentCompany;
     unordered_map<long long, vector<float>> PackageOfferedStudent;
 
-    // Variables to keep Track on students attempt and Job Offers of particular batch
+    // Variables to keep Track on student's attempt and Job Offers of particular batch
 
     unordered_map<int, int> R1BatchAttempts;
     unordered_map<int, int> R2BatchAttempts;
@@ -163,11 +166,12 @@ private:
     int NOofStudentR3;
     int NOofStudentR4;
     int NOofStudentFR;
-    float MinPackage = numeric_limits<float>::max();
-    float MaxPackage = numeric_limits<float>::min();
-    float TotalPackage;
-    float AveragePackage;
-    vector<float> PackagesOffered;
+    float MinPackageOverall = numeric_limits<float>::max();
+    float MaxPackageOverall = numeric_limits<float>::min();
+    float TotalPackageOverall;
+    float AveragePackageOverall;
+    vector<float> PackagesOfferedOverall;
+    vector<string> CompaniesVisitedOverall;
 
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
@@ -488,25 +492,25 @@ private:
         else
         {
 
-            cout << "\nFetching Data from The Round1's File---->\n";
+            cout << "\n-----------> Fetching Data from The \" Round1's File \" of Company \" " << CompanyName << " \" --------------->\n";
+
+            //--->Extract data from each line
 
             string line;
 
             getline(file, line); // Skip the first line
 
+            // Variables to Extact Data
+
+            string WordToSkip; // To Skip Unnecessary data
+
+            string id_str, name, program, email, conatctNO_str, whatsappNO_str;
+            int batch;
+            long long id, contactNO, whatsappNO;
+
             while (getline(file, line))
             {
                 stringstream ss(line);
-
-                //--->Extract data from each line
-
-                // Variables to Extact Data
-
-                string WordToSkip; // To Skip Unnecessary data
-
-                string id_str, name, program, email, conatctNO_str, whatsappNO_str;
-                int batch;
-                long long id, contactNO, whatsappNO;
 
                 getline(ss, WordToSkip, ','); // Ignore the Sr No.
                 getline(ss, id_str, ',');
@@ -542,9 +546,11 @@ private:
                 NOofStudentR1++; // Increment in Number of student who passed in Round 1
             }
 
+            CompaniesVisitedOverall.push_back(CompanyName); // Push Company Name who has visited College
+
             file.close();
 
-            cout << "<----Successfully Data Fetched From the Round1's File \n";
+            cout << "\n<------ Successfully Data Fetched From the \" Round1's File \" of Company \" " << CompanyName << " \" <--------\n\n";
         }
     }
 
@@ -565,7 +571,7 @@ private:
         else
         {
 
-            cout << "\nFetching Data from The Round2's File---->\n";
+            cout << "\n-----------> Fetching Data from The \" Round2's File \" of Company \" " << CompanyName << " \" --------------->\n";
 
             string line;
 
@@ -612,7 +618,7 @@ private:
 
             file.close();
 
-            cout << "<----Successfully Data Fetched From the Round2's File \n";
+            cout << "\n<------ Successfully Data Fetched From the \" Round2's File \" of Company \" " << CompanyName << " \" <--------\n\n";
         }
     }
 
@@ -633,7 +639,7 @@ private:
         else
         {
 
-            cout << "\nFetching Data from The Round3's File---->\n";
+            cout << "\n-----------> Fetching Data from The \" Round3's File \" of Company \" " << CompanyName << " \" --------------->\n";
 
             string line;
 
@@ -680,7 +686,7 @@ private:
 
             file.close();
 
-            cout << "<----Successfully Data Fetched From the Round3's File \n";
+            cout << "\n<------ Successfully Data Fetched From the \" Round3's \" File of Company \" " << CompanyName << " \" <--------\n\n";
         }
     }
 
@@ -701,7 +707,7 @@ private:
         else
         {
 
-            cout << "\nFetching Data from The Round4's File---->\n";
+            cout << "\n-----------> Fetching Data from The \" Round4's File \" of Company \" " << CompanyName << " \" --------------->\n";
 
             string line;
 
@@ -739,7 +745,7 @@ private:
                 R4StudentAttempts[id]++;          // Increment in Number of Attempts in R4 by student
                 R4BatchgAttempts[batch]++;        // Increment in Number of Student of particular Batch who had attempted in Round 4
                 R4CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 4 of particular Company
-                R4ProgramAttempts[program]++;     // Increment in Number of Stusent who had attemped in Round 4 of particular Program
+                R4ProgramAttempts[program]++;     // Increment in Number of Student who had attemped in Round 4 of particular Program
 
                 R4StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 4
 
@@ -748,7 +754,7 @@ private:
 
             file.close();
 
-            cout << "<----Successfully Data Fetched From the Round4's File \n";
+            cout << "\n<------ Successfully Data Fetched From the \" Round4's File \" of Company \" " << CompanyName << " \" <--------\n\n";
         }
     }
 
@@ -769,8 +775,7 @@ private:
         else
         {
 
-            cout << "\nFetching Data from The Final Round's File---->\n";
-
+            cout << "\n---------> Fetching Data from The \" Final Round's File \" of Company \" " << CompanyName << " \" ------------>\n";
             string line;
 
             getline(file, line); // Skip the first line
@@ -792,6 +797,7 @@ private:
 
                 getline(ss, WordToSkip, ','); // Ignore the Sr No.
                 getline(ss, id_str, ',');
+
                 id = stoll(id_str);
                 batch = stoi(id_str.substr(0, 4)); // First 4 digits are batch
                 getline(ss, name, ',');
@@ -817,21 +823,23 @@ private:
 
                 NOofStudentFR++; // Increment in Number of student who passed in Final Round
 
-                if (package < MinPackage)
-                    MinPackage = package; // Change in Min Package if the Current Package offered to Student is Less Then Previous Min Package
-                if (package > MaxPackage)
-                    MaxPackage = package; // Change in Max Package if the Current Package offered to Student is Greater Then Previous Max Package
+                //----->Change in Value of Variables to Find Overall Placement Statistics
 
-                TotalPackage += package; // Increment in Total Amount of Pakage Offered
+                if (package < MinPackageOverall)
+                    MinPackageOverall = package; // Change in Min Package if the Current Package offered to Student is Less Then Previous Min Package
+                if (package > MaxPackageOverall)
+                    MaxPackageOverall = package; // Change in Max Package if the Current Package offered to Student is Greater Then Previous Max Package
 
-                AveragePackage = TotalPackage / NOofStudentFR; // Average Pakage Offered
+                TotalPackageOverall += package; // Increment in Total Amount of Pakage Offered
 
-                PackagesOffered.push_back(package); // Push the Package Offered
+                AveragePackageOverall = TotalPackageOverall / NOofStudentFR; // Average Pakage Offered
+
+                PackagesOfferedOverall.push_back(package); // Push the Package Offered
             }
 
             file.close();
 
-            cout << "<----Successfully Data Fetched From the Final Round's File \n";
+            cout << "\n<---- Successfully Data Fetched From the \" Final Round's File \" of Company \" " << CompanyName << " \" <-----\n\n";
         }
     }
 
@@ -866,7 +874,7 @@ private:
                  << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << endl;
             Current = Current->next;
         }
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(147); // Printing horizontal line
     }
 
     //---------------------------------------Helper Function to Display Whole Data for Final Round ------------------------------->
@@ -1053,7 +1061,7 @@ private:
         if (!batch_found)
             cout << "\nStudents of Batch " << batch << "  does not found , Enter Valid Batch and Try Again \n";
 
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(147); // Printing horizontal line
     }
 
     //---------------------------------------Helper Function to Display BatchWise Data for Final Round ------------------------------->
@@ -1269,7 +1277,7 @@ private:
         if (!program_found)
             cout << "\nStudent of Program " << program << "  does not found , Enter Valid Program Name and Try Again \n";
 
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(147); // Printing horizontal line
     }
 
     //-------------------------------------- Helper Function to Display ProgramWise Data for Final Round ------------------------------->
@@ -1485,7 +1493,7 @@ private:
         if (!company_found)
             cout << "\nStudents of Company " << company << "  does not found , Enter Valid Company Name and Try Again \n";
 
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(147); // Printing horizontal line
     }
 
     //-------------------------------------- Helper Function to Display CompanyWise Data for Final Round ------------------------------->
@@ -1703,7 +1711,7 @@ private:
         if (!programOFbatch_found)
             cout << "\nStudents of Program " << program << " and Batch " << batch << " do not found, Enter Valid Program Name and Try Again \n";
 
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(147); // Printing horizontal line
     }
 
     //---------------------------- Helper Function to Display Programwise Data of particluar Batch for the Final Round ---------------------------->
@@ -1881,9 +1889,34 @@ private:
         outputFile.close();
     }
 
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------- Function to Find Median Package --------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+
+    float FindMedianPackage(vector<float> &nums)
+    {
+        int n = nums.size();
+        std ::sort(nums.begin(), nums.end());
+
+        if (n % 2 == 0)
+        {
+            // If number of elements is even, median is the average of the middle two elements
+            return (nums[n / 2 - 1] + nums[n / 2]) / 2.0f;
+        }
+        else
+        {
+            // If number of elements is odd, median is the middle element
+            return nums[n / 2];
+        }
+    }
+
 public:
     //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
     //---------------------------------------Function to Input Data ------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
     void InputPlacementData()
@@ -1913,6 +1946,13 @@ public:
         cin >> filepath;
         ReadFileForFinalRound(filepath, CompanyName); // Collect Data From Final Round's File
     }
+
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //---------------------------------------------- Functions To Sort Data ----------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
 
     //--------------------------------------------------------------------------------------------------------------------->
     //---------------------------------------Function to Sort Whole Data -------------------------------------------------->
@@ -2595,6 +2635,409 @@ public:
         default:
 
             cout << "\nInvalid Choice \n";
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //---------------------------------- Functions To Find Placement Statistics ------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+
+    //--------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------ Function to Find Placement Details OF Student ---------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+
+    void FindStudentPlacementDetails()
+    {
+        long long id;
+        cout << "\nEnter Student's ID : ";
+        cin >> id;
+
+        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        {
+            cout << "Insufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+            return;
+        }
+
+        if (StudentName[id] == "")
+        {
+            cout << "\nInvalid ID entered , enter valid ID and Try Agian \nThank You\n";
+            return;
+        }
+
+        else
+        {
+            cout << endl;
+            PrintHorizontalLine(50);
+
+            cout << "\nName             : " << StudentName[id];
+            cout << "\nID               : " << id;
+            cout << "\nBatch            : " << StudentBatch[id];
+            cout << "\nProgram          : " << StudentProgram[id];
+            cout << "\nEmail            : " << StudentEmail[id];
+            cout << "\nContact Number   : " << StudentContactNumber[id];
+            cout << "\nWhtasapp Number  : " << StudentWhatsappNumber[id];
+            cout << "\nSuuccessRate     : " << float(TotalStudnetOffers[id]) / R1StudnetAttempts[id] * 100 << "%";
+
+            cout << "\n\nNo. of Attemptes in Round 1 : " << R1StudnetAttempts[id];
+            cout << "\nCompanies : ";
+            for (string Company : R1StudentCompany[id])
+            {
+                cout << Company << " , ";
+            }
+
+            cout << "\n\nNo. of Attemptes in Round 2 : " << R2StudentAttempts[id];
+            cout << "\nCompanies : ";
+            for (string Company : R2StudentCompany[id])
+            {
+                cout << Company << " , ";
+            }
+
+            cout << "\n\nNo. of Attemptes in Round 3 : " << R3StudentAttempts[id];
+            cout << "\nCompanies : ";
+            for (string Company : R3StudentCompany[id])
+            {
+                cout << Company << " , ";
+            }
+
+            cout << "\n\nNo. of Attemptes in Round 4 : " << R4StudentAttempts[id];
+            cout << "\nCompanies : ";
+            for (string Company : R4StudentCompany[id])
+            {
+                cout << Company << " , ";
+            }
+
+            cout << "\n\nNo. of Job Offeres  : " << TotalStudnetOffers[id];
+            cout << "\nCompanies : ";
+            for (string Company : R1StudentCompany[id])
+            {
+                cout << Company << " , ";
+            }
+            cout << "\nPacakges : ";
+            for (float Package : PackageOfferedStudent[id])
+            {
+                cout << Package << " , ";
+            }
+
+            cout << endl
+                 << endl;
+            PrintHorizontalLine(50);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------ Function to Find Overall Placement Statistics ---------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+
+    void FindOverallPlacementStatistics()
+    {
+        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        {
+            cout << "Insufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+            return;
+        }
+        else
+        {
+            cout << endl;
+            PrintHorizontalLine(50);
+            cout << "\nNo. Students Attempted in Round 1 : " << NOofStudentR1;
+            cout << "\nNo. Students Attempted in Round 2 : " << NOofStudentR2;
+            cout << "\nNo. Students Attempted in Round 3 : " << NOofStudentR3;
+            cout << "\nNo. Students Attempted in Round 4 : " << NOofStudentR4;
+            cout << "\nNo. Students Got Job Offer        : " << NOofStudentFR;
+            cout << "\nSucceess Rate                     : " << float(NOofStudentFR) / NOofStudentR1 * 100 << "%";
+            cout << "\n\nMaximum Package Offered         : " << MaxPackageOverall;
+            cout << "\nMinimum Package Offered         : " << MinPackageOverall;
+            cout << "\nAverege Package                 : " << AveragePackageOverall;
+            cout << "\nMedian Package                  : " << FindMedianPackage(PackagesOfferedOverall);
+            cout << endl
+                 << endl;
+
+            PrintHorizontalLine(150);
+
+            cout << "\nNo. Of Companis Visted : " << CompaniesVisitedOverall.size();
+            cout << "\nCompanies : \n";
+            for (int i = 0; i < CompaniesVisitedOverall.size(); i++)
+            {
+                cout << CompaniesVisitedOverall[i] << " , ";
+                if ((i + 1) % 15 == 0)
+                    cout << endl;
+            }
+            cout << endl
+                 << endl;
+            PrintHorizontalLine(150);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------ Function to Find BatchWise Placement Statistics -------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+
+    void FindBatchWisePlacementStatistics()
+    {
+        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        {
+            cout << "Insufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+            return;
+        }
+        else
+        {
+            int batch;
+            cout << "\nEnter Batch : ";
+            cin >> batch;
+
+            if (R1BatchAttempts[batch] == 0)
+            {
+                cout << "\nInvalid Batch entered , enter valid Batch and Try Agian \nThank You\n";
+                return;
+            }
+            else
+            {
+                Node2 *Current = HeadFR;
+
+                vector<float> packages;
+
+                float maxPackage = numeric_limits<float>::min();
+                float minPackage = numeric_limits<float>::max();
+                float totalPackage = 0;
+
+                // Set to store unique company names
+                set<string> uniqueCompanies;
+
+                while (Current != NULL)
+                {
+                    if (Current->batch == batch)
+                    {
+                        if (Current->package > maxPackage)
+                            maxPackage = Current->package;
+                        if (Current->package < minPackage)
+                            minPackage = Current->package;
+
+                        totalPackage += Current->package;
+
+                        packages.push_back(Current->package);
+
+                        uniqueCompanies.insert(Current->company);
+                    }
+
+                    Current = Current->next;
+                }
+
+                cout << endl;
+                PrintHorizontalLine(50);
+                cout << "\nNo. Students Attempted in Round 1 : " << R1BatchAttempts[batch];
+                cout << "\nNo. Students Attempted in Round 2 : " << R2BatchAttempts[batch];
+                cout << "\nNo. Students Attempted in Round 3 : " << R3BatchAttempts[batch];
+                cout << "\nNo. Students Attempted in Round 4 : " << R4BatchgAttempts[batch];
+                cout << "\nNo. Students Got Job Offer        : " << TotalBatchOffers[batch];
+                cout << "\nSucceess Rate                     : " << float(TotalBatchOffers[batch]) / R1BatchAttempts[batch] * 100 << "%";
+                cout << "\n\nMaximum Package Offered         : " << maxPackage;
+                cout << "\nMinimum Package Offered         : " << minPackage;
+                cout << "\nAverege Package                 : " << totalPackage / TotalBatchOffers[batch];
+                cout << "\nMedian Package                  : " << FindMedianPackage(packages);
+                cout << endl
+                     << endl;
+
+                PrintHorizontalLine(150);
+
+                cout << "\nNo. Of Companies Visted : " << uniqueCompanies.size();
+                cout << "\n\nCompanies : \n\n";
+
+                int i = 0;
+                for (string Companies : uniqueCompanies)
+                {
+                    cout << Companies << " , ";
+                    if ((i + 1) % 15 == 0)
+                        cout << endl;
+
+                    i++;
+                }
+                cout << endl
+                     << endl;
+                PrintHorizontalLine(150);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------->
+    //----------------------------------- Function to Find ProgramWise Placement Statistics ------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+
+    void FindProgramWisePlacementStatistics()
+    {
+        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        {
+            cout << "Insufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+            return;
+        }
+        else
+        {
+            string program;
+            cout << "\nEnter Program : ";
+            cin >> program;
+
+            if (R1ProgramAttempts[program] == 0)
+            {
+                cout << "\nInvalid Program entered, enter valid Batch and Try Agian \nThank You\n";
+                return;
+            }
+            else
+            {
+                Node2 *Current = HeadFR;
+
+                vector<float> packages;
+
+                float maxPackage = numeric_limits<float>::min();
+                float minPackage = numeric_limits<float>::max();
+                float totalPackage = 0;
+
+                // Set to store unique company names
+                set<string> uniqueCompanies;
+
+                while (Current != NULL)
+                {
+                    if (Current->program == program)
+                    {
+                        if (Current->package > maxPackage)
+                            maxPackage = Current->package;
+                        if (Current->package < minPackage)
+                            minPackage = Current->package;
+
+                        totalPackage += Current->package;
+
+                        packages.push_back(Current->package);
+
+                        // Insert the company name into the set
+                        uniqueCompanies.insert(Current->company);
+                    }
+
+                    Current = Current->next;
+                }
+
+                cout << endl;
+                PrintHorizontalLine(50);
+                cout << "\nNo. Students Attempted in Round 1 : " << R1ProgramAttempts[program];
+                cout << "\nNo. Students Attempted in Round 2 : " << R2ProgramAttempts[program];
+                cout << "\nNo. Students Attempted in Round 3 : " << R3ProgramAttempts[program];
+                cout << "\nNo. Students Attempted in Round 4 : " << R4ProgramAttempts[program];
+                cout << "\nNo. Students Got Job Offer        : " << TotalProgramOffers[program];
+                cout << "\nSucceess Rate                     : " << float(TotalProgramOffers[program]) / R1ProgramAttempts[program] * 100 << "%";
+                cout << "\n\nMaximum Package Offered         : " << maxPackage;
+                cout << "\nMinimum Package Offered         : " << minPackage;
+                cout << "\nAverege Package                 : " << totalPackage / TotalProgramOffers[program];
+                cout << "\nMedian Package                  : " << FindMedianPackage(packages);
+                cout << endl;
+
+                PrintHorizontalLine(50);
+
+                int i = 0;
+                cout << "\nNo. Of Companies Visted : " << uniqueCompanies.size();
+                cout << "\n\nCompanies : \n\n";
+                for (string company : uniqueCompanies)
+                {
+                    cout << company << " , ";
+                    if ((i + 1) % 15 == 0)
+                        cout << endl;
+
+                    i++;
+                }
+                cout << endl
+                     << endl;
+                PrintHorizontalLine(150);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------->
+    //----------------------------------- Function to Find CompanyWise Placement Statistics ------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+
+    void FindCompanyWisePlacementStatistics()
+    {
+        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        {
+            cout << "Insufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+            return;
+        }
+        else
+        {
+            string company;
+            cout << "\nEnter Company Name : ";
+            cin >> company;
+
+            if (R1CompanyAttempts[company] == 0)
+            {
+                cout << "\nInvalid Company Name entered, enter valid Batch and Try Agian \nThank You\n";
+                return;
+            }
+            else
+            {
+                Node2 *Current = HeadFR;
+
+                vector<float> packages;
+
+                float maxPackage = numeric_limits<float>::min();
+                float minPackage = numeric_limits<float>::max();
+                float totalPackage = 0;
+
+                // Set to store unique company names
+                set<string> uniqueProgramOFBatch;
+
+                while (Current != NULL)
+                {
+                    if (Current->company == company)
+                    {
+                        if (Current->package > maxPackage)
+                            maxPackage = Current->package;
+                        if (Current->package < minPackage)
+                            minPackage = Current->package;
+
+                        totalPackage += Current->package;
+
+                        packages.push_back(Current->package);
+
+                        // Insert the company name into the set
+                        uniqueProgramOFBatch.insert(to_string(Current->batch) + " " + Current->program);
+                    }
+
+                    Current = Current->next;
+                }
+
+                cout << endl;
+                PrintHorizontalLine(50);
+                cout << "\nNo. Students Attempted in Round 1 : " << R1CompanyAttempts[company];
+                cout << "\nNo. Students Attempted in Round 2 : " << R1CompanyAttempts[company];
+                cout << "\nNo. Students Attempted in Round 3 : " << R1CompanyAttempts[company];
+                cout << "\nNo. Students Attempted in Round 4 : " << R1CompanyAttempts[company];
+                cout << "\nNo. Students Got Job Offer        : " << TotalCompanyOffers[company];
+                cout << "\nSucceess Rate                     : " << float(TotalCompanyOffers[company]) / R1CompanyAttempts[company] * 100 << "%";
+                cout << "\n\nMaximum Package Offered         : " << maxPackage;
+                cout << "\nMinimum Package Offered         : " << minPackage;
+                cout << "\nAverege Package                 : " << totalPackage / TotalCompanyOffers[company];
+                cout << "\nMedian Package                  : " << FindMedianPackage(packages);
+                cout << endl
+                     << endl;
+
+                PrintHorizontalLine(150);
+
+                cout << "\nPograms of Batch from " << company << " has hired students : \n\n";
+
+                int i = 0;
+                for (string str : uniqueProgramOFBatch)
+                {
+                    cout << str << " , ";
+                    if ((i + 1) % 5 == 0)
+                    {
+                        cout << endl;
+                    }
+                    i++;
+                }
+
+                cout << endl;
+                PrintHorizontalLine(150);
+            }
         }
     }
 };
