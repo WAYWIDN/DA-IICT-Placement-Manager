@@ -3,7 +3,10 @@
 #include <string>
 #include <sstream>
 #include <unordered_map>
-// #include "class_PlacementManager.cpp"
+#include <vector>
+#include <iomanip>
+#include <limits>
+#include <algorithm>
 using namespace std;
 
 //------------------------------------------------------------------------------------------------------------------------------------------>
@@ -52,10 +55,10 @@ public:
     long long contactNO;
     long long whatsappNO;
     string company;
-    float pakage;
+    float package;
     Node2 *next;
 
-    Node2(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, float pakage)
+    Node2(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, float package)
     {
         this->id = id;
         this->name = name;
@@ -65,7 +68,7 @@ public:
         this->contactNO = contactNO;
         this->whatsappNO = whatsappNO;
         this->company = company;
-        this->pakage = pakage;
+        this->package = package;
         next = NULL;
     }
 };
@@ -97,13 +100,52 @@ Node1 *TailR4;
 Node2 *HeadFR;
 Node2 *TailFR;
 
-// Variables to keep Track on student's attempt and Job Offers
+// Variables to Find Details of Student
 
-unordered_map<long long, int> R1Attempts;
-unordered_map<long long, int> R2Attempts;
-unordered_map<long long, int> R3Attempts;
-unordered_map<long long, int> R4Attempts;
-unordered_map<long long, int> TotalOffers;
+unordered_map<long long, string> StudentName;
+unordered_map<long long, int> StudentBatch;
+unordered_map<long long, string> StudentProgram;
+unordered_map<long long, string> StudentEmail;
+unordered_map<long long, long long> StudentContactNumber;
+unordered_map<long long, long long> StudentWhatsappNumber;
+
+// Variables to keep Track on student's attempt and Job Offers , Package Details and Company Details in which Student had Tried or Got Job Offer
+
+unordered_map<long long, int> R1StudnetAttempts;
+unordered_map<long long, int> R2StudentAttempts;
+unordered_map<long long, int> R3StudentAttempts;
+unordered_map<long long, int> R4StudentAttempts;
+unordered_map<long long, int> TotalStudnetOffers;
+unordered_map<long long, vector<string>> R1StudentCompany;
+unordered_map<long long, vector<string>> R2StudentCompany;
+unordered_map<long long, vector<string>> R3StudentCompany;
+unordered_map<long long, vector<string>> R4StudentCompany;
+unordered_map<long long, vector<string>> OfferedStudentCompany;
+unordered_map<long long, vector<float>> PackageOfferedStudent;
+
+// Variables to keep Track on student's attempt and Job Offers of particular batch
+
+unordered_map<int, int> R1BatchAttempts;
+unordered_map<int, int> R2BatchAttempts;
+unordered_map<int, int> R3BatchAttempts;
+unordered_map<int, int> R4BatchgAttempts;
+unordered_map<int, int> TotalBatchOffers;
+
+// Variables to keep Track on How many students attempted and Got Job Offers for particular Company
+
+unordered_map<string, int> R1CompanyAttempts;
+unordered_map<string, int> R2CompanyAttempts;
+unordered_map<string, int> R3CompanyAttempts;
+unordered_map<string, int> R4CompanyAttempts;
+unordered_map<string, int> TotalCompanyOffers;
+
+// Variables to keep Track on How many students attempted and Got Job Offers for particular Program
+
+unordered_map<string, int> R1ProgramAttempts;
+unordered_map<string, int> R2ProgramAttempts;
+unordered_map<string, int> R3ProgramAttempts;
+unordered_map<string, int> R4ProgramAttempts;
+unordered_map<string, int> TotalProgramOffers;
 
 // Variables to keep Track on whole Placement Statics
 
@@ -112,7 +154,12 @@ int NOofStudentR2;
 int NOofStudentR3;
 int NOofStudentR4;
 int NOofStudentFR;
-float TotalPackage;
+float MinPackageOverall = numeric_limits<float>::max();
+float MaxPackageOverall = numeric_limits<float>::min();
+float TotalPackageOverall;
+float AveragePackageOverall;
+vector<float> PackagesOfferedOverall;
+vector<string> CompaniesVisitedOverall;
 
 //------------------------------------------------------------------------------------------------------------------------------------------>
 //------------------------------------------------------------------------------------------------------------------------------------------>
@@ -122,6 +169,7 @@ float TotalPackage;
 
 //--------------------------------------------------------------------------------------------------------------------->
 //------------------------------------------------Function to add Node in Round1's list-------------------------------->
+//--------------------------------------------------------------------------------------------------------------------->
 
 void addToListR1(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company)
 {
@@ -432,25 +480,25 @@ void ReadFileForRound1(const string &filepath, const string &CompanyName)
     else
     {
 
-        cout << "\nFatching Data from The Round1's File---->\n";
+        cout << "\n-----------> Fetching Data from The \" Round1's File \" of Company \" " << CompanyName << " \" --------------->\n";
+
+        //--->Extract data from each line
 
         string line;
 
         getline(file, line); // Skip the first line
 
+        // Variables to Extact Data
+
+        string WordToSkip; // To Skip Unnecessary data
+
+        string id_str, name, program, email, conatctNO_str, whatsappNO_str;
+        int batch;
+        long long id, contactNO, whatsappNO;
+
         while (getline(file, line))
         {
             stringstream ss(line);
-
-            //--->Extract data from each line
-
-            // Variables to Extact Data
-
-            string WordToSkip; // To Skip Unnecessary data
-
-            string id_str, name, program, email, conatctNO_str, whatsappNO_str;
-            int batch;
-            long long id, contactNO, whatsappNO;
 
             getline(ss, WordToSkip, ','); // Ignore the Sr No.
             getline(ss, id_str, ',');
@@ -467,12 +515,30 @@ void ReadFileForRound1(const string &filepath, const string &CompanyName)
 
             addToListR1(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
 
-            R1Attempts[id]++; // Increment in Number of Attempts in R1 by student
+            // Store Student Details
+
+            StudentName[id] = name;
+            StudentBatch[id] = batch;
+            StudentProgram[id] = program;
+            StudentEmail[id] = email;
+            StudentContactNumber[id] = contactNO;
+            StudentWhatsappNumber[id] = whatsappNO;
+
+            R1StudnetAttempts[id]++;          // Increment in Number of Attempts in R1 by student
+            R1BatchAttempts[batch]++;         // Increment in Number of Student of particular Batch who had attempted in Round 1
+            R1CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 1 of particular Company
+            R1ProgramAttempts[program]++;     // Increment in Number of Student who had attemped in Round 1 of particular Program
+
+            R1StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 1
 
             NOofStudentR1++; // Increment in Number of student who passed in Round 1
         }
 
-        cout << "<----Successfully Data Fatched From the Round1's File \n";
+        CompaniesVisitedOverall.push_back(CompanyName); // Push Company Name who has visited College
+
+        file.close();
+
+         cout << "\n<------ Successfully Data Fetched From the \" Round1's File \" of Company \" " << CompanyName << " \" <--------\n\n" ;
     }
 }
 
@@ -493,7 +559,7 @@ void ReadFileForRound2(const string &filepath, const string &CompanyName)
     else
     {
 
-        cout << "\nFatching Data from The Round2's File---->\n";
+        cout << "\n-----------> Fetching Data from The \" Round2's File \" of Company \" " << CompanyName << " \" --------------->\n";
 
         string line;
 
@@ -528,12 +594,19 @@ void ReadFileForRound2(const string &filepath, const string &CompanyName)
 
             addToListR2(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
 
-            R2Attempts[id]++; // Increment in Number of Attempts in R1 by student
+            R2StudentAttempts[id]++;          // Increment in Number of Attempts in R2 by student
+            R2BatchAttempts[batch]++;         // Increment in Number of Student of particular Batch who had attempted in Round 2
+            R2CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 2 of particular Company
+            R2ProgramAttempts[program]++;     // Increment in Number of Student who had attemped in Round 2 of particular Program
+
+            R2StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 2
 
             NOofStudentR2++; // Increment in Number of student who passed in Round 2
         }
 
-        cout << "<----Successfully Data Fatched From the Round2's File \n";
+        file.close();
+
+         cout << "\n<------ Successfully Data Fetched From the \" Round2's File \" of Company \" " << CompanyName << " \" <--------\n\n" ;
     }
 }
 
@@ -554,7 +627,7 @@ void ReadFileForRound3(const string &filepath, const string &CompanyName)
     else
     {
 
-        cout << "\nFatching Data from The Round3's File---->\n";
+        cout << "\n-----------> Fetching Data from The \" Round3's File \" of Company \" " << CompanyName << " \" --------------->\n";
 
         string line;
 
@@ -589,12 +662,19 @@ void ReadFileForRound3(const string &filepath, const string &CompanyName)
 
             addToListR3(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
 
-            R3Attempts[id]++; // Increment in Number of Attempts in R1 by student
+            R3StudentAttempts[id]++;          // Increment in Number of Attempts in R3 by student
+            R3BatchAttempts[batch]++;         // Increment in Number of Student of particular Batch who had attempted in Round 3
+            R3CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 3 of particular Company
+            R3ProgramAttempts[program]++;     // Increment in Number of Student who had attemped in Round 3 of particular Program
+
+            R3StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 3
 
             NOofStudentR3++; // Increment in Number of student who passed in Round 3
         }
 
-        cout << "<----Successfully Data Fatched From the Round3's File \n";
+        file.close();
+
+        cout << "\n<------ Successfully Data Fetched From the \" Round3's \" File of Company \" " << CompanyName << " \" <--------\n\n" ;
     }
 }
 
@@ -615,7 +695,7 @@ void ReadFileForRound4(const string &filepath, const string &CompanyName)
     else
     {
 
-        cout << "\nFatching Data from The Round4's File---->\n";
+        cout << "\n-----------> Fetching Data from The \" Round4's File \" of Company \" " << CompanyName << " \" --------------->\n";
 
         string line;
 
@@ -650,12 +730,19 @@ void ReadFileForRound4(const string &filepath, const string &CompanyName)
 
             addToListR4(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
 
-            R4Attempts[id]++; // Increment in Number of Attempts in R1 by student
+            R4StudentAttempts[id]++;          // Increment in Number of Attempts in R4 by student
+            R4BatchgAttempts[batch]++;        // Increment in Number of Student of particular Batch who had attempted in Round 4
+            R4CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 4 of particular Company
+            R4ProgramAttempts[program]++;     // Increment in Number of Student who had attemped in Round 4 of particular Program
+
+            R4StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 4
 
             NOofStudentR4++; // Increment in Number of student who passed in Round 4
         }
 
-        cout << "<----Successfully Data Fatched From the Round4's File \n";
+        file.close();
+
+        cout << "\n<------ Successfully Data Fetched From the \" Round4's File \" of Company \" " << CompanyName << " \" <--------\n\n" ;
     }
 }
 
@@ -676,8 +763,7 @@ void ReadFileForFinalRound(const string &filepath, const string &CompanyName)
     else
     {
 
-        cout << "\nFatching Data from The Final Round's File---->\n";
-
+        cout << "\n---------> Fetching Data from The \" Final Round's File \" of Company \" " << CompanyName << " \" ------------>\n";
         string line;
 
         getline(file, line); // Skip the first line
@@ -699,6 +785,7 @@ void ReadFileForFinalRound(const string &filepath, const string &CompanyName)
 
             getline(ss, WordToSkip, ','); // Ignore the Sr No.
             getline(ss, id_str, ',');
+
             id = stoll(id_str);
             batch = stoi(id_str.substr(0, 4)); // First 4 digits are batch
             getline(ss, name, ',');
@@ -714,20 +801,36 @@ void ReadFileForFinalRound(const string &filepath, const string &CompanyName)
 
             addToListFR(id, name, batch, program, email, contactNO, whatsappNO, CompanyName, package); // Insert the extracted data into the list
 
-            TotalOffers[id]++; // Increment in Job Offers Student got
+            TotalStudnetOffers[id]++;          // Increment in Number of Job Offeres offered to student
+            TotalBatchOffers[batch]++;         // Increment in Number of Student of particulr Batch who had got Job Offer
+            TotalCompanyOffers[CompanyName]++; // Increment in Number of Student who had got Job Offer in particular Company
+            TotalProgramOffers[program]++;     // Increment in Number of Student who had got Job Offer of particular Company
+
+            OfferedStudentCompany[id].push_back(CompanyName); // Push Company Name in which Student got Job Offer
+            PackageOfferedStudent[id].push_back(package);     // Push Package Offerd to Student
 
             NOofStudentFR++; // Increment in Number of student who passed in Final Round
 
-            TotalPackage += package; // Increment in Total Amount of Pakage Offered
+            //----->Change in Value of Variables to Find Overall Placement Statistics
+
+            if (package < MinPackageOverall)
+                MinPackageOverall = package; // Change in Min Package if the Current Package offered to Student is Less Then Previous Min Package
+            if (package > MaxPackageOverall)
+                MaxPackageOverall = package; // Change in Max Package if the Current Package offered to Student is Greater Then Previous Max Package
+
+            TotalPackageOverall += package; // Increment in Total Amount of Pakage Offered
+
+            AveragePackageOverall = TotalPackageOverall / NOofStudentFR; // Average Pakage Offered
+
+            PackagesOfferedOverall.push_back(package); // Push the Package Offered
         }
 
-        cout << "<----Successfully Data Fatched From the Final Round's File \n";
+        file.close();
+
+         cout << "\n<---- Successfully Data Fetched From the \" Final Round's File \" of Company \" " << CompanyName << " \" <-----\n\n" ;
     }
 }
- void PrintHorizontalLine(int width, char fillChar = '-')
-    {
-        cout << setfill(fillChar) << setw(width) << "" << setfill(' ') << endl;
-    }
+
 void InputPlacementData()
 {
     string CompanyName;
@@ -755,272 +858,33 @@ void InputPlacementData()
     cin >> filepath;
     ReadFileForFinalRound(filepath, CompanyName); // Collect Data From Final Round's File
 }
-  void DisplayRound1to4WholeData(Node1 *Head)
+
+//--------------------------------------------------------------------------------------------------------------------->
+//--------------------------------------------------------------------------------------------------------------------->
+//--------------------------------------- Function to Find Median Package --------------------------------------------->
+//--------------------------------------------------------------------------------------------------------------------->
+//--------------------------------------------------------------------------------------------------------------------->
+
+float FindMedianPackage(vector<float> &nums)
+{
+    int n = nums.size();
+    sort(nums.begin(), nums.end());
+
+    if (n % 2 == 0)
     {
-        cout << endl;
-        PrintHorizontalLine(147); // Printing horizontal line
-        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |\n";
-        PrintHorizontalLine(147); // Printing horizontal line
-        Node1 *Current = Head;
-        while (Current != NULL)
-        {
-            cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
-                 << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
-                 << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << endl;
-            Current = Current->next;
-        }
+        // If number of elements is even, median is the average of the middle two elements
+        return (nums[n / 2 - 1] + nums[n / 2]) / 2.0f;
     }
-
-    //---------------------------------------Helper Function to Display Whole Data for Final Round ------------------------------->
-
-    void DisplayFinalRoundWholeData(Node2 *Head)
+    else
     {
-        cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
-        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
-        Node2 *Current = Head;
-        while (Current != NULL)
-        {
-            cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
-                 << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
-                 << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->pakage << "|" << endl;
-            Current = Current->next;
-        }
+        // If number of elements is odd, median is the middle element
+        return nums[n / 2];
     }
+}
 
-    //--------------------------------------------------------------------------------------------------------------------->
-    //---------------------------------------Function to Display Whole Data Round Wise ------------------------------------>
-    //--------------------------------------------------------------------------------------------------------------------->
-    
-    void DisplayWholeDataRoundWise(int choice)
-    {
-        switch (choice)
-        {
-        case 1:
+//--->Helper function to print a horizontal line
 
-            cout << "\n<---------------------------------------------- Displaying Data For Round 1 --------------------------------------------->\n";
-            cout << "Total number of students in Round 1: " << NOofStudentR1 << endl;
-            DisplayRound1to4WholeData(HeadR1);
-            cout << "\n<-------------------------------------------- End of Data For Round 1 --------------------------------------------------->\n";
-            break;
-
-        case 2:
-
-            cout << "\n<---------------------------------------------- Displaying Data For Round 2 --------------------------------------------->\n";
-            cout << "\nTotal number of students in Round 2: " << NOofStudentR2 << endl;
-            DisplayRound1to4WholeData(HeadR2);
-            cout << "\n<-------------------------------------------- End of Data For Round 2 --------------------------------------------------->\n";
-
-            break;
-
-        case 3:
-
-            cout << "\n<---------------------------------------------- Displaying Data For Round 3 --------------------------------------------->\n";
-            cout << "\nTotal number of students in Round 3: " << NOofStudentR3 << endl;
-            DisplayRound1to4WholeData(HeadR3);
-            cout << "\n<-------------------------------------------- End of Data For Round 3 --------------------------------------------------->\n";
-
-            break;
-
-        case 4:
-
-            cout << "\n<---------------------------------------------- Displaying Data For Round 4 --------------------------------------------->\n";
-            cout << "\nTotal number of students in Round 4: " << NOofStudentR4 << endl;
-            DisplayRound1to4WholeData(HeadR4);
-            cout << "\n<-------------------------------------------- End of Data For Round 4 --------------------------------------------------->\n";
-
-            break;
-
-        case 5:
-
-            cout << "\n<-------------------------------------------- Displaying Data For Final Round ------------------------------------------->\n";
-            cout << "\nTotal number of students who got offers " << NOofStudentFR << endl;
-            DisplayFinalRoundWholeData(HeadFR);
-            cout << "\n<------------------------------------------ End of Data For Final Round ------------------------------------------------->\n";
-
-            break;
-        }
-    }
-    void WriteWholeSortedDataForRound1to4(const string &filepath, Node1 *Head)
-    {
-        ofstream outputFile(filepath);
-
-        if (!outputFile.is_open())
-        {
-            cerr << "\nError in Opening File for Writing Data\n";
-            return;
-        }
-
-        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company\n";
-
-        int i = 1;
-        Node1 *Current = Head;
-        while (Current != nullptr)
-        {
-            outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
-                       << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << "\n";
-
-            Current = Current->next;
-            i++;
-        }
-
-        outputFile.close();
-    }
-
-    //---------------------------------------Helper Function to Write Whole Sorted Data of Final Round ------------------------------->
-
-    void WriteWholeSortedDataForFinalRound(const string &filepath, Node2 *Head)
-    {
-        ofstream outputFile(filepath);
-
-        if (!outputFile.is_open())
-        {
-            cerr << "\nError in Opening File for Writing Data\n";
-            return;
-        }
-
-        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company\n";
-
-        int i = 1;
-        Node2 *Current = Head;
-        while (Current != nullptr)
-        {
-            outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
-                       << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
-                       << Current->pakage << "\n";
-
-            Current = Current->next;
-            i++;
-        }
-
-        outputFile.close();
-    }
-
- void SortWholeData()
-    {
-        cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
-
-        int choice;
-        cout << "\nEnter Choise : ";
-        cin >> choice;
-
-        string filepath;
-
-        switch (choice)
-        {
-        case 1:
-
-            if (HeadR1 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
-            char choice1;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
-            cin >> choice1;
-
-            if (choice1 == 'Y')
-                DisplayWholeDataRoundWise(1);
-
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
-            cin >> filepath;
-
-            WriteWholeSortedDataForRound1to4(filepath, HeadR1);
-
-            break;
-
-        case 2:
-
-            if (HeadR2 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
-            char choice2;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
-            cin >> choice2;
-
-            if (choice2== 'Y')
-                DisplayWholeDataRoundWise(2);
-
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
-            cin >> filepath;
-
-            WriteWholeSortedDataForRound1to4(filepath, HeadR2);
-
-            break;
-
-        case 3:
-
-            if (HeadR3 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
-            char choice3;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
-            cin >> choice3;
-
-            if (choice3 == 'Y')
-                DisplayWholeDataRoundWise(3);
-
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
-            cin >> filepath;
-
-            WriteWholeSortedDataForRound1to4(filepath, HeadR3);
-
-            break;
-
-        case 4:
-
-            if (HeadR4 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
-            char choice4;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
-            cin >> choice4;
-
-            if (choice4 == 'Y')
-                DisplayWholeDataRoundWise(4);
-
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
-            cin >> filepath;
-
-            WriteWholeSortedDataForRound1to4(filepath, HeadR4);
-
-            break;
-
-        case 5:
-
-            if (HeadFR == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
-            char choice5;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
-            cin >> choice5;
-
-            if (choice5 == 'Y')
-                DisplayWholeDataRoundWise(5);
-
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
-            cin >> filepath;
-
-            WriteWholeSortedDataForFinalRound(filepath, HeadFR);
-
-            break;
-
-        default:
-
-            cout << "\nInvalid Choice \n";
-        }
-    }
+void PrintHorizontalLine(int width, char fillChar = '-')
+{
+    cout << setfill(fillChar) << setw(width) << "" << setfill(' ') << endl;
+}
