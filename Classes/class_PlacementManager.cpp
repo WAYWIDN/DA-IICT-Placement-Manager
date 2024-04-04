@@ -28,9 +28,10 @@ public:
     long long contactNO;
     long long whatsappNO;
     string company;
+    int year;
     Node1 *next;
 
-    Node1(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company)
+    Node1(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, int year)
     {
         this->id = id;
         this->name = name;
@@ -40,6 +41,7 @@ public:
         this->contactNO = contactNO;
         this->whatsappNO = whatsappNO;
         this->company = company;
+        this->year = year;
         next = NULL;
     }
 };
@@ -57,10 +59,11 @@ public:
     long long contactNO;
     long long whatsappNO;
     string company;
+    int year;
     float package;
     Node2 *next;
 
-    Node2(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, float package)
+    Node2(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, int year, float package)
     {
         this->id = id;
         this->name = name;
@@ -70,6 +73,7 @@ public:
         this->contactNO = contactNO;
         this->whatsappNO = whatsappNO;
         this->company = company;
+        this->year = year;
         this->package = package;
         next = NULL;
     }
@@ -159,6 +163,14 @@ private:
     unordered_map<string, int> R4ProgramAttempts;
     unordered_map<string, int> TotalProgramOffers;
 
+    // Variables to keep Track on How many students attempted and got job Offeres for particular Year
+
+    unordered_map<int, int> R1YearAttempts;
+    unordered_map<int, int> R2YearAttempts;
+    unordered_map<int, int> R3YearAttempts;
+    unordered_map<int, int> R4YearAttempts;
+    unordered_map<int, int> TotalYearOffers;
+
     // Variables to keep Track on whole Placement Statics
 
     int NOofStudentR1;
@@ -183,9 +195,9 @@ private:
     //------------------------------------------------Function to add Node in Round1's list-------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
-    void addToListR1(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company)
+    void addToListR1(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, int year)
     {
-        Node1 *NewNode = new Node1(id, name, batch, program, email, contactNO, whatsappNO, company);
+        Node1 *NewNode = new Node1(id, name, batch, program, email, contactNO, whatsappNO, company, year);
 
         if (NewNode == NULL)
         {
@@ -241,9 +253,9 @@ private:
     //------------------------------------------------Function to add Node in Round2's list-------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
-    void addToListR2(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company)
+    void addToListR2(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, int year)
     {
-        Node1 *NewNode = new Node1(id, name, batch, program, email, contactNO, whatsappNO, company);
+        Node1 *NewNode = new Node1(id, name, batch, program, email, contactNO, whatsappNO, company, year);
 
         if (NewNode == NULL)
         {
@@ -299,9 +311,9 @@ private:
     //------------------------------------------------Function to add Node in Round3's list-------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
-    void addToListR3(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company)
+    void addToListR3(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, int year)
     {
-        Node1 *NewNode = new Node1(id, name, batch, program, email, contactNO, whatsappNO, company);
+        Node1 *NewNode = new Node1(id, name, batch, program, email, contactNO, whatsappNO, company, year);
 
         if (NewNode == NULL)
         {
@@ -357,9 +369,9 @@ private:
     //------------------------------------------------Function to add Node in Round4's list-------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
-    void addToListR4(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company)
+    void addToListR4(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, int year)
     {
-        Node1 *NewNode = new Node1(id, name, batch, program, email, contactNO, whatsappNO, company);
+        Node1 *NewNode = new Node1(id, name, batch, program, email, contactNO, whatsappNO, company, year);
 
         if (NewNode == NULL)
         {
@@ -415,9 +427,9 @@ private:
     //-------------------------------------------Function to add Node in Final Round's list-------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
-    void addToListFR(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, float pakage)
+    void addToListFR(long long id, string name, int batch, string program, string email, long long contactNO, long long whatsappNO, string company, int year, float pakage)
     {
-        Node2 *NewNode = new Node2(id, name, batch, program, email, contactNO, whatsappNO, company, pakage);
+        Node2 *NewNode = new Node2(id, name, batch, program, email, contactNO, whatsappNO, company, year, pakage);
 
         if (NewNode == NULL)
         {
@@ -504,8 +516,8 @@ private:
 
             string WordToSkip; // To Skip Unnecessary data
 
-            string id_str, name, program, email, conatctNO_str, whatsappNO_str;
-            int batch;
+            string id_str, name, program, email, conatctNO_str, whatsappNO_str, date_str;
+            int batch, year;
             long long id, contactNO, whatsappNO;
 
             while (getline(file, line))
@@ -515,17 +527,18 @@ private:
                 getline(ss, WordToSkip, ','); // Ignore the Sr No.
                 getline(ss, id_str, ',');
                 id = stoll(id_str);
-                batch = stoi(id_str.substr(0, 4)); // First 4 digits are batch
+                batch = stoi(id_str.substr(0, 4)); // First 4 digits of ID is batch
                 getline(ss, name, ',');
                 getline(ss, program, ',');
-                getline(ss, WordToSkip, ','); // Ignore Interview Date
+                getline(ss, date_str, ',');
+                year = stoi(date_str.substr(6, 10)); // Last 4 digits of Date is Year
                 getline(ss, email, ',');
                 getline(ss, conatctNO_str, ',');
                 contactNO = stoll(conatctNO_str);
                 getline(ss, whatsappNO_str, ',');
                 whatsappNO = stoll(whatsappNO_str);
 
-                addToListR1(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
+                addToListR1(id, name, batch, program, email, contactNO, whatsappNO, CompanyName, year); // Insert the extracted data into the list
 
                 // Store Student Details
 
@@ -540,6 +553,7 @@ private:
                 R1BatchAttempts[batch]++;         // Increment in Number of Student of particular Batch who had attempted in Round 1
                 R1CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 1 of particular Company
                 R1ProgramAttempts[program]++;     // Increment in Number of Student who had attemped in Round 1 of particular Program
+                R1YearAttempts[year]++;           // Increment in Number of Student who had attemped in Round 1 in particular Year
 
                 R1StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 1
 
@@ -587,29 +601,31 @@ private:
 
                 string WordToSkip; // To Skip Unnecessary data
 
-                string id_str, name, program, email, conatctNO_str, whatsappNO_str;
-                int batch;
+                string id_str, name, program, email, conatctNO_str, whatsappNO_str, date_str;
+                int batch, year;
                 long long id, contactNO, whatsappNO;
 
                 getline(ss, WordToSkip, ','); // Ignore the Sr No.
                 getline(ss, id_str, ',');
                 id = stoll(id_str);
-                batch = stoi(id_str.substr(0, 4)); // First 4 digits are batch
+                batch = stoi(id_str.substr(0, 4)); // First 4 digits of ID is batch
                 getline(ss, name, ',');
                 getline(ss, program, ',');
-                getline(ss, WordToSkip, ','); // Ignore Interview Date
+                getline(ss, date_str, ','); // Last 4 digits of Date is Year
+                year = stoi(date_str.substr(6, 10));
                 getline(ss, email, ',');
                 getline(ss, conatctNO_str, ',');
                 contactNO = stoll(conatctNO_str);
                 getline(ss, whatsappNO_str, ',');
                 whatsappNO = stoll(whatsappNO_str);
 
-                addToListR2(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
+                addToListR2(id, name, batch, program, email, contactNO, whatsappNO, CompanyName, year); // Insert the extracted data into the list
 
                 R2StudentAttempts[id]++;          // Increment in Number of Attempts in R2 by student
                 R2BatchAttempts[batch]++;         // Increment in Number of Student of particular Batch who had attempted in Round 2
                 R2CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 2 of particular Company
                 R2ProgramAttempts[program]++;     // Increment in Number of Student who had attemped in Round 2 of particular Program
+                R2YearAttempts[year]++;           // Increment in Number of Student who had attemped in Round 2 in particular Year
 
                 R2StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 2
 
@@ -655,30 +671,32 @@ private:
 
                 string WordToSkip; // To Skip Unnecessary data
 
-                string id_str, name, program, email, conatctNO_str, whatsappNO_str;
-                int batch;
+                string id_str, name, program, email, conatctNO_str, whatsappNO_str, date_str;
+                int batch, year;
                 long long id, contactNO, whatsappNO;
 
                 getline(ss, WordToSkip, ','); // Ignore the Sr No.
                 getline(ss, id_str, ',');
                 id = stoll(id_str);
-                batch = stoi(id_str.substr(0, 4)); // First 4 digits are batch
+                batch = stoi(id_str.substr(0, 4)); // First 4 digits of ID is batch
                 getline(ss, name, ',');
                 getline(ss, program, ',');
-                getline(ss, WordToSkip, ','); // Ignore Interview Date
+                getline(ss, date_str, ','); // Last 4 digits of Date is Year
+                year = stoi(date_str.substr(6, 10));
                 getline(ss, email, ',');
                 getline(ss, conatctNO_str, ',');
                 contactNO = stoll(conatctNO_str);
                 getline(ss, whatsappNO_str, ',');
                 whatsappNO = stoll(whatsappNO_str);
 
-                addToListR3(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
+                addToListR3(id, name, batch, program, email, contactNO, whatsappNO, CompanyName, year); // Insert the extracted data into the list
 
                 R3StudentAttempts[id]++;          // Increment in Number of Attempts in R3 by student
                 R3BatchAttempts[batch]++;         // Increment in Number of Student of particular Batch who had attempted in Round 3
                 R3CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 3 of particular Company
                 R3ProgramAttempts[program]++;     // Increment in Number of Student who had attemped in Round 3 of particular Program
 
+                R3YearAttempts[year]++;                      // Increment in Number of Student who had attemped in Round 3 in particular Year
                 R3StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 3
 
                 NOofStudentR3++; // Increment in Number of student who passed in Round 3
@@ -723,29 +741,31 @@ private:
 
                 string WordToSkip; // To Skip Unnecessary data
 
-                string id_str, name, program, email, conatctNO_str, whatsappNO_str;
-                int batch;
+                string id_str, name, program, email, conatctNO_str, whatsappNO_str, date_str;
+                int batch, year;
                 long long id, contactNO, whatsappNO;
 
                 getline(ss, WordToSkip, ','); // Ignore the Sr No.
                 getline(ss, id_str, ',');
                 id = stoll(id_str);
-                batch = stoi(id_str.substr(0, 4)); // First 4 digits are batch
+                batch = stoi(id_str.substr(0, 4)); // First 4 digits of ID is batch
                 getline(ss, name, ',');
                 getline(ss, program, ',');
-                getline(ss, WordToSkip, ','); // Ignore Interview Date
+                getline(ss, date_str, ','); // Last 4 digits of Date is Year
+                year = stoi(date_str.substr(6, 10));
                 getline(ss, email, ',');
                 getline(ss, conatctNO_str, ',');
                 contactNO = stoll(conatctNO_str);
                 getline(ss, whatsappNO_str, ',');
                 whatsappNO = stoll(whatsappNO_str);
 
-                addToListR4(id, name, batch, program, email, contactNO, whatsappNO, CompanyName); // Insert the extracted data into the list
+                addToListR4(id, name, batch, program, email, contactNO, whatsappNO, CompanyName, year); // Insert the extracted data into the list
 
-                R4StudentAttempts[id]++;          // Increment in Number of Attempts in R4 by student
-                R4BatchgAttempts[batch]++;        // Increment in Number of Student of particular Batch who had attempted in Round 4
-                R4CompanyAttempts[CompanyName]++; // Increment in Number of Student who had attempted in Round 4 of particular Company
-                R4ProgramAttempts[program]++;     // Increment in Number of Student who had attemped in Round 4 of particular Program
+                R4StudentAttempts[id]++;                     // Increment in Number of Attempts in R4 by student
+                R4BatchgAttempts[batch]++;                   // Increment in Number of Student of particular Batch who had attempted in Round 4
+                R4CompanyAttempts[CompanyName]++;            // Increment in Number of Student who had attempted in Round 4 of particular Company
+                R4ProgramAttempts[program]++;                // Increment in Number of Student who had attemped in Round 4 of particular Program
+                R4YearAttempts[year]++;                      // Increment in Number of Student who had attemped in Round 4 in particular Year\
 
                 R4StudentCompany[id].push_back(CompanyName); // Push Company Name in which Student had attempted in Round 4
 
@@ -790,8 +810,8 @@ private:
 
                 string WordToSkip; // To Skip Unnecessary data
 
-                string id_str, name, program, email, conatctNO_str, whatsappNO_str, package_str;
-                int batch;
+                string id_str, name, program, email, conatctNO_str, whatsappNO_str, package_str, date_str;
+                int batch, year;
                 long long id, contactNO, whatsappNO;
                 float package;
 
@@ -799,10 +819,11 @@ private:
                 getline(ss, id_str, ',');
 
                 id = stoll(id_str);
-                batch = stoi(id_str.substr(0, 4)); // First 4 digits are batch
+                batch = stoi(id_str.substr(0, 4)); // First 4 digits of ID is batch
                 getline(ss, name, ',');
                 getline(ss, program, ',');
-                getline(ss, WordToSkip, ','); // Ignore Interview Date
+                getline(ss, date_str, ',');
+                year = stoi(date_str.substr(6, 10)); // Last 4 digits of Date is Year
                 getline(ss, email, ',');
                 getline(ss, conatctNO_str, ',');
                 contactNO = stoll(conatctNO_str);
@@ -811,12 +832,13 @@ private:
                 getline(ss, package_str, ',');
                 package = stof(package_str);
 
-                addToListFR(id, name, batch, program, email, contactNO, whatsappNO, CompanyName, package); // Insert the extracted data into the list
+                addToListFR(id, name, batch, program, email, contactNO, whatsappNO, CompanyName, year, package); // Insert the extracted data into the list
 
                 TotalStudnetOffers[id]++;          // Increment in Number of Job Offeres offered to student
                 TotalBatchOffers[batch]++;         // Increment in Number of Student of particulr Batch who had got Job Offer
                 TotalCompanyOffers[CompanyName]++; // Increment in Number of Student who had got Job Offer in particular Company
                 TotalProgramOffers[program]++;     // Increment in Number of Student who had got Job Offer of particular Company
+                TotalYearOffers[year]++;           // Increment in Number of Student who had got job Offer in particular year
 
                 OfferedStudentCompany[id].push_back(CompanyName); // Push Company Name in which Student got Job Offer
                 PackageOfferedStudent[id].push_back(package);     // Push Package Offerd to Student
@@ -861,9 +883,10 @@ private:
     void DisplayRound1to4WholeData(Node1 *Head)
     {
         cout << endl;
-        PrintHorizontalLine(147); // Printing horizontal line
-        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |\n";
-        PrintHorizontalLine(147); // Printing horizontal line
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        ;
+        PrintHorizontalLine(157);
 
         Node1 *Current = Head;
 
@@ -871,10 +894,10 @@ private:
         {
             cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                  << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
-                 << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << endl;
-            Current = Current->next;
+                 << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                 << "|" << setw(10) << left << Current->year << "|" << endl;
         }
-        PrintHorizontalLine(147); // Printing horizontal line
+        PrintHorizontalLine(157);
     }
 
     //---------------------------------------Helper Function to Display Whole Data for Final Round ------------------------------->
@@ -882,9 +905,9 @@ private:
     void DisplayFinalRoundWholeData(Node2 *Head)
     {
         cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
-        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(177);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
+        PrintHorizontalLine(177);
 
         Node2 *Current = Head;
 
@@ -892,10 +915,10 @@ private:
         {
             cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                  << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
-                 << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package << "|" << endl;
-            Current = Current->next;
+                 << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package
+                 << "|" << setw(10) << left << Current->year << "|" << endl;
         }
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(177);
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
@@ -972,7 +995,7 @@ private:
             return;
         }
 
-        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company\n";
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
 
         int i = 1;
         Node1 *Current = Head;
@@ -980,7 +1003,8 @@ private:
         while (Current != nullptr)
         {
             outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
-                       << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << "\n";
+                       << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                       << Current->year << "\n";
 
             Current = Current->next;
             i++;
@@ -1005,7 +1029,7 @@ private:
             return;
         }
 
-        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package\n";
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package,Year\n";
 
         int i = 1;
         Node2 *Current = Head;
@@ -1014,7 +1038,7 @@ private:
         {
             outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                        << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
-                       << Current->package << "\n";
+                       << Current->package << "," << Current->year << "\n";
 
             Current = Current->next;
             i++;
@@ -1036,9 +1060,9 @@ private:
     void DisplayRound1to4BatchWiseData(Node1 *Head, int batch)
     {
         cout << endl;
-        PrintHorizontalLine(147); // Printing horizontal line
-        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |\n";
-        PrintHorizontalLine(147); // Printing horizontal line
+        PrintHorizontalLine(157); // Printing horizontal line
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157); // Printing horizontal line
 
         Node1 *Current = Head;
 
@@ -1052,7 +1076,8 @@ private:
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
-                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << endl;
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
             }
 
             Current = Current->next;
@@ -1061,7 +1086,7 @@ private:
         if (!batch_found)
             cout << "\nStudents of Batch " << batch << "  does not found , Enter Valid Batch and Try Again \n";
 
-        PrintHorizontalLine(147); // Printing horizontal line
+        PrintHorizontalLine(157); // Printing horizontal line
     }
 
     //---------------------------------------Helper Function to Display BatchWise Data for Final Round ------------------------------->
@@ -1069,9 +1094,9 @@ private:
     void DisplayFinalRoundBatchWiseData(Node2 *Head, int batch)
     {
         cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
-        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(177); // Printing horizontal line
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
+        PrintHorizontalLine(177); // Printing horizontal line
 
         Node2 *Current = Head;
 
@@ -1085,7 +1110,8 @@ private:
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
-                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package << "|" << endl;
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
             }
 
             Current = Current->next;
@@ -1094,7 +1120,7 @@ private:
         if (!batch_found)
             cout << "\nStudents of Batch " << batch << "  does not found , Enter Valid Batch and Try Again \n";
 
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(177); // Printing horizontal line
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
@@ -1166,7 +1192,7 @@ private:
             return;
         }
 
-        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company\n";
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
 
         int i = 1;
         Node1 *Current = Head;
@@ -1180,7 +1206,8 @@ private:
                 batch_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
-                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << "\n";
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
 
                 i++;
             }
@@ -1210,7 +1237,7 @@ private:
             return;
         }
 
-        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package\n";
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package,Year\n";
 
         int i = 1;
         Node2 *Current = Head;
@@ -1225,7 +1252,7 @@ private:
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
-                           << Current->package << "\n";
+                           << Current->package << "," << Current->year << "\n";
 
                 i++;
             }
@@ -1252,9 +1279,9 @@ private:
     void DisplayRound1to4ProgramWiseData(Node1 *Head, string program)
     {
         cout << endl;
-        PrintHorizontalLine(147); // Printing horizontal line
-        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |\n";
-        PrintHorizontalLine(147); // Printing horizontal line
+        PrintHorizontalLine(157); // Printing horizontal line
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157); // Printing horizontal line
 
         Node1 *Current = Head;
 
@@ -1268,7 +1295,8 @@ private:
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
-                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << endl;
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
             }
 
             Current = Current->next;
@@ -1277,7 +1305,7 @@ private:
         if (!program_found)
             cout << "\nStudent of Program " << program << "  does not found , Enter Valid Program Name and Try Again \n";
 
-        PrintHorizontalLine(147); // Printing horizontal line
+        PrintHorizontalLine(157); // Printing horizontal line
     }
 
     //-------------------------------------- Helper Function to Display ProgramWise Data for Final Round ------------------------------->
@@ -1285,9 +1313,9 @@ private:
     void DisplayFinalRoundProgramWiseData(Node2 *Head, string program)
     {
         cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
-        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(177); // Printing horizontal line
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
+        PrintHorizontalLine(177); // Printing horizontal line
 
         Node2 *Current = Head;
 
@@ -1301,7 +1329,8 @@ private:
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
-                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package << "|" << endl;
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
             }
 
             Current = Current->next;
@@ -1310,7 +1339,7 @@ private:
         if (!program_found)
             cout << "\nStudents of Program " << program << "  does not found , Enter Valid Program Name and Try Again \n";
 
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(177); // Printing horizontal line
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
@@ -1382,7 +1411,7 @@ private:
             return;
         }
 
-        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company\n";
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
 
         int i = 1;
         Node1 *Current = Head;
@@ -1396,7 +1425,8 @@ private:
                 program_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
-                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << "\n";
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
 
                 i++;
             }
@@ -1426,7 +1456,7 @@ private:
             return;
         }
 
-        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package\n";
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package,Year\n";
 
         int i = 1;
         Node2 *Current = Head;
@@ -1441,7 +1471,7 @@ private:
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
-                           << Current->package << "\n";
+                           << Current->package << "," << Current->year << "\n";
 
                 i++;
             }
@@ -1468,9 +1498,9 @@ private:
     void DisplayRound1to4CompanyWiseData(Node1 *Head, string company)
     {
         cout << endl;
-        PrintHorizontalLine(147); // Printing horizontal line
-        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |\n";
-        PrintHorizontalLine(147); // Printing horizontal line
+        PrintHorizontalLine(157); // Printing horizontal line
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157); // Printing horizontal line
 
         Node1 *Current = Head;
 
@@ -1484,7 +1514,8 @@ private:
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
-                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << endl;
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
             }
 
             Current = Current->next;
@@ -1493,7 +1524,7 @@ private:
         if (!company_found)
             cout << "\nStudents of Company " << company << "  does not found , Enter Valid Company Name and Try Again \n";
 
-        PrintHorizontalLine(147); // Printing horizontal line
+        PrintHorizontalLine(157); // Printing horizontal line
     }
 
     //-------------------------------------- Helper Function to Display CompanyWise Data for Final Round ------------------------------->
@@ -1501,9 +1532,9 @@ private:
     void DisplayFinalRoundCompanyWiseData(Node2 *Head, string company)
     {
         cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
-        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(177); // Printing horizontal line
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
+        PrintHorizontalLine(177); // Printing horizontal line
 
         Node2 *Current = Head;
 
@@ -1517,7 +1548,8 @@ private:
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
-                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package << "|" << endl;
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
             }
 
             Current = Current->next;
@@ -1526,7 +1558,7 @@ private:
         if (!company_found)
             cout << "\nStudents of Company " << company << "  does not found , Enter Valid Program Name and Try Again \n";
 
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(177); // Printing horizontal line
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
@@ -1600,7 +1632,7 @@ private:
             return;
         }
 
-        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company\n";
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
 
         int i = 1;
         Node1 *Current = Head;
@@ -1614,7 +1646,8 @@ private:
                 company_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
-                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << "\n";
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
 
                 i++;
             }
@@ -1644,7 +1677,7 @@ private:
             return;
         }
 
-        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package\n";
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package,Year\n";
 
         int i = 1;
         Node2 *Current = Head;
@@ -1659,7 +1692,7 @@ private:
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
-                           << Current->package << "\n";
+                           << Current->package << "," << Current->year << "\n";
 
                 i++;
             }
@@ -1686,9 +1719,9 @@ private:
     void DisplayRound1to4ProgramOFBatchWiseData(Node1 *Head, string program, int batch)
     {
         cout << endl;
-        PrintHorizontalLine(147); // Printing horizontal line
-        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |\n";
-        PrintHorizontalLine(147); // Printing horizontal line
+        PrintHorizontalLine(157); // Printing horizontal line
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157); // Printing horizontal line
 
         Node1 *Current = Head;
 
@@ -1702,7 +1735,8 @@ private:
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
-                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << endl;
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
             }
 
             Current = Current->next;
@@ -1711,7 +1745,7 @@ private:
         if (!programOFbatch_found)
             cout << "\nStudents of Program " << program << " and Batch " << batch << " do not found, Enter Valid Program Name and Try Again \n";
 
-        PrintHorizontalLine(147); // Printing horizontal line
+        PrintHorizontalLine(157); // Printing horizontal line
     }
 
     //---------------------------- Helper Function to Display Programwise Data of particluar Batch for the Final Round ---------------------------->
@@ -1720,9 +1754,9 @@ private:
     {
 
         cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
-        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(177); // Printing horizontal line
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
+        PrintHorizontalLine(177); // Printing horizontal line
 
         Node2 *Current = Head;
 
@@ -1736,7 +1770,8 @@ private:
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
-                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package << "|" << endl;
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
             }
 
             Current = Current->next;
@@ -1745,7 +1780,7 @@ private:
         if (!programOFbatch_found)
             cout << "\nStudents of Program " << program << " and Batch " << batch << " do not found, Enter Valid Program Name and Try Again \n";
 
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(177); // Printing horizontal line
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
@@ -1814,7 +1849,7 @@ private:
             return;
         }
 
-        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company\n";
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
 
         int i = 1;
         Node1 *Current = Head;
@@ -1828,7 +1863,8 @@ private:
                 programOFbatch_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
-                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << "\n";
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
 
                 i++;
             }
@@ -1858,7 +1894,7 @@ private:
             return;
         }
 
-        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package\n";
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package,Year\n";
 
         int i = 1;
         Node2 *Current = Head;
@@ -1873,7 +1909,7 @@ private:
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
-                           << Current->package << "\n";
+                           << Current->package << "," << Current->year << "\n";
 
                 i++;
             }
@@ -3118,7 +3154,7 @@ public:
                 Temp = Temp->next;
             }
 
-            //---->Finding Attempts in Round 4
+            //---->Finding Attempts in Round 2
 
             Temp = HeadR4;
             while (Temp != NULL)
@@ -3271,7 +3307,7 @@ public:
                 Temp = Temp->next;
             }
 
-            //---->Finding Attempts in Round 4
+            //---->Finding Attempts in Round 2
 
             Temp = HeadR4;
             while (Temp != NULL)
@@ -3424,7 +3460,7 @@ public:
                 Temp = Temp->next;
             }
 
-            //---->Finding Attempts in Round 4
+            //---->Finding Attempts in Round 2
 
             Temp = HeadR4;
             while (Temp != NULL)
