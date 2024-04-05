@@ -23,7 +23,7 @@ void FindYearAndProgramWisePlacementStatistics()
         cin >> year;
         string program;
         cout << "\nEnter Program : ";
-        cin >> program;
+        getline(cin, program);
 
         //----> Variables to find attempts and job Offers
 
