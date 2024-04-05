@@ -1,160 +1,377 @@
 #include <iostream>
+#include <fstream>
 #include <string>
-#include <vector>
-#include <algorithm>
-#include <limits>
-#include <set>
+#include <iomanip>
 #include "InputPlacementData.cpp"
-
 using namespace std;
 
-void FindYearAndProgramWisePlacementStatistics()
+//------------------------------------------------------------------------------------------------------------------------------------------>
+//------------------------------------------------------------------------------------------------------------------------------------------>
+//--------------------------- Functions to Display Programwise Data of a Particular Year for Respective Rounds ---------------------------->
+//------------------------------------------------------------------------------------------------------------------------------------------>
+//------------------------------------------------------------------------------------------------------------------------------------------>
+
+//------------------------- Helper Function to Display Programwise Data of particular Year for Rounds 1 to 4 ------------------------------>
+
+void DisplayRound1to4ProgramOFYearWiseData(Node1 *Head, string program, int year)
 {
-    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+    cout << endl;
+    PrintHorizontalLine(157); // Printing horizontal line
+    cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+    PrintHorizontalLine(157); // Printing horizontal line
+
+    Node1 *Current = Head;
+
+    bool programOFyear_found = false;
+
+    while (Current != NULL)
     {
-        cout << "\nInsufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
-        return;
+        if (Current->program == program && Current->year == year)
+        {
+            programOFyear_found = true;
+
+            cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                 << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                 << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                 << "|" << setw(10) << left << Current->year << "|" << endl;
+        }
+
+        Current = Current->next;
     }
-    else
+
+    if (!programOFyear_found)
+        cout << "\nStudents of Program " << program << " and Year " << year << " do not found, Enter Valid Program Name and Try Again \n";
+
+    PrintHorizontalLine(157); // Printing horizontal line
+}
+
+//---------------------------- Helper Function to Display Programwise Data of particluar Year for the Final Round ---------------------------->
+
+void DisplayFinalRoundProgramOFYearWiseData(Node2 *Head, string program, int year)
+{
+
+    cout << endl;
+    PrintHorizontalLine(177); // Printing horizontal line
+    cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
+    PrintHorizontalLine(177); // Printing horizontal line
+
+    Node2 *Current = Head;
+
+    bool programOFyear_found = false;
+
+    while (Current != NULL)
     {
-
-        int year;
-        cout << "\nEnter Year : ";
-        cin >> year;
-        string program;
-        cout << "\nEnter Program : ";
-        getline(cin, program);
-
-        //----> Variables to find attempts and job Offers
-
-        int R1Attempts = 0;
-        int R2Attempts = 0;
-        int R3Attempts = 0;
-        int R4Attempts = 0;
-        int TotalOfferes = 0;
-
-        bool YearAndProgramFound = false; // To find Year and Program is in the data or not
-
-        //----> Finding Attempts in Round 1
-
-        Node1 *Temp = HeadR1;
-        while (Temp != NULL)
+        if (Current->program == program && Current->year == year)
         {
-            if (Temp->year == year && Temp->program == program)
-            {
-                YearAndProgramFound = true;
-                R1Attempts++;
-            }
+            programOFyear_found = true;
 
-            Temp = Temp->next;
+            cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                 << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                 << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package
+                 << "|" << setw(10) << left << Current->year << "|" << endl;
         }
 
-        if (!YearAndProgramFound)
-        {
-            cout << "\nInvalid Year and Program , please Enter Valid Year and Program , Try Again \nThank You\n";
-            return;
-        }
+        Current = Current->next;
+    }
 
-        //---->Finding Attempts in Round 2
+    if (!programOFyear_found)
+        cout << "\nStudents of Program " << program << " and Batch " << year << " do not found, Enter Valid Program Name and Try Again \n";
 
-        Temp = HeadR2;
-        while (Temp != NULL)
-        {
-            if (Temp->year == year && Temp->program == program)
-            {
-                R2Attempts++;
-            }
-            Temp = Temp->next;
-        }
+    PrintHorizontalLine(177); // Printing horizontal line
+}
 
-        //---->Finding Attempts in Round 3
+//--------------------------------------------------------------------------------------------------------------------->
+//------------- Function to Display Programwise Data of a Particular Year for Respective Rounds ---------------------->
+//--------------------------------------------------------------------------------------------------------------------->
 
-        Temp = HeadR3;
-        while (Temp != NULL)
-        {
-            if (Temp->year == year && Temp->program == program)
-            {
-                R3Attempts++;
-            }
-            Temp = Temp->next;
-        }
+void DisplayProgramOFYearWiseData(int choice, string program, int year)
+{
 
-        //---->Finding Attempts in Round 2
+    switch (choice)
+    {
+    case 1:
 
-        Temp = HeadR4;
-        while (Temp != NULL)
-        {
-            if (Temp->year == year && Temp->program == program)
-            {
-                R4Attempts++;
-            }
-            Temp = Temp->next;
-        }
+        cout << "\n<---------------------------------------------- Displaying Data For Round 1 of Program " << program << " and Year " << year << " ---------------------------------------->\n";
+        DisplayRound1to4ProgramOFYearWiseData(HeadR1, program, year);
+        cout << "\n<-------------------------------------------- End of Data For Round 1 of Program " << program << " and Year " << year << "----------------------------------------------->\n";
+        break;
 
-        Node2 *Current = HeadFR;
+    case 2:
 
-        vector<float> packages;
+        cout << "\n<---------------------------------------------- Displaying Data For Round 2 of Program " << program << " and Year " << year << " ---------------------------------------->\n";
+        DisplayRound1to4ProgramOFYearWiseData(HeadR2, program, year);
+        cout << "\n<-------------------------------------------- End of Data For Round 2 of Program " << program << " and Year " << year << " ---------------------------------------------->\n";
+        break;
 
-        float maxPackage = numeric_limits<float>::min();
-        float minPackage = numeric_limits<float>::max();
-        float totalPackage = 0;
+    case 3:
 
-        // Set to store unique batches and company names
-        set<string> uniqueBatchAndCompany;
+        cout << "\n<---------------------------------------------- Displaying Data For Round 3 of Program " << program << " and Year " << year << " --------------------------------------->\n";
+        DisplayRound1to4ProgramOFYearWiseData(HeadR3, program, year);
+        cout << "\n<-------------------------------------------- End of Data For Round 3 of Program " << program << " and Year " << year << " --------------------------------------------->\n";
+        break;
 
-        while (Current != NULL)
-        {
-            if (Current->year == year && Current->program == program)
-            {
+    case 4:
 
-                TotalOfferes++;
-                if (Current->package > maxPackage)
-                    maxPackage = Current->package;
-                if (Current->package < minPackage)
-                    minPackage = Current->package;
+        cout << "\n<---------------------------------------------- Displaying Data For Round 4 of Program " << program << " and Year " << year << " --------------------------------------->\n";
+        DisplayRound1to4ProgramOFYearWiseData(HeadR4, program, year);
+        cout << "\n<-------------------------------------------- End of Data For Round 4 of Program " << program << " and Year " << year << " --------------------------------------------->\n";
+        break;
 
-                totalPackage += Current->package;
+    case 5:
 
-                packages.push_back(Current->package);
-
-                // Insert the company name into the set
-                uniqueBatchAndCompany.insert(to_string(Current->batch) + " - " + Current->company);
-            }
-
-            Current = Current->next;
-        }
-
-        cout << endl;
-        PrintHorizontalLine(50);
-        cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
-        cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
-        cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
-        cout << "\nNo. Students Attempted in Round 4 : " << R4Attempts;
-        cout << "\nNo. Students Got Job Offer        : " << TotalOfferes;
-        cout << "\nSucceess Rate                     : " << float(TotalOfferes) / R1Attempts * 100 << "%";
-        cout << "\n\nMaximum Package Offered         : " << maxPackage;
-        cout << "\nMinimum Package Offered         : " << minPackage;
-        cout << "\nAverage Package                 : " << totalPackage / TotalOfferes;
-        cout << "\nMedian Package                  : " << FindMedianPackage(packages);
-        cout << endl
-             << endl;
-
-        PrintHorizontalLine(150);
-
-        int i = 0;
-        cout << "\nBatches from company has hired Students in " << year << " from " << program << " : \n\n";
-        for (string str : uniqueBatchAndCompany)
-        {
-            cout << str << " , ";
-            if ((i + 1) % 5 == 0)
-                cout << endl;
-
-            i++;
-        }
-        cout << endl
-             << endl;
-        PrintHorizontalLine(150);
+        cout << "\n<-------------------------------------------- Displaying Data For Final Round of Program " << program << " and Year " << year << " ------------------------------------->\n";
+        DisplayFinalRoundProgramOFYearWiseData(HeadFR, program, year);
+        cout << "\n<------------------------------------------ End of Data For Final Round of Program " << program << " and Year " << year << " ------------------------------------------->\n";
+        break;
     }
 }
 
+//------------------------------------------------------------------------------------------------------------------------------------------>
+//------------------------------------------------------------------------------------------------------------------------------------------>
+//--------------------- Functions to Write Programwise Data of Particular Year for Respective Rounds in a file ---------------------------->
+//------------------------------------------------------------------------------------------------------------------------------------------>
+//------------------------------------------------------------------------------------------------------------------------------------------>
 
+//-------------------------------------------------------------------------------------------------------------------------->
+//------------------- Function to Write Programwise Sorted Data of Particular Year for Rounds 1 to 4 ---------------------->
+//-------------------------------------------------------------------------------------------------------------------------->
+
+void WriteProgramOFYearWiseSortedDataForRound1to4(const string &filepath, Node1 *Head, string program, int year)
+{
+    ofstream outputFile(filepath);
+
+    if (!outputFile.is_open())
+    {
+        cerr << "\nError in Opening File for Writing Data\n";
+        return;
+    }
+
+    outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+    int i = 1;
+    Node1 *Current = Head;
+
+    bool programOFyear_found = false;
+
+    while (Current != nullptr)
+    {
+        if (Current->program == program && Current->year == year)
+        {
+            programOFyear_found = true;
+
+            outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                       << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                       << Current->year << "\n";
+
+            i++;
+        }
+
+        Current = Current->next;
+    }
+
+    if (!programOFyear_found)
+        cout << "\nStudents of Program " << program << " and Year " << year << " do not found, Enter Valid Program Name and Try Again \n";
+    else
+        cout << "Data Written Successfully...\n";
+
+    outputFile.close();
+}
+
+//-------------------------------------------------------------------------------------------------------------------------->
+//--------------------- Function to Write Programwise Sorted Data of Particular Year for Final Round ---------------------->
+//-------------------------------------------------------------------------------------------------------------------------->
+
+void WriteProgramOFYearWiseSortedDataForFinalRound(const string &filepath, Node2 *Head, string program, int year)
+{
+    ofstream outputFile(filepath);
+
+    if (!outputFile.is_open())
+    {
+        cerr << "\nError in Opening File for Writing Data\n";
+        return;
+    }
+
+    outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package,Year\n";
+
+    int i = 1;
+    Node2 *Current = Head;
+
+    bool programOFyear_found = false;
+
+    while (Current != nullptr)
+    {
+        if (Current->program == program && Current->year == year)
+        {
+            programOFyear_found = true;
+
+            outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                       << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                       << Current->package << "," << Current->year << "\n";
+
+            i++;
+        }
+
+        Current = Current->next;
+    }
+
+    if (!programOFyear_found)
+        cout << "\nStudents of Program " << program << " and Year " << year << " do not found, Enter Valid Program Name and Try Again \n";
+    else
+        cout << "\nData Written Successfully...\n";
+
+    outputFile.close();
+}
+
+//--------------------------------------------------------------------------------------------------------------------->
+//--------- Function to Sort Programwise Data of a Particular Year for Respective Rounds ----------------------------->
+//--------------------------------------------------------------------------------------------------------------------->
+
+void SortDataProgramOFYearWise()
+{
+
+    string program;
+    cout << "\nEnter Program : ";
+    getline(cin,program);
+
+    int year;
+    cout << "\nEnter Year : ";
+    cin >> year;
+
+    cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
+
+    int choice;
+    cout << "\nEnter Choice : ";
+    cin >> choice;
+
+    string filepath;
+
+    switch (choice)
+    {
+    case 1:
+
+        if (HeadR1 == NULL)
+        {
+            cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
+            break;
+        }
+
+        char choice1;
+        cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+        cin >> choice1;
+
+        if (choice1 == 'Y')
+            DisplayProgramOFYearWiseData(1, program, year);
+
+        cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+        cin >> filepath;
+
+        WriteProgramOFYearWiseSortedDataForRound1to4(filepath, HeadR1, program, year);
+
+        break;
+
+    case 2:
+
+        if (HeadR2 == NULL)
+        {
+            cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
+            break;
+        }
+
+        char choice2;
+        cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+        cin >> choice2;
+
+        if (choice2 == 'Y')
+            DisplayProgramOFYearWiseData(2, program, year);
+
+        cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+        cin >> filepath;
+
+        WriteProgramOFYearWiseSortedDataForRound1to4(filepath, HeadR2, program, year);
+
+        break;
+
+    case 3:
+
+        if (HeadR3 == NULL)
+        {
+            cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
+            break;
+        }
+
+        char choice3;
+        cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+        cin >> choice3;
+
+        if (choice3 == 'Y')
+            DisplayProgramOFYearWiseData(3, program, year);
+
+        cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+        cin >> filepath;
+
+        WriteProgramOFYearWiseSortedDataForRound1to4(filepath, HeadR3, program, year);
+
+        break;
+
+    case 4:
+
+        if (HeadR4 == NULL)
+        {
+            cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
+            break;
+        }
+
+        char choice4;
+        cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+        cin >> choice4;
+
+        if (choice4 == 'Y')
+            DisplayProgramOFYearWiseData(4, program, year);
+
+        cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+        cin >> filepath;
+
+        WriteProgramOFYearWiseSortedDataForRound1to4(filepath, HeadR4, program, year);
+
+        break;
+
+    case 5:
+
+        if (HeadFR == NULL)
+        {
+            cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
+            break;
+        }
+
+        char choice5;
+        cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+        cin >> choice5;
+
+        if (choice5 == 'Y')
+            DisplayProgramOFYearWiseData(5, program, year);
+
+        cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+        cin >> filepath;
+
+        WriteProgramOFYearWiseSortedDataForFinalRound(filepath, HeadFR, program, year);
+
+        break;
+
+    default:
+
+        cout << "\nInvalid Choice \n";
+    }
+}
+
+int main()
+{
+    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
+    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
+    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
+    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
+    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
+
+    SortDataProgramOFYearWise();
+
+    return 0;
+}
