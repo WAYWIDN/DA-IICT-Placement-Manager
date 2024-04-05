@@ -81,10 +81,10 @@ void DisplayFinalRoundProgramOFYearWiseData(Node2 *Head, string program, int yea
 }
 
 //--------------------------------------------------------------------------------------------------------------------->
-//------------- Function to Display Programwise Data of a Particular Batch for Respective Rounds ---------------------->
+//------------- Function to Display Programwise Data of a Particular Year for Respective Rounds ---------------------->
 //--------------------------------------------------------------------------------------------------------------------->
 
-void DisplayProgramOFBatchWiseData(int choice, string program, int year)
+void DisplayProgramOFYearWiseData(int choice, string program, int year)
 {
 
     switch (choice)
@@ -128,12 +128,12 @@ void DisplayProgramOFBatchWiseData(int choice, string program, int year)
 
 //------------------------------------------------------------------------------------------------------------------------------------------>
 //------------------------------------------------------------------------------------------------------------------------------------------>
-//--------------------- Functions to Write Programwise Data of Particular Batch for Respective Rounds in a file ---------------------------->
+//--------------------- Functions to Write Programwise Data of Particular Year for Respective Rounds in a file ---------------------------->
 //------------------------------------------------------------------------------------------------------------------------------------------>
 //------------------------------------------------------------------------------------------------------------------------------------------>
 
 //-------------------------------------------------------------------------------------------------------------------------->
-//------------------- Function to Write Programwise Sorted Data of Particular Batch for Rounds 1 to 4 ---------------------->
+//------------------- Function to Write Programwise Sorted Data of Particular Year for Rounds 1 to 4 ---------------------->
 //-------------------------------------------------------------------------------------------------------------------------->
 
 void WriteProgramOFYearWiseSortedDataForRound1to4(const string &filepath, Node1 *Head, string program, int year)
@@ -181,7 +181,7 @@ void WriteProgramOFYearWiseSortedDataForRound1to4(const string &filepath, Node1 
 //--------------------- Function to Write Programwise Sorted Data of Particular Year for Final Round ---------------------->
 //-------------------------------------------------------------------------------------------------------------------------->
 
-void WriteProgramOFBatchWiseSortedDataForFinalRound(const string &filepath, Node2 *Head, string program, int year)
+void WriteProgramOFYearWiseSortedDataForFinalRound(const string &filepath, Node2 *Head, string program, int year)
 {
     ofstream outputFile(filepath);
 
@@ -231,7 +231,7 @@ void SortDataProgramOFYearWise()
 
     string program;
     cout << "\nEnter Program : ";
-    cin >> program;
+    getline(cin,program);
 
     int year;
     cout << "\nEnter Year : ";
@@ -260,7 +260,7 @@ void SortDataProgramOFYearWise()
         cin >> choice1;
 
         if (choice1 == 'Y')
-            DisplayProgramOFBatchWiseData(1, program, year);
+            DisplayProgramOFYearWiseData(1, program, year);
 
         cout << "\nEnter File Path Where you want to store the Sorted Data : ";
         cin >> filepath;
@@ -282,7 +282,7 @@ void SortDataProgramOFYearWise()
         cin >> choice2;
 
         if (choice2 == 'Y')
-            DisplayProgramOFBatchWiseData(2, program, year);
+            DisplayProgramOFYearWiseData(2, program, year);
 
         cout << "\nEnter File Path Where you want to store the Sorted Data : ";
         cin >> filepath;
@@ -304,7 +304,7 @@ void SortDataProgramOFYearWise()
         cin >> choice3;
 
         if (choice3 == 'Y')
-            DisplayProgramOFBatchWiseData(3, program, year);
+            DisplayProgramOFYearWiseData(3, program, year);
 
         cout << "\nEnter File Path Where you want to store the Sorted Data : ";
         cin >> filepath;
@@ -326,7 +326,7 @@ void SortDataProgramOFYearWise()
         cin >> choice4;
 
         if (choice4 == 'Y')
-            DisplayProgramOFBatchWiseData(4, program, year);
+            DisplayProgramOFYearWiseData(4, program, year);
 
         cout << "\nEnter File Path Where you want to store the Sorted Data : ";
         cin >> filepath;
@@ -348,12 +348,12 @@ void SortDataProgramOFYearWise()
         cin >> choice5;
 
         if (choice5 == 'Y')
-            DisplayProgramOFBatchWiseData(5, program, year);
+            DisplayProgramOFYearWiseData(5, program, year);
 
         cout << "\nEnter File Path Where you want to store the Sorted Data : ";
         cin >> filepath;
 
-        WriteProgramOFBatchWiseSortedDataForFinalRound(filepath, HeadFR, program, year);
+        WriteProgramOFYearWiseSortedDataForFinalRound(filepath, HeadFR, program, year);
 
         break;
 
