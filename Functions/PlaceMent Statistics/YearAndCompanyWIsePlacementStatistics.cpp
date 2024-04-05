@@ -23,7 +23,8 @@ void FindYearAndCompanyWisePlacementStatistics()
         cin >> year;
         string company;
         cout << "\nEnter Company Name : ";
-        cin >> company;
+        getline(cin, company);
+
 
         //----> Variables to find attempts and job Offers
 
