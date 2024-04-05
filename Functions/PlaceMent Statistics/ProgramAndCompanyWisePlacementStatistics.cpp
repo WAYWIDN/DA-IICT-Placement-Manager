@@ -19,10 +19,11 @@ void FindProgramAndCompanyWisePlacementStatistics()
     {
         string program;
         cout << "\nEnter Program : ";
-        cin >> program;
+        getline(cin, program);
         string company;
         cout << "\nEnter Company Name : ";
-        cin >> company;
+        getline(cin, company);
+
 
         //----> Variables to find attempts and job Offers
 
