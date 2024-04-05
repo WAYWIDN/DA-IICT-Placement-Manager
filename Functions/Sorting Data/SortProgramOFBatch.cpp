@@ -231,7 +231,7 @@ void SortDataProgramOFBatchWise()
 
     string program;
     cout << "\nEnter Program : ";
-    cin >> program;
+    getline(cin, program);
 
     int batch;
     cout << "\nEnter Batch : ";
