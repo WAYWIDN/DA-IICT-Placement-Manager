@@ -2268,7 +2268,7 @@ public:
 
         string program;
         cout << "\nEnter Program : ";
-        cin >> program;
+        getline(cin, program);
 
         cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
@@ -2405,7 +2405,7 @@ public:
 
         string company;
         cout << "\nEnter Company Name : ";
-        cin >> company;
+        getline(cin, company);
 
         cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
@@ -2542,7 +2542,7 @@ public:
 
         string program;
         cout << "\nEnter Program : ";
-        cin >> program;
+        getline(cin, program);
 
         int batch;
         cout << "\nEnter Batch : ";
@@ -2914,7 +2914,7 @@ public:
         {
             string program;
             cout << "\nEnter Program : ";
-            cin >> program;
+            getline(cin, program);
 
             if (R1ProgramAttempts[program] == 0)
             {
@@ -3004,7 +3004,7 @@ public:
         {
             string company;
             cout << "\nEnter Company Name : ";
-            cin >> company;
+            getline(cin, company);
 
             if (R1CompanyAttempts[company] == 0)
             {
@@ -3185,7 +3185,7 @@ public:
         {
             string program;
             cout << "\nEnter Program : ";
-            cin >> program;
+            getline(cin, program);
             int batch;
             cout << "\nEnter Batch : ";
             cin >> batch;
@@ -3338,10 +3338,10 @@ public:
         {
             string program;
             cout << "\nEnter Program : ";
-            cin >> program;
+            getline(cin, program);
             string company;
             cout << "\nEnter Company Name : ";
-            cin >> company;
+            getline(cin, company);
 
             //----> Variables to find attempts and job Offers
 
@@ -3494,7 +3494,7 @@ public:
             cin >> batch;
             string company;
             cout << "\nEnter Company Name : ";
-            cin >> company;
+            getline(cin, company);
 
             //----> Variables to find attempts and job Offers
 
@@ -3803,7 +3803,7 @@ public:
             cin >> year;
             string program;
             cout << "\nEnter Program : ";
-            cin >> program;
+            getline(cin, program);
 
             //----> Variables to find attempts and job Offers
 
@@ -3956,7 +3956,7 @@ public:
             cin >> year;
             string company;
             cout << "\nEnter Company Name : ";
-            cin >> company;
+            getline(cin, company);
 
             //----> Variables to find attempts and job Offers
 
