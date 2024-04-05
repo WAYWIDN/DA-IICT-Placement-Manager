@@ -233,7 +233,7 @@ void SortDataProgramWise()
 
     string program;
     cout << "\nEnter Program : ";
-    cin >> program;
+    getline(cin, program);
 
     cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
