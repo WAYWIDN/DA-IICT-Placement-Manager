@@ -857,7 +857,7 @@ void InputPlacementData()
 {
     string CompanyName;
     cout << "\nEnter Company's Name : ";
-    cin >> CompanyName;
+    getline(cin, CompanyName);
 
     string filepath;
     cout << "\nEnter File Path for Round 1's file : ";
