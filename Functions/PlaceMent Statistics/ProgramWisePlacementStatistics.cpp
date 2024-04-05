@@ -20,7 +20,7 @@ void FindProgramWisePlacementStatistics()
     {
         string program;
         cout << "\nEnter Program : ";
-        cin >> program;
+        getline(cin,program);
 
         if (R1ProgramAttempts[program] == 0)
         {
