@@ -13,7 +13,7 @@ using namespace std;
 
 //------------------------- Helper Function to Display Programwise Data of particular Company for Rounds 1 to 4 ------------------------------>
 
-void DisplayRound1to4ProgramOFBatchWiseData(Node1 *Head, string program, string company)
+void DisplayRound1to4ProgramOFCompanyWiseData(Node1 *Head, string program, string company)
 {
     cout << endl;
     PrintHorizontalLine(157); // Printing horizontal line
@@ -46,7 +46,7 @@ void DisplayRound1to4ProgramOFBatchWiseData(Node1 *Head, string program, string 
 
 //---------------------------- Helper Function to Display Programwise Data of particluar Company for the Final Round ---------------------------->
 
-void DisplayFinalRoundProgramOFBatchWiseData(Node2 *Head, string program, string company)
+void DisplayFinalRoundProgramOFCompanyWiseData(Node2 *Head, string program, string company)
 {
 
     cout << endl;
@@ -91,35 +91,35 @@ void DisplayProgramOFCompanyWiseData(int choice, string program, string company)
     case 1:
 
         cout << "\n<---------------------------------------------- Displaying Data For Round 1 of Program " << program << " and Company " << company << " ---------------------------------------->\n";
-        DisplayRound1to4ProgramOFBatchWiseData(HeadR1, program, company);
+        DisplayRound1to4ProgramOFCompanyWiseData(HeadR1, program, company);
         cout << "\n<-------------------------------------------- End of Data For Round 1 of Program " << program << " and Company " << company << "----------------------------------------------->\n";
         break;
 
     case 2:
 
         cout << "\n<---------------------------------------------- Displaying Data For Round 2 of Program " << program << " and Company " << company << " ---------------------------------------->\n";
-        DisplayRound1to4ProgramOFBatchWiseData(HeadR2, program, company);
+        DisplayRound1to4ProgramOFCompanyWiseData(HeadR2, program, company);
         cout << "\n<-------------------------------------------- End of Data For Round 2 of Program " << program << " and Company " << company << " ---------------------------------------------->\n";
         break;
 
     case 3:
 
         cout << "\n<---------------------------------------------- Displaying Data For Round 3 of Program " << program << " and Company " << company << " --------------------------------------->\n";
-        DisplayRound1to4ProgramOFBatchWiseData(HeadR3, program, company);
+        DisplayRound1to4ProgramOFCompanyWiseData(HeadR3, program, company);
         cout << "\n<-------------------------------------------- End of Data For Round 3 of Program " << program << " and Company " << company << " --------------------------------------------->\n";
         break;
 
     case 4:
 
         cout << "\n<---------------------------------------------- Displaying Data For Round 4 of Program " << program << " and Company " << company << " --------------------------------------->\n";
-        DisplayRound1to4ProgramOFBatchWiseData(HeadR4, program, company);
+        DisplayRound1to4ProgramOFCompanyWiseData(HeadR4, program, company);
         cout << "\n<-------------------------------------------- End of Data For Round 4 of Program " << program << " and Company " << company << " --------------------------------------------->\n";
         break;
 
     case 5:
 
         cout << "\n<-------------------------------------------- Displaying Data For Final Round of Program " << program << " and Company " << company << " ------------------------------------->\n";
-        DisplayFinalRoundProgramOFBatchWiseData(HeadFR, program, company);
+        DisplayFinalRoundProgramOFCompanyWiseData(HeadFR, program, company);
         cout << "\n<------------------------------------------ End of Data For Final Round of Program " << program << " and Company " << company << " ------------------------------------------->\n";
         break;
     }
@@ -135,7 +135,7 @@ void DisplayProgramOFCompanyWiseData(int choice, string program, string company)
 //------------------- Function to Write Programwise Sorted Data of Particular Company for Rounds 1 to 4 ---------------------->
 //-------------------------------------------------------------------------------------------------------------------------->
 
-void WriteProgramOFCompanyWiseSortedDataForRound1to4(const string &filepath, Node1 *Head, string program, string company )
+void WriteProgramOFCompanyWiseSortedDataForRound1to4(const string &filepath, Node1 *Head, string program, string company)
 {
     ofstream outputFile(filepath);
 
@@ -180,7 +180,7 @@ void WriteProgramOFCompanyWiseSortedDataForRound1to4(const string &filepath, Nod
 //--------------------- Function to Write Programwise Sorted Data of Particular Company for Final Round ---------------------->
 //-------------------------------------------------------------------------------------------------------------------------->
 
-void WriteProgramOFCompanyWiseSortedDataForFinalRound(const string &filepath, Node2 *Head, string program, string company )
+void WriteProgramOFCompanyWiseSortedDataForFinalRound(const string &filepath, Node2 *Head, string program, string company)
 {
     ofstream outputFile(filepath);
 
@@ -230,11 +230,11 @@ void SortDataProgramOFCompanyWise()
 
     string program;
     cout << "\nEnter Program : ";
-    cin >> program;
+    getline(cin, program);
 
     string company;
     cout << "\nEnter Company Name : ";
-    cin >> company;
+    getline(cin, company);
 
     cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
@@ -362,17 +362,3 @@ void SortDataProgramOFCompanyWise()
     }
 }
 
-int main()
-{
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound1("Input Files/Company1R1.csv", "Amazon");
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
-
-    SortDataProgramOFCompanyWise();
-
-    return 0;
-}
