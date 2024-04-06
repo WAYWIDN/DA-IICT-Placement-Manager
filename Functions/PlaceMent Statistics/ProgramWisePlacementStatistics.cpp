@@ -8,23 +8,30 @@
 
 using namespace std;
 
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------- Function to Find Program Wise Placement Statistics -------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
 
 void FindProgramWisePlacementStatistics()
 {
-    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+    if (!IsDataInserted())
     {
-        cout << "Insufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+        cout << "Insufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
         return;
     }
     else
     {
         string program;
         cout << "\nEnter Program : ";
-        getline(cin,program);
+        getline(cin, program);
+
+        // Find Program is in Data or Not
 
         if (R1ProgramAttempts[program] == 0)
         {
-            cout << "\nInvalid Program entered, enter valid Batch and Try Agian \nThank You\n";
+            cout << "\nStudents of Program " << program << " does not found , Enter Valid program and Try Again \n\n";
             return;
         }
         else
@@ -59,9 +66,11 @@ void FindProgramWisePlacementStatistics()
 
                 Current = Current->next;
             }
-            
-            cout<<endl;
-            PrintHorizontalLine(50);
+
+            cout << endl;
+            PrintHorizontalLine(60);
+            cout << "\n# Placement Statistics of Program " << program << " : \n";
+
             cout << "\nNo. Students Attempted in Round 1 : " << R1ProgramAttempts[program];
             cout << "\nNo. Students Attempted in Round 2 : " << R2ProgramAttempts[program];
             cout << "\nNo. Students Attempted in Round 3 : " << R3ProgramAttempts[program];
@@ -77,7 +86,7 @@ void FindProgramWisePlacementStatistics()
             PrintHorizontalLine(50);
 
             int i = 0;
-            cout << "\nNo. Of Companies Visted : " << uniqueCompanies.size();
+            cout << "\nNo. Of Companies Visited : " << uniqueCompanies.size();
             cout << "\n\nCompanies : \n\n";
             for (string company : uniqueCompanies)
             {
@@ -87,33 +96,9 @@ void FindProgramWisePlacementStatistics()
 
                 i++;
             }
-            cout << endl << endl ;
+            cout << endl
+                 << endl;
             PrintHorizontalLine(150);
         }
     }
-}
-
-int main()
-{
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Google");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Google");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound2("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound3("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound4("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "XYZ");
-
-    FindProgramWisePlacementStatistics();
-
-    return 0;
 }
