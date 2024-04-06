@@ -8,6 +8,27 @@
 
 using namespace std;
 
+//------------------------------------------ Function To Find Program And Company is in Data or Not ---------------------------------------->
+
+bool IsProgramAndCompanyInData(string program, string company)
+{
+    bool found = false;
+
+    Node1 *Temp = HeadR1;
+
+    while (Temp != NULL)
+    {
+        if (Temp->program == program && Temp->company == company)
+        {
+            found = true;
+        }
+
+        Temp = Temp->next;
+    }
+
+    return found;
+}
+
 //------------------------------------------------------------------------------------------------------------------------->
 //------------------------------------------------------------------------------------------------------------------------->
 //----------------------------- Function to Find Program and Company Wise Placement Statistics ---------------------------->
@@ -36,6 +57,14 @@ void FindProgramAndCompanyWisePlacementStatistics()
         if (R1ProgramAttempts[program] == 0 || R1CompanyAttempts[company] == 0)
         {
             cout << "\nStudents of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
+            return;
+        }
+
+        // To find Program and Company is in the data or not
+
+        if (!IsProgramAndCompanyInData(program, company))
+        {
+            cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
             return;
         }
 
@@ -129,10 +158,10 @@ void FindProgramAndCompanyWisePlacementStatistics()
             Current = Current->next;
         }
 
-        cout <<endl;
+        cout << endl;
         PrintHorizontalLine(60);
         cout << "\n# Placement Statistics of Program " << program << " and Company " << company << " : \n";
-        
+
         cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
         cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
         cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
@@ -164,4 +193,3 @@ void FindProgramAndCompanyWisePlacementStatistics()
         PrintHorizontalLine(150);
     }
 }
-
