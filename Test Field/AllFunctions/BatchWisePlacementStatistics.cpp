@@ -7,11 +7,17 @@
 #include "InputPlacementData.cpp"
 using namespace std;
 
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//-------------------------------------- Function to Find Batch Wise Placement Statistics --------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+
 void FindBatchWisePlacementStatistics()
 {
-    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+    if (!IsDataInserted())
     {
-        cout << "Insufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+        cout << "Insufficient Data Inserted , please insert Data and Try agian \nThank You\n";
         return;
     }
     else
@@ -20,9 +26,11 @@ void FindBatchWisePlacementStatistics()
         cout << "\nEnter Batch : ";
         cin >> batch;
 
+        // Find Batch is in Data or Not
+
         if (R1BatchAttempts[batch] == 0)
         {
-            cout << "\nInvalid Batch entered , enter valid Batch and Try Agian \nThank You\n";
+            cout << "\nStudents of Batch " << batch << " does not found , Enter Valid Batch and Try Again \n\n";
             return;
         }
         else
@@ -51,6 +59,7 @@ void FindBatchWisePlacementStatistics()
 
                     packages.push_back(Current->package);
 
+                    // Insert company name into set
                     uniqueCompanies.insert(Current->company);
                 }
 
@@ -58,7 +67,9 @@ void FindBatchWisePlacementStatistics()
             }
 
             cout << endl;
-            PrintHorizontalLine(50);
+            PrintHorizontalLine(60);
+            cout << "\n# Placement Statistics of Batch " << batch << " : \n";
+
             cout << "\nNo. Students Attempted in Round 1 : " << R1BatchAttempts[batch];
             cout << "\nNo. Students Attempted in Round 2 : " << R2BatchAttempts[batch];
             cout << "\nNo. Students Attempted in Round 3 : " << R3BatchAttempts[batch];
@@ -74,7 +85,7 @@ void FindBatchWisePlacementStatistics()
 
             PrintHorizontalLine(150);
 
-            cout << "\nNo. Of Companies Visted : " << uniqueCompanies.size();
+            cout << "\nNo. Of Companies Visited : " << uniqueCompanies.size();
             cout << "\n\nCompanies : \n\n";
 
             int i = 0;
@@ -91,29 +102,4 @@ void FindBatchWisePlacementStatistics()
             PrintHorizontalLine(150);
         }
     }
-}
-
-int main()
-{
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Google");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Google");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound2("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound3("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound4("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "XYZ");
-
-    FindBatchWisePlacementStatistics();
-
-    return 0;
 }
