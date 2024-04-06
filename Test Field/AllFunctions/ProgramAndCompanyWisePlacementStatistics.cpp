@@ -8,34 +8,63 @@
 
 using namespace std;
 
+//------------------------------------------ Function To Find Program And Company is in Data or Not ---------------------------------------->
+
+bool IsProgramAndCompanyInData(string program, string company)
+{
+    bool found = false;
+
+    Node1 *Temp = HeadR1;
+
+    while (Temp != NULL)
+    {
+        if (Temp->program == program && Temp->company == company)
+        {
+            found = true;
+        }
+
+        Temp = Temp->next;
+    }
+
+    return found;
+}
+
 //------------------------------------------------------------------------------------------------------------------------->
 //------------------------------------------------------------------------------------------------------------------------->
-//-------------------------------- Function to Find Year and Batch Wise Placement Statistics ------------------------------>
+//----------------------------- Function to Find Program and Company Wise Placement Statistics ---------------------------->
 //------------------------------------------------------------------------------------------------------------------------->
 //------------------------------------------------------------------------------------------------------------------------->
 
-void FindYearAndBatchWisePlacementStatistics()
+void FindProgramAndCompanyWisePlacementStatistics()
 {
     if (!IsDataInserted())
     {
-        cout << "\nInsufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
+        cout << "Insufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
         return;
     }
     else
     {
-        int year;
-        cout << "\nEnter Year : ";
-        cin >> year;
+        string program;
+        cout << "\nEnter Program : ";
+        getline(cin, program);
 
-        int batch;
-        cout << "\nEnter Batch : ";
-        cin >> batch;
+        string company;
+        cout << "\nEnter Company Name : ";
+        getline(cin, company);
 
-        // To find Year and Batch is in the data or not
+        // To find Program and Company is in the data or not
 
-        if (R1BatchAttempts[batch] == 0 || R1YearAttempts[year] == 0)
+        if (R1ProgramAttempts[program] == 0 || R1CompanyAttempts[company] == 0)
         {
-            cout << "\nStudents of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
+            cout << "\nStudents of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
+            return;
+        }
+
+        // To find Program and Company is in the data or not
+
+        if (!IsProgramAndCompanyInData(program, company))
+        {
+            cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
             return;
         }
 
@@ -52,7 +81,7 @@ void FindYearAndBatchWisePlacementStatistics()
         Node1 *Temp = HeadR1;
         while (Temp != NULL)
         {
-            if (Temp->year == year && Temp->batch == batch)
+            if (Temp->program == program && Temp->company == company)
             {
                 R1Attempts++;
             }
@@ -65,7 +94,7 @@ void FindYearAndBatchWisePlacementStatistics()
         Temp = HeadR2;
         while (Temp != NULL)
         {
-            if (Temp->year == year && Temp->batch == batch)
+            if (Temp->program == program && Temp->company == company)
             {
                 R2Attempts++;
             }
@@ -77,7 +106,7 @@ void FindYearAndBatchWisePlacementStatistics()
         Temp = HeadR3;
         while (Temp != NULL)
         {
-            if (Temp->year == year && Temp->batch == batch)
+            if (Temp->program == program && Temp->company == company)
             {
                 R3Attempts++;
             }
@@ -89,7 +118,7 @@ void FindYearAndBatchWisePlacementStatistics()
         Temp = HeadR4;
         while (Temp != NULL)
         {
-            if (Temp->year == year && Temp->batch == batch)
+            if (Temp->program == program && Temp->company == company)
             {
                 R4Attempts++;
             }
@@ -104,13 +133,12 @@ void FindYearAndBatchWisePlacementStatistics()
         float minPackage = numeric_limits<float>::max();
         float totalPackage = 0;
 
-        // Set to store unique Batches ,Programs and Companies
-
-        set<string> uniqueProgramCompany;
+        // Set to store unique batch
+        set<int> uniqueBatches;
 
         while (Current != NULL)
         {
-            if (Current->year == year && Current->batch == batch)
+            if (Current->program == program && Current->company == company)
             {
 
                 TotalOfferes++;
@@ -123,16 +151,16 @@ void FindYearAndBatchWisePlacementStatistics()
 
                 packages.push_back(Current->package);
 
-                // Insert program and company name into set
-                uniqueProgramCompany.insert(Current->program + " - " + Current->company);
+                // Insert the company name into the set
+                uniqueBatches.insert(Current->batch);
             }
 
             Current = Current->next;
         }
 
-        cout <<endl;
+        cout << endl;
         PrintHorizontalLine(60);
-        cout << "\n# Placement Statistics of Batch " << batch << " in Year " << year << " : \n";
+        cout << "\n# Placement Statistics of Program " << program << " and Company " << company << " : \n";
 
         cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
         cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
@@ -149,16 +177,15 @@ void FindYearAndBatchWisePlacementStatistics()
 
         PrintHorizontalLine(150);
 
-        cout << "\nPrograms from which companies has hired Students in " << year << " from Batch " << batch << " : \n\n";
-
         int i = 0;
-        for (string str : uniqueProgramCompany)
+        cout << "\nNo. Of Batches whose Student got Job Offers : " << uniqueBatches.size();
+        cout << "\n\nBatches : \n\n";
+        for (int batch : uniqueBatches)
         {
-            cout << str << " , ";
-            if ((i + 1) % 5 == 0)
-            {
+            cout << batch << " , ";
+            if ((i + 1) % 15 == 0)
                 cout << endl;
-            }
+
             i++;
         }
         cout << endl
