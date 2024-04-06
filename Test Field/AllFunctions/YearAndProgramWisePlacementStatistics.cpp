@@ -8,11 +8,17 @@
 
 using namespace std;
 
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------ Function to Find Year and Program Wise Placement Statistics ------------------------------>
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+
 void FindYearAndProgramWisePlacementStatistics()
 {
-    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+    if (!IsDataInserted())
     {
-        cout << "\nInsufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+        cout << "\nInsufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
         return;
     }
     else
@@ -21,9 +27,20 @@ void FindYearAndProgramWisePlacementStatistics()
         int year;
         cout << "\nEnter Year : ";
         cin >> year;
+
+        cin.ignore();
+
         string program;
         cout << "\nEnter Program : ";
-        cin >> program;
+        getline(cin, program);
+
+        // To find Year and Program is in the data or not
+
+        if (R1ProgramAttempts[program] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\nStudents of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
+            return;
+        }
 
         //----> Variables to find attempts and job Offers
 
@@ -33,8 +50,6 @@ void FindYearAndProgramWisePlacementStatistics()
         int R4Attempts = 0;
         int TotalOfferes = 0;
 
-        bool YearAndProgramFound = false; // To find Year and Program is in the data or not
-
         //----> Finding Attempts in Round 1
 
         Node1 *Temp = HeadR1;
@@ -42,17 +57,10 @@ void FindYearAndProgramWisePlacementStatistics()
         {
             if (Temp->year == year && Temp->program == program)
             {
-                YearAndProgramFound = true;
                 R1Attempts++;
             }
 
             Temp = Temp->next;
-        }
-
-        if (!YearAndProgramFound)
-        {
-            cout << "\nInvalid Year and Program , please Enter Valid Year and Program , Try Again \nThank You\n";
-            return;
         }
 
         //---->Finding Attempts in Round 2
@@ -79,7 +87,7 @@ void FindYearAndProgramWisePlacementStatistics()
             Temp = Temp->next;
         }
 
-        //---->Finding Attempts in Round 2
+        //---->Finding Attempts in Round 4
 
         Temp = HeadR4;
         while (Temp != NULL)
@@ -117,15 +125,17 @@ void FindYearAndProgramWisePlacementStatistics()
 
                 packages.push_back(Current->package);
 
-                // Insert the company name into the set
+                // Insert the batch and company name into the set
                 uniqueBatchAndCompany.insert(to_string(Current->batch) + " - " + Current->company);
             }
 
             Current = Current->next;
         }
 
-        cout << endl;
-        PrintHorizontalLine(50);
+        cout <<endl;
+        PrintHorizontalLine(60);
+        cout << "\n# Placement Statistics of Program " << program << " in Year " << year << " : \n";
+
         cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
         cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
         cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
@@ -157,27 +167,3 @@ void FindYearAndProgramWisePlacementStatistics()
     }
 }
 
-int main()
-{
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Google");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Google");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound2("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound3("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound4("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "XYZ");
-
-    FindYearAndProgramWisePlacementStatistics();
-
-    return 0;
-}
