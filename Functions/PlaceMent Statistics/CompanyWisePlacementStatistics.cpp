@@ -8,22 +8,29 @@
 
 using namespace std;
 
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//-------------------------------------- Function to Find Company Wise Placement Statistics ------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+
 void FindCompanyWisePlacementStatistics()
 {
-    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+    if (!IsDataInserted())
     {
-        cout << "\nInsufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+        cout << "\nInsufficient Data Inserted , please insert Data and Try agian \nThank You\n";
         return;
     }
     else
     {
         string company;
         cout << "\nEnter Company Name : ";
-        cin >> company;
+        getline(cin, company);
 
+        // Find Company is in Data or Not
         if (R1CompanyAttempts[company] == 0)
         {
-            cout << "\nInvalid Company Name entered, enter valid Batch and Try Agian \nThank You\n";
+            cout << "\nStudents of Company " << company << " does not found , Enter Valid Company and Try Again \n\n";
             return;
         }
         else
@@ -52,7 +59,7 @@ void FindCompanyWisePlacementStatistics()
 
                     packages.push_back(Current->package);
 
-                    // Insert the company name into the set
+                    // Insert the batch and program into the set
                     uniqueProgramOFBatch.insert(to_string(Current->batch) + " " + Current->program);
                 }
 
@@ -60,7 +67,9 @@ void FindCompanyWisePlacementStatistics()
             }
 
             cout << endl;
-            PrintHorizontalLine(50);
+            PrintHorizontalLine(60);
+            cout << "\n# Placement Statistics of Company " << company << " : \n";
+
             cout << "\nNo. Students Attempted in Round 1 : " << R1CompanyAttempts[company];
             cout << "\nNo. Students Attempted in Round 2 : " << R1CompanyAttempts[company];
             cout << "\nNo. Students Attempted in Round 3 : " << R1CompanyAttempts[company];
@@ -76,46 +85,21 @@ void FindCompanyWisePlacementStatistics()
 
             PrintHorizontalLine(150);
 
-            cout << "\nPograms of Batch from " << company << " has hired students : \n\n";
+            cout << "\nPrograms of Batch from " << company << " has hired students : \n\n";
 
-            int i=0;
+            int i = 0;
             for (string str : uniqueProgramOFBatch)
             {
                 cout << str << " , ";
-                if( (i+1) % 5 == 0)
+                if ((i + 1) % 5 == 0)
                 {
-                    cout<<endl;
+                    cout << endl;
                 }
                 i++;
             }
 
-            cout << endl ;
+            cout << endl;
             PrintHorizontalLine(150);
         }
     }
-}
-
-int main()
-{
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
-
-    ReadFileForRound1("Input Files/Company1R3.csv", "Google");
-    ReadFileForRound2("Input Files/Company1R3.csv", "Google");
-    ReadFileForRound3("Input Files/Company1R3.csv", "Google");
-    ReadFileForRound4("Input Files/Company1R3.csv", "Google");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Google");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound2("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound3("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound4("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "XYZ");
-
-    FindCompanyWisePlacementStatistics();
-
-    return 0;
 }
