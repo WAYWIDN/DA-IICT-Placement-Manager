@@ -81,28 +81,28 @@ public:
 
 // Head and Tail Pointers for Round 1
 
-Node1 *HeadR1;
-Node1 *TailR1;
+Node1 *HeadR1 = NULL;
+Node1 *TailR1 = NULL;
 
 // Head and Tail Pointers for Round 2
 
-Node1 *HeadR2;
-Node1 *TailR2;
+Node1 *HeadR2 = NULL;
+Node1 *TailR2 = NULL;
 
 // Head and Tail Pointers for Round 3
 
-Node1 *HeadR3;
-Node1 *TailR3;
+Node1 *HeadR3 = NULL;
+Node1 *TailR3 = NULL;
 
 // Head and Tail Pointers for Round 4
 
-Node1 *HeadR4;
-Node1 *TailR4;
+Node1 *HeadR4 = NULL;
+Node1 *TailR4 = NULL;
 
 // Head and Tail Pointers for Round 5
 
-Node2 *HeadFR;
-Node2 *TailFR;
+Node2 *HeadFR = NULL;
+Node2 *TailFR = NULL;
 
 // Variables to Find Details of Student
 
@@ -481,12 +481,15 @@ void addToListFR(long long id, string name, int batch, string program, string em
 
 void ReadFileForRound1(const string &filepath, const string &CompanyName)
 {
+    cout << "\n\n<---------------------------------------------------------------------------------------------------------------------->\n";
+    cout << "\n----------------------------------> Fetching Data from The Files of Company \" " << CompanyName << " \" <--------------------------------\n";
+    cout << "\n<---------------------------------------------------------------------------------------------------------------------->\n\n";
 
     ifstream file(filepath);
 
     if (!file.is_open())
     {
-        cerr << "\nError in Opening Round1's File\nPlease Try again with valid File Path :) \n";
+        cerr << "\nError in Opening \" Round 1's File \" of Company \" " << CompanyName << " \" \nPlease Try again with valid File Path :) \n";
         return;
     }
     else
@@ -567,7 +570,7 @@ void ReadFileForRound2(const string &filepath, const string &CompanyName)
 
     if (!file.is_open())
     {
-        cerr << "\nError in Opening Round2's File\nPlease Try again with valid File Path :) \n";
+        cerr << "\nError in Opening \" Round 2's File \" of Company \" " << CompanyName << " \" \nPlease Try again with valid File Path :) \n";
         return;
     }
     else
@@ -637,7 +640,7 @@ void ReadFileForRound3(const string &filepath, const string &CompanyName)
 
     if (!file.is_open())
     {
-        cerr << "\nError in Opening Round3's File\nPlease Try again with valid File Path :) \n";
+        cerr << "\nError in Opening \" Round 3's File \" of Company \" " << CompanyName << " \" \nPlease Try again with valid File Path :) \n";
         return;
     }
     else
@@ -707,7 +710,7 @@ void ReadFileForRound4(const string &filepath, const string &CompanyName)
 
     if (!file.is_open())
     {
-        cerr << "\nError in Opening Round4's File\nPlease Try again with valid File Path :) \n";
+        cerr << "\nError in Opening \" Round 4's File \" of Company \" " << CompanyName << " \" \nPlease Try again with valid File Path :) \n";
         return;
     }
     else
@@ -750,7 +753,7 @@ void ReadFileForRound4(const string &filepath, const string &CompanyName)
             addToListR4(id, name, batch, program, email, contactNO, whatsappNO, CompanyName, year); // Insert the extracted data into the list
 
             R4StudentAttempts[id]++;                     // Increment in Number of Attempts in R4 by student
-            R4BatchAttempts[batch]++;                   // Increment in Number of Student of particular Batch who had attempted in Round 4
+            R4BatchAttempts[batch]++;                    // Increment in Number of Student of particular Batch who had attempted in Round 4
             R4CompanyAttempts[CompanyName]++;            // Increment in Number of Student who had attempted in Round 4 of particular Company
             R4ProgramAttempts[program]++;                // Increment in Number of Student who had attemped in Round 4 of particular Program
             R4YearAttempts[year]++;                      // Increment in Number of Student who had attemped in Round 4 in particular Year\
@@ -777,7 +780,7 @@ void ReadFileForFinalRound(const string &filepath, const string &CompanyName)
 
     if (!file.is_open())
     {
-        cerr << "\nError in Opening Final Round's File\nPlease Try again with valid File Path :) \n";
+        cerr << "\nError in Opening \" Final Round's File \" of Company \" " << CompanyName << " \" \nPlease Try again with valid File Path :) \n";
         return;
     }
     else
@@ -850,6 +853,10 @@ void ReadFileForFinalRound(const string &filepath, const string &CompanyName)
         file.close();
 
         cout << "\n<---- Successfully Data Fetched From the \" Final Round's File \" of Company \" " << CompanyName << " \" <-----\n\n";
+
+        cout << "\n\n<---------------------------------------------------------------------------------------------------------------------->\n";
+        cout << "\n----------------------------> Successfully Data fechted from The Files of Company \" " << CompanyName << " \" <---------------------------\n";
+        cout << "\n<---------------------------------------------------------------------------------------------------------------------->\n\n";
     }
 }
 
@@ -858,7 +865,7 @@ void InputPlacementData()
     string CompanyName;
     cout << "\nEnter Company's Name : ";
     getline(cin, CompanyName);
-    
+
     string filepath;
     cout << "\nEnter File Path for Round 1's file : ";
     cin >> filepath;
@@ -909,4 +916,16 @@ float FindMedianPackage(vector<float> &nums)
 void PrintHorizontalLine(int width, char fillChar = '-')
 {
     cout << setfill(fillChar) << setw(width) << "" << setfill(' ') << endl;
+}
+
+//--->Function to Find Data inserted Or Not
+
+bool IsDataInserted()
+{
+    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+    {
+        return false;
+    }
+
+    return true;
 }
