@@ -8,11 +8,17 @@
 
 using namespace std;
 
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------ Function to Find Year and Company Wise Placement Statistics ------------------------------>
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+
 void FindYearAndCompanyWisePlacementStatistics()
 {
-    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+    if (!IsDataInserted())
     {
-        cout << "\nInsufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+        cout << "\nInsufficient Data to find Find Details,please insert Data and Try agian \nThank You\n\n";
         return;
     }
     else
@@ -21,10 +27,20 @@ void FindYearAndCompanyWisePlacementStatistics()
         int year;
         cout << "\nEnter Year : ";
         cin >> year;
+
+        cin.ignore();
+
         string company;
         cout << "\nEnter Company Name : ";
         getline(cin, company);
 
+        // To find Year and Company is in the data or not
+
+        if (R1CompanyAttempts[company] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\nStudents of Company " << company << " and Year " << year << " does not found , Enter Valid Company and Year and Try Again \n\n";
+            return;
+        }
 
         //----> Variables to find attempts and job Offers
 
@@ -34,8 +50,6 @@ void FindYearAndCompanyWisePlacementStatistics()
         int R4Attempts = 0;
         int TotalOfferes = 0;
 
-        bool YearAndCompanyFound = false; // To find Year and Company is in the data or not
-
         //----> Finding Attempts in Round 1
 
         Node1 *Temp = HeadR1;
@@ -43,17 +57,10 @@ void FindYearAndCompanyWisePlacementStatistics()
         {
             if (Temp->year == year && Temp->company == company)
             {
-                YearAndCompanyFound = true;
                 R1Attempts++;
             }
 
             Temp = Temp->next;
-        }
-
-        if (!YearAndCompanyFound)
-        {
-            cout << "\nInvalid Year and Program , please Enter Valid Year and Program , Try Again \nThank You\n";
-            return;
         }
 
         //---->Finding Attempts in Round 2
@@ -80,7 +87,7 @@ void FindYearAndCompanyWisePlacementStatistics()
             Temp = Temp->next;
         }
 
-        //---->Finding Attempts in Round 2
+        //---->Finding Attempts in Round 4
 
         Temp = HeadR4;
         while (Temp != NULL)
@@ -118,15 +125,17 @@ void FindYearAndCompanyWisePlacementStatistics()
 
                 packages.push_back(Current->package);
 
-                // Insert the company name into the set
+                // Insert the batch and program name into the set
                 uniqueBatchAndProgram.insert(to_string(Current->batch) + " - " + Current->program);
             }
 
             Current = Current->next;
         }
 
-        cout << endl;
-        PrintHorizontalLine(50);
+        cout <<endl;
+        PrintHorizontalLine(60);
+        cout << "\n# Placement Statistics of Company " << company << " in Year " << year << " : \n";
+
         cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
         cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
         cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
@@ -157,5 +166,4 @@ void FindYearAndCompanyWisePlacementStatistics()
         PrintHorizontalLine(150);
     }
 }
-
 
