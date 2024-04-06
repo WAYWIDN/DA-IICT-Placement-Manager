@@ -8,22 +8,39 @@
 
 using namespace std;
 
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//----------------------------- Function to Find Program and Batch Wise Placement Statistics ------------------------------>
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+
 void FindProgramAndBatchWisePlacementStatistics()
 {
-    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+    if (!IsDataInserted())
     {
-        cout << "Insufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+        cout << "Insufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
         return;
     }
     else
     {
-        string program;
-        cout << "\nEnter Program : ";
-        getline(cin, program);
 
         int batch;
         cout << "\nEnter Batch : ";
         cin >> batch;
+
+        cin.ignore();
+
+        string program;
+        cout << "\nEnter Program : ";
+        getline(cin, program);
+
+        // Find Batch and Program is in Data or not
+
+        if (R1BatchAttempts[batch] == 0 || R1ProgramAttempts[program] == 0)
+        {
+            cout << "\nStudents of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
+            return;
+        }
 
         //----> Variables to find attempts and job Offers
 
@@ -33,8 +50,6 @@ void FindProgramAndBatchWisePlacementStatistics()
         int R4Attempts = 0;
         int TotalOfferes = 0;
 
-        bool ProgramAndBatchFound = false; // To find Program and Batch is in the data or not
-
         //----> Finding Attempts in Round 1
 
         Node1 *Temp = HeadR1;
@@ -42,17 +57,10 @@ void FindProgramAndBatchWisePlacementStatistics()
         {
             if (Temp->program == program && Temp->batch == batch)
             {
-                ProgramAndBatchFound = true;
                 R1Attempts++;
             }
 
             Temp = Temp->next;
-        }
-
-        if (!ProgramAndBatchFound)
-        {
-            cout << "\nInvalid Batch and Program , please Enter Valid Batch and Program , Try Again \nThank You\n";
-            return;
         }
 
         //---->Finding Attempts in Round 2
@@ -79,7 +87,7 @@ void FindProgramAndBatchWisePlacementStatistics()
             Temp = Temp->next;
         }
 
-        //---->Finding Attempts in Round 2
+        //---->Finding Attempts in Round 4
 
         Temp = HeadR4;
         while (Temp != NULL)
@@ -125,7 +133,9 @@ void FindProgramAndBatchWisePlacementStatistics()
         }
 
         cout << endl;
-        PrintHorizontalLine(50);
+        PrintHorizontalLine(60);
+        cout << "\n# Placement Statistics of Batch " << batch << " and Program " << program << " : \n";
+
         cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
         cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
         cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
@@ -142,7 +152,7 @@ void FindProgramAndBatchWisePlacementStatistics()
         PrintHorizontalLine(150);
 
         int i = 0;
-        cout << "\nNo. Of Companies Visted : " << uniqueCompanies.size();
+        cout << "\nNo. Of Companies Visited : " << uniqueCompanies.size();
         cout << "\n\nCompanies : \n\n";
         for (string company : uniqueCompanies)
         {
@@ -156,29 +166,4 @@ void FindProgramAndBatchWisePlacementStatistics()
              << endl;
         PrintHorizontalLine(150);
     }
-}
-
-int main()
-{
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Google");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Google");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound2("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound3("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound4("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "XYZ");
-
-    FindProgramAndBatchWisePlacementStatistics();
-
-    return 0;
 }
