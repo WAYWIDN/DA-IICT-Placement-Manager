@@ -16,19 +16,16 @@ using namespace std;
 void DisplayRound1to4CompanyWiseData(Node1 *Head, string company)
 {
     cout << endl;
-    PrintHorizontalLine(157); // Printing horizontal line
+    PrintHorizontalLine(157); 
     cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
-    PrintHorizontalLine(157); // Printing horizontal line
+    PrintHorizontalLine(157); 
 
     Node1 *Current = Head;
-
-    bool company_found = false;
 
     while (Current != NULL)
     {
         if (Current->company == company)
         {
-            company_found = true;
 
             cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                  << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -39,10 +36,7 @@ void DisplayRound1to4CompanyWiseData(Node1 *Head, string company)
         Current = Current->next;
     }
 
-    if (!company_found)
-        cout << "\nStudents of Company " << company << "  does not found , Enter Valid Company Name and Try Again \n";
-
-    PrintHorizontalLine(157); // Printing horizontal line
+    PrintHorizontalLine(157); 
 }
 
 //-------------------------------------- Helper Function to Display CompanyWise Data for Final Round ------------------------------->
@@ -50,19 +44,16 @@ void DisplayRound1to4CompanyWiseData(Node1 *Head, string company)
 void DisplayFinalRoundCompanyWiseData(Node2 *Head, string company)
 {
     cout << endl;
-    PrintHorizontalLine(177); // Printing horizontal line
+    PrintHorizontalLine(177); 
     cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
-    PrintHorizontalLine(177); // Printing horizontal line
+    PrintHorizontalLine(177); 
 
     Node2 *Current = Head;
-
-    bool company_found = false;
 
     while (Current != NULL)
     {
         if (Current->company == company)
         {
-            company_found = true;
 
             cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                  << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -73,10 +64,7 @@ void DisplayFinalRoundCompanyWiseData(Node2 *Head, string company)
         Current = Current->next;
     }
 
-    if (!company_found)
-        cout << "\nStudents of Company " << company << "  does not found , Enter Valid Program Name and Try Again \n";
-
-    PrintHorizontalLine(177); // Printing horizontal line
+    PrintHorizontalLine(177); 
 }
 
 //--------------------------------------------------------------------------------------------------------------------->
@@ -146,7 +134,7 @@ void WriteCompanyWiseSortedDataForRound1to4(const string &filepath, Node1 *Head,
 
     if (!outputFile.is_open())
     {
-        cerr << "\nError in Opening File for Writing Data\n";
+        cerr << "\nError in Opening File for Writing Data\n\n";
         return;
     }
 
@@ -155,13 +143,10 @@ void WriteCompanyWiseSortedDataForRound1to4(const string &filepath, Node1 *Head,
     int i = 1;
     Node1 *Current = Head;
 
-    bool company_found = false;
-
     while (Current != nullptr)
     {
         if (Current->company == company)
         {
-            company_found = true;
 
             outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                        << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -173,10 +158,7 @@ void WriteCompanyWiseSortedDataForRound1to4(const string &filepath, Node1 *Head,
         Current = Current->next;
     }
 
-    if (!company_found)
-        cout << "\nStudents of Company " << company << "  does not found , Enter Valid Company Name and Try Again \n";
-    else
-        cout << "\nData Written Successfully...\n";
+    cout << "\nData Written Successfully...\n\n";
 
     outputFile.close();
 }
@@ -200,13 +182,10 @@ void WriteCompanyWiseSortedDataForFinalRound(const string &filepath, Node2 *Head
     int i = 1;
     Node2 *Current = Head;
 
-    bool company_found = false;
-
     while (Current != nullptr)
     {
         if (Current->company == company)
         {
-            company_found = true;
 
             outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                        << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -218,10 +197,7 @@ void WriteCompanyWiseSortedDataForFinalRound(const string &filepath, Node2 *Head
         Current = Current->next;
     }
 
-    if (!company_found)
-        cout << "\nStudents of Company " << company << "  does not found , Enter Valid Company Name and Try Again \n";
-    else
-        cout << "\nData Written Successfully...\n";
+    cout << "\nData Written Successfully...\n\n";
 
     outputFile.close();
 }
@@ -233,9 +209,23 @@ void WriteCompanyWiseSortedDataForFinalRound(const string &filepath, Node2 *Head
 void SortDataCompanyWise()
 {
 
+    if (!IsDataInserted())
+    {
+        cout << "\nInsufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
+        return;
+    }
+
     string company;
     cout << "\nEnter Company Name : ";
     getline(cin, company);
+
+    // Find Company is in Data or Not
+    
+    if (R1CompanyAttempts[company] == 0)
+    {
+        cout << "\nStudents of Company " << company << " does not found , Enter Valid Company and Try Again \n\n";
+        return;
+    }
 
     cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
@@ -248,12 +238,6 @@ void SortDataCompanyWise()
     switch (choice)
     {
     case 1:
-
-        if (HeadR1 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-            break;
-        }
 
         char choice1;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
@@ -271,12 +255,6 @@ void SortDataCompanyWise()
 
     case 2:
 
-        if (HeadR2 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-            break;
-        }
-
         char choice2;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
         cin >> choice2;
@@ -292,12 +270,6 @@ void SortDataCompanyWise()
         break;
 
     case 3:
-
-        if (HeadR3 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-            break;
-        }
 
         char choice3;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
@@ -315,12 +287,6 @@ void SortDataCompanyWise()
 
     case 4:
 
-        if (HeadR4 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-            break;
-        }
-
         char choice4;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
         cin >> choice4;
@@ -336,12 +302,6 @@ void SortDataCompanyWise()
         break;
 
     case 5:
-
-        if (HeadFR == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-            break;
-        }
 
         char choice5;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
@@ -359,19 +319,6 @@ void SortDataCompanyWise()
 
     default:
 
-        cout << "\nInvalid Choice \n";
+        cout << "\nInvalid Choice \n\n";
     }
-}
-
-int main()
-{
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
-
-    SortDataCompanyWise();
-
-    return 0;
 }
