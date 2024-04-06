@@ -16,19 +16,16 @@ using namespace std;
 void DisplayRound1to4ProgramOFYearWiseData(Node1 *Head, string program, int year)
 {
     cout << endl;
-    PrintHorizontalLine(157); // Printing horizontal line
+    PrintHorizontalLine(157);
     cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
-    PrintHorizontalLine(157); // Printing horizontal line
+    PrintHorizontalLine(157);
 
     Node1 *Current = Head;
-
-    bool programOFyear_found = false;
 
     while (Current != NULL)
     {
         if (Current->program == program && Current->year == year)
         {
-            programOFyear_found = true;
 
             cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                  << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -39,10 +36,7 @@ void DisplayRound1to4ProgramOFYearWiseData(Node1 *Head, string program, int year
         Current = Current->next;
     }
 
-    if (!programOFyear_found)
-        cout << "\nStudents of Program " << program << " and Year " << year << " do not found, Enter Valid Program Name and Try Again \n";
-
-    PrintHorizontalLine(157); // Printing horizontal line
+    PrintHorizontalLine(157);
 }
 
 //---------------------------- Helper Function to Display Programwise Data of particluar Year for the Final Round ---------------------------->
@@ -51,19 +45,16 @@ void DisplayFinalRoundProgramOFYearWiseData(Node2 *Head, string program, int yea
 {
 
     cout << endl;
-    PrintHorizontalLine(177); // Printing horizontal line
+    PrintHorizontalLine(177);
     cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
-    PrintHorizontalLine(177); // Printing horizontal line
+    PrintHorizontalLine(177);
 
     Node2 *Current = Head;
-
-    bool programOFyear_found = false;
 
     while (Current != NULL)
     {
         if (Current->program == program && Current->year == year)
         {
-            programOFyear_found = true;
 
             cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                  << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -74,10 +65,7 @@ void DisplayFinalRoundProgramOFYearWiseData(Node2 *Head, string program, int yea
         Current = Current->next;
     }
 
-    if (!programOFyear_found)
-        cout << "\nStudents of Program " << program << " and Batch " << year << " do not found, Enter Valid Program Name and Try Again \n";
-
-    PrintHorizontalLine(177); // Printing horizontal line
+    PrintHorizontalLine(177);
 }
 
 //--------------------------------------------------------------------------------------------------------------------->
@@ -142,7 +130,7 @@ void WriteProgramOFYearWiseSortedDataForRound1to4(const string &filepath, Node1 
 
     if (!outputFile.is_open())
     {
-        cerr << "\nError in Opening File for Writing Data\n";
+        cerr << "\nError in Opening File for Writing Data\n\n";
         return;
     }
 
@@ -151,13 +139,10 @@ void WriteProgramOFYearWiseSortedDataForRound1to4(const string &filepath, Node1 
     int i = 1;
     Node1 *Current = Head;
 
-    bool programOFyear_found = false;
-
     while (Current != nullptr)
     {
         if (Current->program == program && Current->year == year)
         {
-            programOFyear_found = true;
 
             outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                        << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -169,10 +154,7 @@ void WriteProgramOFYearWiseSortedDataForRound1to4(const string &filepath, Node1 
         Current = Current->next;
     }
 
-    if (!programOFyear_found)
-        cout << "\nStudents of Program " << program << " and Year " << year << " do not found, Enter Valid Program Name and Try Again \n";
-    else
-        cout << "Data Written Successfully...\n";
+    cout << "Data Written Successfully...\n\n";
 
     outputFile.close();
 }
@@ -187,7 +169,7 @@ void WriteProgramOFYearWiseSortedDataForFinalRound(const string &filepath, Node2
 
     if (!outputFile.is_open())
     {
-        cerr << "\nError in Opening File for Writing Data\n";
+        cerr << "\nError in Opening File for Writing Data\n\n";
         return;
     }
 
@@ -196,13 +178,10 @@ void WriteProgramOFYearWiseSortedDataForFinalRound(const string &filepath, Node2
     int i = 1;
     Node2 *Current = Head;
 
-    bool programOFyear_found = false;
-
     while (Current != nullptr)
     {
         if (Current->program == program && Current->year == year)
         {
-            programOFyear_found = true;
 
             outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                        << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -214,28 +193,41 @@ void WriteProgramOFYearWiseSortedDataForFinalRound(const string &filepath, Node2
         Current = Current->next;
     }
 
-    if (!programOFyear_found)
-        cout << "\nStudents of Program " << program << " and Year " << year << " do not found, Enter Valid Program Name and Try Again \n";
-    else
-        cout << "\nData Written Successfully...\n";
+    cout << "\nData Written Successfully...\n\n";
 
     outputFile.close();
 }
 
 //--------------------------------------------------------------------------------------------------------------------->
-//--------- Function to Sort Programwise Data of a Particular Year for Respective Rounds ----------------------------->
+//---------------- Function to Sort Programwise Data of a Particular Year for Respective Rounds ----------------------->
 //--------------------------------------------------------------------------------------------------------------------->
 
 void SortDataProgramOFYearWise()
 {
 
-    string program;
-    cout << "\nEnter Program : ";
-    getline(cin,program);
+    if (!IsDataInserted())
+    {
+        cout << "Insufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
+        return;
+    }
 
     int year;
     cout << "\nEnter Year : ";
     cin >> year;
+
+    cin.ignore();
+
+    string program;
+    cout << "\nEnter Program : ";
+    getline(cin, program);
+
+    // To find Year and Program is in the data or not
+
+    if (R1ProgramAttempts[program] == 0 || R1YearAttempts[year] == 0)
+    {
+        cout << "\nStudents of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
+        return;
+    }
 
     cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
@@ -248,12 +240,6 @@ void SortDataProgramOFYearWise()
     switch (choice)
     {
     case 1:
-
-        if (HeadR1 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-            break;
-        }
 
         char choice1;
         cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
@@ -271,12 +257,6 @@ void SortDataProgramOFYearWise()
 
     case 2:
 
-        if (HeadR2 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-            break;
-        }
-
         char choice2;
         cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
         cin >> choice2;
@@ -292,12 +272,6 @@ void SortDataProgramOFYearWise()
         break;
 
     case 3:
-
-        if (HeadR3 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-            break;
-        }
 
         char choice3;
         cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
@@ -315,12 +289,6 @@ void SortDataProgramOFYearWise()
 
     case 4:
 
-        if (HeadR4 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-            break;
-        }
-
         char choice4;
         cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
         cin >> choice4;
@@ -336,12 +304,6 @@ void SortDataProgramOFYearWise()
         break;
 
     case 5:
-
-        if (HeadFR == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-            break;
-        }
 
         char choice5;
         cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
@@ -359,19 +321,6 @@ void SortDataProgramOFYearWise()
 
     default:
 
-        cout << "\nInvalid Choice \n";
+        cout << "\nInvalid Choice \n\n";
     }
-}
-
-int main()
-{
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
-
-    SortDataProgramOFYearWise();
-
-    return 0;
 }
