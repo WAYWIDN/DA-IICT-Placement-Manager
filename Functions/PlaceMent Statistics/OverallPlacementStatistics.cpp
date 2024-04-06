@@ -5,17 +5,25 @@
 #include "InputPlacementData.cpp"
 using namespace std;
 
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------- Function to Find Overall Placement Statistics ------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+
 void FindOverallPlacementStatistics()
 {
-    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+    if (!IsDataInserted())
     {
-        cout << "\nInsufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+        cout << "\nInsufficient data Inserted,please insert Data and Try agian \nThank You\n\n";
         return;
     }
     else
     {
-        cout << endl;
-        PrintHorizontalLine(50);
+        cout <<endl;
+        PrintHorizontalLine(60);
+        cout << "\n# Overall Placement Statistics : \n";
+        
         cout << "\nNo. Students Attempted in Round 1 : " << NOofStudentR1;
         cout << "\nNo. Students Attempted in Round 2 : " << NOofStudentR2;
         cout << "\nNo. Students Attempted in Round 3 : " << NOofStudentR3;
@@ -31,7 +39,7 @@ void FindOverallPlacementStatistics()
 
         PrintHorizontalLine(150);
 
-        cout << "\nNo. Of Companis Visted : " << CompaniesVisitedOverall.size();
+        cout << "\nNo. Of Companies Visted : " << CompaniesVisitedOverall.size();
         cout << "\n\nCompanies : \n\n";
         for (int i = 0; i < CompaniesVisitedOverall.size(); i++)
         {
@@ -42,29 +50,4 @@ void FindOverallPlacementStatistics()
         cout << endl;
         PrintHorizontalLine(150);
     }
-}
-
-int main()
-{
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Google");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Google");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound2("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound3("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound4("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "XYZ");
-
-    FindOverallPlacementStatistics();
-
-    return 0;
 }
