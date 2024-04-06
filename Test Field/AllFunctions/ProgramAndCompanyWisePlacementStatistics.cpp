@@ -10,11 +10,11 @@ using namespace std;
 
 //------------------------------------------------------------------------------------------------------------------------->
 //------------------------------------------------------------------------------------------------------------------------->
-//----------------------------- Function to Find Program and Batch Wise Placement Statistics ------------------------------>
+//----------------------------- Function to Find Program and Company Wise Placement Statistics ---------------------------->
 //------------------------------------------------------------------------------------------------------------------------->
 //------------------------------------------------------------------------------------------------------------------------->
 
-void FindProgramAndBatchWisePlacementStatistics()
+void FindProgramAndCompanyWisePlacementStatistics()
 {
     if (!IsDataInserted())
     {
@@ -23,22 +23,19 @@ void FindProgramAndBatchWisePlacementStatistics()
     }
     else
     {
-
-        int batch;
-        cout << "\nEnter Batch : ";
-        cin >> batch;
-
-        cin.ignore();
-
         string program;
         cout << "\nEnter Program : ";
         getline(cin, program);
 
-        // Find Batch and Program is in Data or not
+        string company;
+        cout << "\nEnter Company Name : ";
+        getline(cin, company);
 
-        if (R1BatchAttempts[batch] == 0 || R1ProgramAttempts[program] == 0)
+        // To find Program and Company is in the data or not
+
+        if (R1ProgramAttempts[program] == 0 || R1CompanyAttempts[company] == 0)
         {
-            cout << "\nStudents of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
+            cout << "\nStudents of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
             return;
         }
 
@@ -55,7 +52,7 @@ void FindProgramAndBatchWisePlacementStatistics()
         Node1 *Temp = HeadR1;
         while (Temp != NULL)
         {
-            if (Temp->program == program && Temp->batch == batch)
+            if (Temp->program == program && Temp->company == company)
             {
                 R1Attempts++;
             }
@@ -68,7 +65,7 @@ void FindProgramAndBatchWisePlacementStatistics()
         Temp = HeadR2;
         while (Temp != NULL)
         {
-            if (Temp->program == program && Temp->batch == batch)
+            if (Temp->program == program && Temp->company == company)
             {
                 R2Attempts++;
             }
@@ -80,7 +77,7 @@ void FindProgramAndBatchWisePlacementStatistics()
         Temp = HeadR3;
         while (Temp != NULL)
         {
-            if (Temp->program == program && Temp->batch == batch)
+            if (Temp->program == program && Temp->company == company)
             {
                 R3Attempts++;
             }
@@ -92,7 +89,7 @@ void FindProgramAndBatchWisePlacementStatistics()
         Temp = HeadR4;
         while (Temp != NULL)
         {
-            if (Temp->program == program && Temp->batch == batch)
+            if (Temp->program == program && Temp->company == company)
             {
                 R4Attempts++;
             }
@@ -107,12 +104,12 @@ void FindProgramAndBatchWisePlacementStatistics()
         float minPackage = numeric_limits<float>::max();
         float totalPackage = 0;
 
-        // Set to store unique company names
-        set<string> uniqueCompanies;
+        // Set to store unique batch
+        set<int> uniqueBatches;
 
         while (Current != NULL)
         {
-            if (Current->program == program && Current->batch == batch)
+            if (Current->program == program && Current->company == company)
             {
 
                 TotalOfferes++;
@@ -126,16 +123,16 @@ void FindProgramAndBatchWisePlacementStatistics()
                 packages.push_back(Current->package);
 
                 // Insert the company name into the set
-                uniqueCompanies.insert(Current->company);
+                uniqueBatches.insert(Current->batch);
             }
 
             Current = Current->next;
         }
 
-        cout << endl;
+        cout <<endl;
         PrintHorizontalLine(60);
-        cout << "\n# Placement Statistics of Batch " << batch << " and Program " << program << " : \n";
-
+        cout << "\n# Placement Statistics of Program " << program << " and Company " << company << " : \n";
+        
         cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
         cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
         cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
@@ -152,11 +149,11 @@ void FindProgramAndBatchWisePlacementStatistics()
         PrintHorizontalLine(150);
 
         int i = 0;
-        cout << "\nNo. Of Companies Visited : " << uniqueCompanies.size();
-        cout << "\n\nCompanies : \n\n";
-        for (string company : uniqueCompanies)
+        cout << "\nNo. Of Batches whose Student got Job Offers : " << uniqueBatches.size();
+        cout << "\n\nBatches : \n\n";
+        for (int batch : uniqueBatches)
         {
-            cout << company << " , ";
+            cout << batch << " , ";
             if ((i + 1) % 15 == 0)
                 cout << endl;
 
