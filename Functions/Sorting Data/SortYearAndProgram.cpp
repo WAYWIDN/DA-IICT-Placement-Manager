@@ -11,6 +11,27 @@ using namespace std;
 //------------------------------------------------------------------------------------------------------------------------------------------>
 //------------------------------------------------------------------------------------------------------------------------------------------>
 
+//---------------------------------------------- Function To Find Year And Program is in Data or Not ----------------------------------------->
+
+bool IsYearAndProgramInData(int year, string program)
+{
+    bool found = false;
+
+    Node1 *Temp = HeadR1;
+
+    while (Temp != NULL)
+    {
+        if (Temp->year == year && Temp->program == program)
+        {
+            found = true;
+        }
+
+        Temp = Temp->next;
+    }
+
+    return found;
+}
+
 //------------------------- Helper Function to Display Programwise Data of particular Year for Rounds 1 to 4 ------------------------------>
 
 void DisplayRound1to4ProgramOFYearWiseData(Node1 *Head, string program, int year)
@@ -229,6 +250,13 @@ void SortDataProgramOFYearWise()
         return;
     }
 
+    // To find Year and Program is in the data or not
+
+    if (!IsYearAndProgramInData(year, program))
+    {
+        cout << "\n-----> Students of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
+        return;
+    }
     cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
     int choice;
