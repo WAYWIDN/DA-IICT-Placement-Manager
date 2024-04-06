@@ -27,8 +27,6 @@ void FindProgramAndCompanyWisePlacementStatistics()
         cout << "\nEnter Program : ";
         getline(cin, program);
 
-        cin.ignore();
-
         string company;
         cout << "\nEnter Company Name : ";
         getline(cin, company);
