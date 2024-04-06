@@ -8,6 +8,27 @@
 
 using namespace std;
 
+//-------------------------------------------- Function To Find Batch and Program is in Data or Not ---------------------------------------->
+
+bool IsBatchAndProgramInData(int batch, string program)
+{
+    bool found = false;
+
+    Node1 *Temp = HeadR1;
+
+    while (Temp != NULL)
+    {
+        if (Temp->batch == batch && Temp->program == program)
+        {
+            found = true;
+        }
+
+        Temp = Temp->next;
+    }
+
+    return found;
+}
+
 //------------------------------------------------------------------------------------------------------------------------->
 //------------------------------------------------------------------------------------------------------------------------->
 //----------------------------- Function to Find Program and Batch Wise Placement Statistics ------------------------------>
@@ -39,6 +60,14 @@ void FindProgramAndBatchWisePlacementStatistics()
         if (R1BatchAttempts[batch] == 0 || R1ProgramAttempts[program] == 0)
         {
             cout << "\nStudents of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
+            return;
+        }
+
+        // Find Batch and Program is in Data or not
+
+        if (!IsBatchAndProgramInData(batch, program))
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
             return;
         }
 
