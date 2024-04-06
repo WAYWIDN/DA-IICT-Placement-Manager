@@ -8,11 +8,17 @@
 
 using namespace std;
 
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//----------------------------- Function to Find Program and Company Wise Placement Statistics ---------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+
 void FindProgramAndCompanyWisePlacementStatistics()
 {
-    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+    if (!IsDataInserted())
     {
-        cout << "Insufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+        cout << "Insufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
         return;
     }
     else
@@ -20,10 +26,20 @@ void FindProgramAndCompanyWisePlacementStatistics()
         string program;
         cout << "\nEnter Program : ";
         getline(cin, program);
+
+        cin.ignore();
+
         string company;
         cout << "\nEnter Company Name : ";
         getline(cin, company);
 
+        // To find Program and Company is in the data or not
+
+        if (R1ProgramAttempts[program] == 0 || R1CompanyAttempts[company] == 0)
+        {
+            cout << "\nStudents of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
+            return;
+        }
 
         //----> Variables to find attempts and job Offers
 
@@ -33,8 +49,6 @@ void FindProgramAndCompanyWisePlacementStatistics()
         int R4Attempts = 0;
         int TotalOfferes = 0;
 
-        bool ProgramAndCompanyFound = false; // To find Program and Company is in the data or not
-
         //----> Finding Attempts in Round 1
 
         Node1 *Temp = HeadR1;
@@ -42,17 +56,10 @@ void FindProgramAndCompanyWisePlacementStatistics()
         {
             if (Temp->program == program && Temp->company == company)
             {
-                ProgramAndCompanyFound = true;
                 R1Attempts++;
             }
 
             Temp = Temp->next;
-        }
-
-        if (!ProgramAndCompanyFound)
-        {
-            cout << "\nInvalid Batch and Company , please Enter Valid Batch and Program , Try again \nThank You\n";
-            return;
         }
 
         //---->Finding Attempts in Round 2
@@ -79,7 +86,7 @@ void FindProgramAndCompanyWisePlacementStatistics()
             Temp = Temp->next;
         }
 
-        //---->Finding Attempts in Round 2
+        //---->Finding Attempts in Round 4
 
         Temp = HeadR4;
         while (Temp != NULL)
@@ -124,8 +131,10 @@ void FindProgramAndCompanyWisePlacementStatistics()
             Current = Current->next;
         }
 
-        cout << endl;
-        PrintHorizontalLine(50);
+        cout <<endl;
+        PrintHorizontalLine(60);
+        cout << "\n# Placement Statistics of Program " << program << " and Company " << company << " : \n";
+        
         cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
         cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
         cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
@@ -158,27 +167,3 @@ void FindProgramAndCompanyWisePlacementStatistics()
     }
 }
 
-int main()
-{
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Google");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Google");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound2("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound3("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound4("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "XYZ");
-
-    FindProgramAndCompanyWisePlacementStatistics();
-
-    return 0;
-}
