@@ -11,6 +11,26 @@ using namespace std;
 //------------------------------------------------------------------------------------------------------------------------------------------>
 //------------------------------------------------------------------------------------------------------------------------------------------>
 
+//------------------------------------------ Function To Find Program And Company is in Data or Not ---------------------------------------->
+
+bool IsProgramAndCompanyInData(string program, string company)
+{
+    bool found = false;
+
+    Node1 *Temp = HeadR1;
+
+    while (Temp != NULL)
+    {
+        if (Temp->program == program && Temp->company == company)
+        {
+            found = true;
+        }
+
+        Temp = Temp->next;
+    }
+
+    return found;
+}
 //------------------------- Helper Function to Display Programwise Data of particular Company for Rounds 1 to 4 ------------------------------>
 
 void DisplayRound1to4ProgramOFCompanyWiseData(Node1 *Head, string program, string company)
@@ -215,6 +235,8 @@ void SortDataProgramOFCompanyWise()
     cout << "\nEnter Program : ";
     getline(cin, program);
 
+    cin.ignore();
+
     string company;
     cout << "\nEnter Company Name : ";
     getline(cin, company);
@@ -227,6 +249,13 @@ void SortDataProgramOFCompanyWise()
         return;
     }
 
+    // To find Program or Company is in the data or not
+
+    if (R1ProgramAttempts[program] == 0 || R1CompanyAttempts[company] == 0)
+    {
+        cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
+        return;
+    }
     cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
     int choice;
