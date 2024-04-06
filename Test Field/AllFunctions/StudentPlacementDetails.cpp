@@ -3,19 +3,23 @@
 #include "InputPlacementData.cpp"
 using namespace std;
 
-//--->Helper function to print a horizontal line
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//--------------------------------------- Function to Find Student's Placement Statistics --------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
 
 void FindStudentPlacementDetails()
 {
+    if (!IsDataInserted())
+    {
+        cout << "Insufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
+        return;
+    }
+
     long long id;
     cout << "\nEnter Student's ID : ";
     cin >> id;
-
-    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
-    {
-        cout << "Insufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
-        return;
-    }
 
     if (StudentName[id] == "")
     {
@@ -26,7 +30,8 @@ void FindStudentPlacementDetails()
     else
     {
         cout << endl;
-        PrintHorizontalLine(50);
+        PrintHorizontalLine(60);
+        cout << "\n# " << id << "'s Placement Details : \n";
 
         cout << "\nName             : " << StudentName[id];
         cout << "\nID               : " << id;
@@ -73,7 +78,7 @@ void FindStudentPlacementDetails()
         {
             cout << Company << " , ";
         }
-        cout << "\nPacakges : ";
+        cout << "\nPackages : ";
         for (float Package : PackageOfferedStudent[id])
         {
             cout << Package << " , ";
@@ -83,29 +88,4 @@ void FindStudentPlacementDetails()
              << endl;
         PrintHorizontalLine(100);
     }
-}
-
-int main()
-{
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Google");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Google");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound2("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound3("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound4("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "XYZ");
-
-    FindStudentPlacementDetails();
-
-    return 0;
 }
