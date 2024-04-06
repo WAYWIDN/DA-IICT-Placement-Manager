@@ -7,11 +7,17 @@
 #include "InputPlacementData.cpp"
 using namespace std;
 
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//--------------------------------------- Function to Find Year Wise Placement Statistics --------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+
 void FindYearWisePlacementStatistics()
 {
-    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+    if (!IsDataInserted())
     {
-        cout << "\nInsufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+        cout << "\nInsufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
         return;
     }
     else
@@ -22,9 +28,10 @@ void FindYearWisePlacementStatistics()
 
         if (R1YearAttempts[year] == 0)
         {
-            cout << "\nInvalid Year entered , enter valid Year and Try Agian \nThank You\n";
+            cout << "\nStudents of Year " << year << " does not found , Enter Valid Year and Try Again \n\n";
             return;
         }
+
         else
         {
             Node2 *Current = HeadFR;
@@ -58,7 +65,9 @@ void FindYearWisePlacementStatistics()
             }
 
             cout << endl;
-            PrintHorizontalLine(50);
+            PrintHorizontalLine(60);
+            cout << "\n# Placement Statistics in Year " << year << " : \n";
+
             cout << "\nNo. Students Attempted in Round 1 : " << R1YearAttempts[year];
             cout << "\nNo. Students Attempted in Round 2 : " << R2YearAttempts[year];
             cout << "\nNo. Students Attempted in Round 3 : " << R3YearAttempts[year];
@@ -91,29 +100,4 @@ void FindYearWisePlacementStatistics()
             PrintHorizontalLine(150);
         }
     }
-}
-
-int main()
-{
-    ReadFileForRound1("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Apple");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Apple");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Apple");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound2("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound3("Input Files/Company1R1.csv", "Google");
-    ReadFileForRound4("Input Files/Company1R1.csv", "Google");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "Google");
-
-    ReadFileForRound1("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound2("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound3("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForRound4("Input Files/Company1R1.csv", "XYZ");
-    ReadFileForFinalRound("Input Files/Company1FR.csv", "XYZ");
-
-    FindYearWisePlacementStatistics();
-
-    return 0;
 }
