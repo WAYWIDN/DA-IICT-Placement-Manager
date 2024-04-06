@@ -11,6 +11,27 @@ using namespace std;
 //------------------------------------------------------------------------------------------------------------------------------------------>
 //------------------------------------------------------------------------------------------------------------------------------------------>
 
+//---------------------------------------------- Function To Find Year And Batch is in Data or Not ----------------------------------------->
+
+bool IsYearAndBatchInData(int year, int batch)
+{
+    bool found = false;
+
+    Node1 *Temp = HeadR1;
+
+    while (Temp != NULL)
+    {
+        if (Temp->year == year && Temp->batch == batch)
+        {
+            found = true;
+        }
+
+        Temp = Temp->next;
+    }
+
+    return found;
+}
+
 //------------------------- Helper Function to Display Yearwise Data of particular Batch for Rounds 1 to 4 ------------------------------>
 
 void DisplayRound1to4YearAndBatchWiseData(Node1 *Head, int year, int batch)
@@ -227,6 +248,13 @@ void SortDataYearAndBatchWise()
         return;
     }
 
+    // To Find Year and Batch is in the Data or Not
+
+    if (!IsYearAndBatchInData(year, batch))
+    {
+        cout << "\n-----> Students of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
+        return;
+    }
     cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
     int choice;
