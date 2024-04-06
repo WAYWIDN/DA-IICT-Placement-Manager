@@ -11,6 +11,26 @@ using namespace std;
 //------------------------------------------------------------------------------------------------------------------------------------------>
 //------------------------------------------------------------------------------------------------------------------------------------------>
 
+//-------------------------------------------- Function To Find Batch and Company is in Data or Not ---------------------------------------->
+
+bool IsBatchAndCompanyInData(int batch, string company)
+{
+    bool found = false;
+
+    Node1 *Temp = HeadR1;
+
+    while (Temp != NULL)
+    {
+        if (Temp->batch == batch && Temp->company == company)
+        {
+            found = true;
+        }
+
+        Temp = Temp->next;
+    }
+
+    return found;
+}
 //------------------------- Helper Function to Display Batchwise Data of particular Company for Rounds 1 to 4 ------------------------------>
 
 void DisplayBatchOFCompanyWiseDataForRound1to4(Node1 *Head, int batch, string company)
@@ -219,6 +239,13 @@ void SortDataBatchAndCompanyWise()
         return;
     }
 
+    // Find Batch And Company is in Data or Not
+
+    if (!IsBatchAndCompanyInData(batch, company))
+    {
+        cout << "\n-----> Students of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
+        return;
+    }
     cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
     int choice;
