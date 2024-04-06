@@ -8,6 +8,27 @@
 
 using namespace std;
 
+//---------------------------------------------- Function To Find Year And Batch is in Data or Not ----------------------------------------->
+
+bool IsYearAndBatchInData(int year, int batch)
+{
+    bool found = false;
+
+    Node1 *Temp = HeadR1;
+
+    while (Temp != NULL)
+    {
+        if (Temp->year == year && Temp->batch == batch)
+        {
+            found = true;
+        }
+
+        Temp = Temp->next;
+    }
+
+    return found;
+}
+
 //------------------------------------------------------------------------------------------------------------------------->
 //------------------------------------------------------------------------------------------------------------------------->
 //-------------------------------- Function to Find Year and Batch Wise Placement Statistics ------------------------------>
@@ -36,6 +57,14 @@ void FindYearAndBatchWisePlacementStatistics()
         if (R1BatchAttempts[batch] == 0 || R1YearAttempts[year] == 0)
         {
             cout << "\nStudents of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
+            return;
+        }
+
+        // To find Year and Batch is in the data or not
+
+        if (!IsYearAndBatchInData(year, batch))
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
             return;
         }
 
@@ -130,7 +159,7 @@ void FindYearAndBatchWisePlacementStatistics()
             Current = Current->next;
         }
 
-        cout <<endl;
+        cout << endl;
         PrintHorizontalLine(60);
         cout << "\n# Placement Statistics of Batch " << batch << " in Year " << year << " : \n";
 
@@ -166,4 +195,3 @@ void FindYearAndBatchWisePlacementStatistics()
         PrintHorizontalLine(150);
     }
 }
-
