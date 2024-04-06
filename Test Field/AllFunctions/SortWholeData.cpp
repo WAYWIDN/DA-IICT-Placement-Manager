@@ -11,14 +11,7 @@ using namespace std;
 //------------------------------------------------------------------------------------------------------------------------------------------>
 //------------------------------------------------------------------------------------------------------------------------------------------>
 
-//--->Helper function to print a horizontal line
-
-void PrintHorizontalLine(int width, char fillChar = '-')
-{
-    cout << setfill(fillChar) << setw(width) << "" << setfill(' ') << endl;
-}
-
-//---------------------------------------Helper Function to Display Whole Data for Round 1 to 4 ------------------------------>
+//--------------------------------------- Helper Function to Display Whole Data for Round 1 to 4 ------------------------------>
 
 void DisplayRound1to4WholeData(Node1 *Head)
 {
@@ -36,11 +29,13 @@ void DisplayRound1to4WholeData(Node1 *Head)
              << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
              << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
              << "|" << setw(10) << left << Current->year << "|" << endl;
+
+             Current = Current->next;
     }
     PrintHorizontalLine(157);
 }
 
-//---------------------------------------Helper Function to Display Whole Data for Final Round ------------------------------->
+//--------------------------------------- Helper Function to Display Whole Data for Final Round ------------------------------->
 
 void DisplayFinalRoundWholeData(Node2 *Head)
 {
@@ -57,6 +52,8 @@ void DisplayFinalRoundWholeData(Node2 *Head)
              << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
              << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package
              << "|" << setw(10) << left << Current->year << "|" << endl;
+
+             Current = Current->next;
     }
     PrintHorizontalLine(177);
 }
@@ -165,7 +162,7 @@ void WriteWholeSortedDataForFinalRound(const string &filepath, Node2 *Head)
 
     if (!outputFile.is_open())
     {
-        cerr << "\nError in Opening File for Writing Data\n";
+        cerr << "\nError in Opening File for Writing Data\n\n";
         return;
     }
 
@@ -184,7 +181,7 @@ void WriteWholeSortedDataForFinalRound(const string &filepath, Node2 *Head)
         i++;
     }
 
-    cout << "\nData Written Successfully....\n";
+    cout << "\nData Written Successfully....\n\n";
 
     outputFile.close();
 }
@@ -195,6 +192,12 @@ void WriteWholeSortedDataForFinalRound(const string &filepath, Node2 *Head)
 
 void SortWholeData()
 {
+    if (!IsDataInserted())
+    {
+        cout << "Insufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
+        return;
+    }
+
     cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
     int choice;
@@ -206,12 +209,6 @@ void SortWholeData()
     switch (choice)
     {
     case 1:
-
-        if (HeadR1 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-            break;
-        }
 
         char choice1;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
@@ -229,12 +226,6 @@ void SortWholeData()
 
     case 2:
 
-        if (HeadR2 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-            break;
-        }
-
         char choice2;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
         cin >> choice2;
@@ -250,12 +241,6 @@ void SortWholeData()
         break;
 
     case 3:
-
-        if (HeadR3 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-            break;
-        }
 
         char choice3;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
@@ -273,12 +258,6 @@ void SortWholeData()
 
     case 4:
 
-        if (HeadR4 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-            break;
-        }
-
         char choice4;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
         cin >> choice4;
@@ -294,12 +273,6 @@ void SortWholeData()
         break;
 
     case 5:
-
-        if (HeadFR == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-            break;
-        }
 
         char choice5;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
