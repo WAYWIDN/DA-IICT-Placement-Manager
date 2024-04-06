@@ -11,6 +11,26 @@ using namespace std;
 //------------------------------------------------------------------------------------------------------------------------------------------>
 //------------------------------------------------------------------------------------------------------------------------------------------>
 
+//-------------------------------------------- Function To Find Batch and Program is in Data or Not ---------------------------------------->
+
+bool IsBatchAndProgramInData(int batch, string program)
+{
+    bool found = false;
+
+    Node1 *Temp = HeadR1;
+
+    while (Temp != NULL)
+    {
+        if (Temp->batch == batch && Temp->program == program)
+        {
+            found = true;
+        }
+
+        Temp = Temp->next;
+    }
+
+    return found;
+}
 //------------------------- Helper Function to Display Programwise Data of particular Batch for Rounds 1 to 4 ------------------------------>
 
 void DisplayRound1to4ProgramOFBatchWiseData(Node1 *Head, string program, int batch)
@@ -228,7 +248,13 @@ void SortDataProgramOFBatchWise()
         cout << "\nStudents of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
         return;
     }
+    // Find Batch and Program is in Data or Not
 
+    if (!IsBatchAndProgramInData(batch, program))
+    {
+        cout << "\n-----> Students of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
+        return;
+    }
     cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
     int choice;
