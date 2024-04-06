@@ -185,6 +185,76 @@ private:
     vector<float> PackagesOfferedOverall;
     vector<string> CompaniesVisitedOverall;
 
+public:
+    // Constructor to intilize all Head and Tail to initialize NULL
+
+    PlacementManager()
+    {
+        HeadR1 = NULL;
+        HeadR2 = NULL;
+        HeadR3 = NULL;
+        HeadR4 = NULL;
+        HeadFR = NULL;
+
+        TailR1 = NULL;
+        TailR2 = NULL;
+        TailR3 = NULL;
+        TailR4 = NULL;
+        TailFR = NULL;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //----------------------------------------------------> Some Helper Functions <------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+private:
+    // Function to Print HorizontalLine
+
+    void PrintHorizontalLine(int width, char fillChar = '-')
+    {
+        cout << setfill(fillChar) << setw(width) << "" << setfill(' ') << endl;
+    }
+
+    // Function to find Data is Inserted or Not
+
+    bool IsDataInserted()
+    {
+        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    // Function to find Meadian
+
+    float FindMedianPackage(vector<float> &nums)
+    {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+
+        if (n % 2 == 0)
+        {
+            // If number of elements is even, median is the average of the middle two elements
+            return (nums[n / 2 - 1] + nums[n / 2]) / 2.0f;
+        }
+        else
+        {
+            // If number of elements is odd, median is the middle element
+            return nums[n / 2];
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //<---------------------------------------------------// FUNCTIONS TO COLLECT DATA //------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+private:
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //-------------------------------------------------- Functions to Create list for Respective Round ----------------------------------------->
@@ -201,7 +271,7 @@ private:
 
         if (NewNode == NULL)
         {
-            cerr << "\nUnable to allocate Memory For Creating Node for Round1\n";
+            cerr << "\n-----> Unable to allocate Memory For Creating Node for Round1\n\n";
             return;
         }
         else
@@ -236,7 +306,7 @@ private:
 
                 if (Current == NULL)
                 {
-                    cerr << "\nSomething went wrong while inserting node in Round1's List\n";
+                    cerr << "\n-----> Something went wrong while inserting node in Round1's List\n\n";
                     return;
                 }
                 else
@@ -259,7 +329,7 @@ private:
 
         if (NewNode == NULL)
         {
-            cerr << "\nUnable to allocate Memory For Creating Node for Round2\n";
+            cerr << "\n-----> Unable to allocate Memory For Creating Node for Round2\n\n";
             return;
         }
         else
@@ -294,7 +364,7 @@ private:
 
                 if (Current == NULL)
                 {
-                    cerr << "\nSomething went wrong while inserting node in Round2's List\n";
+                    cerr << "\n-----> Something went wrong while inserting node in Round2's List\n\n";
                     return;
                 }
                 else
@@ -317,7 +387,7 @@ private:
 
         if (NewNode == NULL)
         {
-            cerr << "\nUnable to allocate Memory For Creating Node for Round3\n";
+            cerr << "\n-----> Unable to allocate Memory For Creating Node for Round3\n\n";
             return;
         }
         else
@@ -352,7 +422,7 @@ private:
 
                 if (Current == NULL)
                 {
-                    cerr << "\nSomething went wrong while inserting node in Round3's List\n";
+                    cerr << "\n-----> Something went wrong while inserting node in Round3's List\n\n";
                     return;
                 }
                 else
@@ -375,7 +445,7 @@ private:
 
         if (NewNode == NULL)
         {
-            cerr << "\nUnable to allocate Memory For Creating Node for Round4\n";
+            cerr << "\n-----> Unable to allocate Memory For Creating Node for Round4\n\n";
             return;
         }
         else
@@ -410,7 +480,7 @@ private:
 
                 if (Current == NULL)
                 {
-                    cerr << "\nSomething went wrong while inserting node in Round4's List\n";
+                    cerr << "\n-----> Something went wrong while inserting node in Round4's List\n\n";
                     return;
                 }
                 else
@@ -433,7 +503,7 @@ private:
 
         if (NewNode == NULL)
         {
-            cerr << "\nUnable to allocate Memory For Creating Node for Final Round\n";
+            cerr << "\n-----> Unable to allocate Memory For Creating Node for Final Round\n\n";
             return;
         }
         else
@@ -468,7 +538,7 @@ private:
 
                 if (Current == NULL)
                 {
-                    cerr << "\nSomething went wrong while inserting node in Final Round's List\n";
+                    cerr << "\n-----> Something went wrong while inserting node in Final Round's List\n\n";
                     return;
                 }
                 else
@@ -498,7 +568,10 @@ private:
 
         if (!file.is_open())
         {
-            cerr << "\nError in Opening Round1's File\nPlease Try again with valid File Path :) \n";
+            cout << endl;
+            PrintHorizontalLine(115);
+            cerr << "\n-----> Error in Opening \" Round 1's File \" of Company \" " << CompanyName << " \" \n-----> Please Try again with valid File Path :) \n\n";
+            PrintHorizontalLine(115);
             return;
         }
         else
@@ -564,7 +637,7 @@ private:
 
             file.close();
 
-            cout << "\n<------ Successfully Data Fetched From the \" Round1's File \" of Company \" " << CompanyName << " \" <--------\n\n";
+            cout << "<------ Successfully Data Fetched From the \" Round1's File \" of Company \" " << CompanyName << " \" <--------\n\n";
         }
     }
 
@@ -579,8 +652,10 @@ private:
 
         if (!file.is_open())
         {
-            cerr << "\nError in Opening Round2's File\nPlease Try again with valid File Path :) \n";
-            return;
+            cout << endl;
+            PrintHorizontalLine(115);
+            cerr << "\n-----> Error in Opening \" Round 2's File \" of Company \" " << CompanyName << " \" \n-----> Please Try again with valid File Path :) \n\n";
+            PrintHorizontalLine(115);
         }
         else
         {
@@ -634,7 +709,7 @@ private:
 
             file.close();
 
-            cout << "\n<------ Successfully Data Fetched From the \" Round2's File \" of Company \" " << CompanyName << " \" <--------\n\n";
+            cout << "<------ Successfully Data Fetched From the \" Round2's File \" of Company \" " << CompanyName << " \" <--------\n\n";
         }
     }
 
@@ -649,8 +724,10 @@ private:
 
         if (!file.is_open())
         {
-            cerr << "\nError in Opening Round3's File\nPlease Try again with valid File Path :) \n";
-            return;
+            cout << endl;
+            PrintHorizontalLine(115);
+            cerr << "\n-----> Error in Opening \" Round 3's File \" of Company \" " << CompanyName << " \" \n-----> Please Try again with valid File Path :) \n\n";
+            PrintHorizontalLine(115);
         }
         else
         {
@@ -704,7 +781,7 @@ private:
 
             file.close();
 
-            cout << "\n<------ Successfully Data Fetched From the \" Round3's \" File of Company \" " << CompanyName << " \" <--------\n\n";
+            cout << "<------ Successfully Data Fetched From the \" Round3's \" File of Company \" " << CompanyName << " \" <--------\n\n";
         }
     }
 
@@ -719,8 +796,10 @@ private:
 
         if (!file.is_open())
         {
-            cerr << "\nError in Opening Round4's File\nPlease Try again with valid File Path :) \n";
-            return;
+            cout << endl;
+            PrintHorizontalLine(115);
+            cerr << "\n-----> Error in Opening \" Round 4's File \" of Company \" " << CompanyName << " \" \n-----> Please Try again with valid File Path :) \n\n";
+            PrintHorizontalLine(115);
         }
         else
         {
@@ -774,7 +853,7 @@ private:
 
             file.close();
 
-            cout << "\n<------ Successfully Data Fetched From the \" Round4's File \" of Company \" " << CompanyName << " \" <--------\n\n";
+            cout << "<------ Successfully Data Fetched From the \" Round4's File \" of Company \" " << CompanyName << " \" <--------\n\n";
         }
     }
 
@@ -789,8 +868,10 @@ private:
 
         if (!file.is_open())
         {
-            cerr << "\nError in Opening Final Round's File\nPlease Try again with valid File Path :) \n";
-            return;
+            cout << endl;
+            PrintHorizontalLine(115);
+            cerr << "\n-----> Error in Opening \" Final Round's File \" of Company \" " << CompanyName << " \" \n-----> Please Try again with valid File Path :) \n\n";
+            PrintHorizontalLine(115);
         }
         else
         {
@@ -861,9 +942,71 @@ private:
 
             file.close();
 
-            cout << "\n<---- Successfully Data Fetched From the \" Final Round's File \" of Company \" " << CompanyName << " \" <-----\n\n";
+            cout << "<---- Successfully Data Fetched From the \" Final Round's File \" of Company \" " << CompanyName << " \" <-----\n\n";
+
+            cout << "\n\n<---------------------------------------------------------------------------------------------------------------------->\n";
+            cout << "\n----------------------------> Successfully Data fechted from The Files of Company \" " << CompanyName << " \" <---------------------------\n";
+            cout << "\n<---------------------------------------------------------------------------------------------------------------------->\n\n";
         }
     }
+
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //---------------------------------------------------- Function Input Data -------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+
+public:
+    void InputPlacementData()
+    {
+        cin.ignore();
+
+        string CompanyName;
+        cout << "\n#-----> Enter Company's Name : ";
+        getline(cin, CompanyName);
+
+        cout << "\n\n<---------------------------------------------------------------------------------------------------------------------->\n";
+        cout << "\n----------------------------------> Fetching Data from The Files of Company \" " << CompanyName << " \" <--------------------------------\n";
+        cout << "\n<---------------------------------------------------------------------------------------------------------------------->\n\n";
+
+        string filepath;
+        cout << "\n#----> Enter File Path for Round 1's file : ";
+        getline(cin, filepath);
+        ReadFileForRound1(filepath, CompanyName); // Collect Data From Round1's File
+
+        cout << "\n#-----> Enter File Path for Round 2's file : ";
+        getline(cin, filepath);
+        ReadFileForRound2(filepath, CompanyName); // Collect Data From Round2's File
+
+        cout << "\n#-----> Enter File Path for Round 3's file : ";
+        getline(cin, filepath);
+        ReadFileForRound3(filepath, CompanyName); // Collect Data From Round3's File
+
+        cout << "\n#-----> Enter File Path for Round 4's file : ";
+        getline(cin, filepath);
+        ReadFileForRound4(filepath, CompanyName); // Collect Data From Round4's File
+
+        cout << "\n#-----> Enter File Path for Final Round's file : ";
+        getline(cin, filepath);
+        ReadFileForFinalRound(filepath, CompanyName); // Collect Data From Final Round's File
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //<---------------------------------------------------- // FUNCTIONS TO Sort DATA // ------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+private:
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------ // Helper Functions for Display and Writing Sorted Data //------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
 
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
@@ -871,14 +1014,7 @@ private:
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
 
-    //--->Helper function to print a horizontal line
-
-    void PrintHorizontalLine(int width, char fillChar = '-')
-    {
-        cout << setfill(fillChar) << setw(width) << "" << setfill(' ') << endl;
-    }
-
-    //---------------------------------------Helper Function to Display Whole Data for Round 1 to 4 ------------------------------>
+    //--------------------------------------- Helper Function to Display Whole Data for Round 1 to 4 ------------------------------>
 
     void DisplayRound1to4WholeData(Node1 *Head)
     {
@@ -896,11 +1032,13 @@ private:
                  << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
                  << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
                  << "|" << setw(10) << left << Current->year << "|" << endl;
+
+            Current = Current->next;
         }
         PrintHorizontalLine(157);
     }
 
-    //---------------------------------------Helper Function to Display Whole Data for Final Round ------------------------------->
+    //--------------------------------------- Helper Function to Display Whole Data for Final Round ------------------------------->
 
     void DisplayFinalRoundWholeData(Node2 *Head)
     {
@@ -917,6 +1055,8 @@ private:
                  << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
                  << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package
                  << "|" << setw(10) << left << Current->year << "|" << endl;
+
+            Current = Current->next;
         }
         PrintHorizontalLine(177);
     }
@@ -991,7 +1131,10 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cout << endl;
+            PrintHorizontalLine(115);
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            PrintHorizontalLine(115);
             return;
         }
 
@@ -1010,7 +1153,7 @@ private:
             i++;
         }
 
-        cout << "\nData Written Successfully....\n";
+        cout << "\n-----> Data Written Successfully....\n\n";
 
         outputFile.close();
     }
@@ -1025,7 +1168,10 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cout << endl;
+            PrintHorizontalLine(115);
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            PrintHorizontalLine(115);
             return;
         }
 
@@ -1044,14 +1190,14 @@ private:
             i++;
         }
 
-        cout << "\nData Written Successfully....\n";
+        cout << "\n-----> Data Written Successfully....\n\n";
 
         outputFile.close();
     }
 
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
-    //---------------------------- Functions to Display BatchWise Data of Respective Round of particular Batch --------------------------------->
+    //------------------------------------------- Functions to Display BatchWise Data of Respective Round -------------------------------------->
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
 
@@ -1060,19 +1206,16 @@ private:
     void DisplayRound1to4BatchWiseData(Node1 *Head, int batch)
     {
         cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
 
         Node1 *Current = Head;
-
-        bool batch_found = false;
 
         while (Current != NULL)
         {
             if (Current->batch == batch)
             {
-                batch_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -1083,10 +1226,7 @@ private:
             Current = Current->next;
         }
 
-        if (!batch_found)
-            cout << "\nStudents of Batch " << batch << "  does not found , Enter Valid Batch and Try Again \n";
-
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
     }
 
     //---------------------------------------Helper Function to Display BatchWise Data for Final Round ------------------------------->
@@ -1094,19 +1234,16 @@ private:
     void DisplayFinalRoundBatchWiseData(Node2 *Head, int batch)
     {
         cout << endl;
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
 
         Node2 *Current = Head;
-
-        bool batch_found = false;
 
         while (Current != NULL)
         {
             if (Current->batch == batch)
             {
-                batch_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -1116,9 +1253,6 @@ private:
 
             Current = Current->next;
         }
-
-        if (!batch_found)
-            cout << "\nStudents of Batch " << batch << "  does not found , Enter Valid Batch and Try Again \n";
 
         PrintHorizontalLine(177); // Printing horizontal line
     }
@@ -1188,7 +1322,9 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+
+            cerr << "\n----> Error in Opening File for Writing Data\n\n";
+            PrintHorizontalLine(115);
             return;
         }
 
@@ -1197,13 +1333,10 @@ private:
         int i = 1;
         Node1 *Current = Head;
 
-        bool batch_found = false;
-
         while (Current != nullptr)
         {
             if (Current->batch == batch)
             {
-                batch_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -1215,10 +1348,7 @@ private:
             Current = Current->next;
         }
 
-        if (!batch_found)
-            cout << "\nStudents of Batch " << batch << "  does not found , Enter Valid Batch and Try Again \n";
-        else
-            cout << "\nData Written Successfully....\n";
+        cout << "\n-----> Data Written Successfully....\n\n";
 
         outputFile.close();
     }
@@ -1233,7 +1363,8 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+
             return;
         }
 
@@ -1242,13 +1373,10 @@ private:
         int i = 1;
         Node2 *Current = Head;
 
-        bool batch_found = false;
-
         while (Current != nullptr)
         {
             if (Current->batch == batch)
             {
-                batch_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -1260,10 +1388,7 @@ private:
             Current = Current->next;
         }
 
-        if (!batch_found)
-            cout << "\nStudents of Batch " << batch << "  does not found , Enter Valid Batch and Try Again \n";
-        else
-            cout << "\nData Written Successfully....\n";
+        cout << "\n-----> Data Written Successfully....\n\n";
 
         outputFile.close();
     }
@@ -1279,19 +1404,16 @@ private:
     void DisplayRound1to4ProgramWiseData(Node1 *Head, string program)
     {
         cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
 
         Node1 *Current = Head;
-
-        bool program_found = false;
 
         while (Current != NULL)
         {
             if (Current->program == program)
             {
-                program_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -1302,10 +1424,7 @@ private:
             Current = Current->next;
         }
 
-        if (!program_found)
-            cout << "\nStudent of Program " << program << "  does not found , Enter Valid Program Name and Try Again \n";
-
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
     }
 
     //-------------------------------------- Helper Function to Display ProgramWise Data for Final Round ------------------------------->
@@ -1313,19 +1432,16 @@ private:
     void DisplayFinalRoundProgramWiseData(Node2 *Head, string program)
     {
         cout << endl;
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
 
         Node2 *Current = Head;
-
-        bool program_found = false;
 
         while (Current != NULL)
         {
             if (Current->program == program)
             {
-                program_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -1336,10 +1452,7 @@ private:
             Current = Current->next;
         }
 
-        if (!program_found)
-            cout << "\nStudents of Program " << program << "  does not found , Enter Valid Program Name and Try Again \n";
-
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
@@ -1407,7 +1520,8 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
             return;
         }
 
@@ -1416,13 +1530,10 @@ private:
         int i = 1;
         Node1 *Current = Head;
 
-        bool program_found = false;
-
         while (Current != nullptr)
         {
             if (Current->program == program)
             {
-                program_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -1434,10 +1545,7 @@ private:
             Current = Current->next;
         }
 
-        if (!program_found)
-            cout << "\nStudents of Program " << program << "  does not found , Enter Valid Program Name and Try Again \n";
-        else
-            cout << "\nData Written Successfully...\n";
+        cout << "\n-----> Data Written Successfully...\n\n";
 
         outputFile.close();
     }
@@ -1452,7 +1560,7 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
             return;
         }
 
@@ -1461,13 +1569,10 @@ private:
         int i = 1;
         Node2 *Current = Head;
 
-        bool program_found = false;
-
         while (Current != nullptr)
         {
             if (Current->program == program)
             {
-                program_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -1479,10 +1584,200 @@ private:
             Current = Current->next;
         }
 
-        if (!program_found)
-            cout << "\nStudents of Program " << program << "  does not found , Enter Valid Program Name and Try Again \n";
-        else
-            cout << "\nData Written Successfully...\n";
+        cout << "\n-----> Data Written Successfully...\n\n";
+
+        outputFile.close();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //---------------------------------- Functions to Display YearWise Data of Respective Round ------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    //---------------------------------------Helper Function to Display YearWise Data for Round 1 to 4 ------------------------------>
+
+    void DisplayRound1to4YearWiseData(Node1 *Head, int year)
+    {
+        cout << endl;
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157);
+
+        Node1 *Current = Head;
+
+        while (Current != NULL)
+        {
+            if (Current->year == year)
+            {
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        PrintHorizontalLine(157);
+    }
+
+    //---------------------------------------Helper Function to Display YearWise Data for Final Round ------------------------------->
+
+    void DisplayFinalRoundYearWiseData(Node2 *Head, int year)
+    {
+
+        cout << endl;
+        PrintHorizontalLine(177);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
+        PrintHorizontalLine(177);
+
+        Node2 *Current = Head;
+
+        while (Current != NULL)
+        {
+            if (Current->year == year)
+            {
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        PrintHorizontalLine(177);
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------- Function to Display YearWise Data Round Wise -------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+
+    void DisplayYearWiseData(int choice, int year)
+    {
+
+        switch (choice)
+        {
+        case 1:
+
+            cout << "\n<---------------------------------------------- Displaying Data For Round 1 of Year " << year << " ---------------------------------------->\n";
+            DisplayRound1to4YearWiseData(HeadR1, year);
+            cout << "\n<-------------------------------------------- End of Data For Round 1 of Year " << year << " ----------------------------------------------->\n";
+            break;
+
+        case 2:
+
+            cout << "\n<---------------------------------------------- Displaying Data For Round 2 of Year " << year << " ---------------------------------------->\n";
+            DisplayRound1to4YearWiseData(HeadR2, year);
+            cout << "\n<-------------------------------------------- End of Data For Round 2 of Year " << year << " ---------------------------------------------->\n";
+            break;
+
+        case 3:
+
+            cout << "\n<---------------------------------------------- Displaying Data For Round 3 of Year " << year << " --------------------------------------->\n";
+            DisplayRound1to4YearWiseData(HeadR3, year);
+            cout << "\n<-------------------------------------------- End of Data For Round 3 of Year " << year << " --------------------------------------------->\n";
+            break;
+
+        case 4:
+
+            cout << "\n<---------------------------------------------- Displaying Data For Round 4 of Year " << year << " --------------------------------------->\n";
+            DisplayRound1to4YearWiseData(HeadR4, year);
+            cout << "\n<-------------------------------------------- End of Data For Round 4 of Year " << year << " --------------------------------------------->\n";
+            break;
+
+        case 5:
+
+            cout << "\n<-------------------------------------------- Displaying Data For Final Round of Year " << year << " ------------------------------------->\n";
+            DisplayFinalRoundYearWiseData(HeadFR, year);
+            cout << "\n<------------------------------------------ End of Data For Final Round of Year " << year << " ------------------------------------------->\n";
+            break;
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //----------------------------------------------- Functions to Write YearWise Data of Respective Round in file ----------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    //-------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------- Function to Write YearWise Sorted Data of Round 1 to 4 ----------------------------->
+    //-------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteYearWiseSortedDataForRound1to4(const string &filepath, Node1 *Head, int year)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+        int i = 1;
+        Node1 *Current = Head;
+
+        while (Current != nullptr)
+        {
+            if (Current->year == year)
+            {
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        cout << "-----> Data Written Successfully...\n\n";
+
+        outputFile.close();
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------->
+    //----------------------------------- Function to Write BatchWise Sorted Data of Final Round ------------------------------->
+    //-------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteYearWiseSortedDataForFinalRound(const string &filepath, Node2 *Head, int year)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package,Year\n";
+
+        int i = 1;
+        Node2 *Current = Head;
+
+        while (Current != nullptr)
+        {
+            if (Current->year == year)
+            {
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->package << "," << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        cout << "\n-----> Data Written Successfully...\n\n";
 
         outputFile.close();
     }
@@ -1498,19 +1793,16 @@ private:
     void DisplayRound1to4CompanyWiseData(Node1 *Head, string company)
     {
         cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
 
         Node1 *Current = Head;
-
-        bool company_found = false;
 
         while (Current != NULL)
         {
             if (Current->company == company)
             {
-                company_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -1521,10 +1813,7 @@ private:
             Current = Current->next;
         }
 
-        if (!company_found)
-            cout << "\nStudents of Company " << company << "  does not found , Enter Valid Company Name and Try Again \n";
-
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
     }
 
     //-------------------------------------- Helper Function to Display CompanyWise Data for Final Round ------------------------------->
@@ -1532,19 +1821,16 @@ private:
     void DisplayFinalRoundCompanyWiseData(Node2 *Head, string company)
     {
         cout << endl;
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
 
         Node2 *Current = Head;
-
-        bool company_found = false;
 
         while (Current != NULL)
         {
             if (Current->company == company)
             {
-                company_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -1555,10 +1841,7 @@ private:
             Current = Current->next;
         }
 
-        if (!company_found)
-            cout << "\nStudents of Company " << company << "  does not found , Enter Valid Program Name and Try Again \n";
-
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
@@ -1628,7 +1911,7 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
             return;
         }
 
@@ -1637,13 +1920,10 @@ private:
         int i = 1;
         Node1 *Current = Head;
 
-        bool company_found = false;
-
         while (Current != nullptr)
         {
             if (Current->company == company)
             {
-                company_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -1655,10 +1935,7 @@ private:
             Current = Current->next;
         }
 
-        if (!company_found)
-            cout << "\nStudents of Company " << company << "  does not found , Enter Valid Company Name and Try Again \n";
-        else
-            cout << "\nData Written Successfully...\n";
+        cout << "\n-----> Data Written Successfully...\n\n";
 
         outputFile.close();
     }
@@ -1673,7 +1950,7 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cerr << "\n-----> Error in Opening File for Writing Data\n";
             return;
         }
 
@@ -1682,13 +1959,10 @@ private:
         int i = 1;
         Node2 *Current = Head;
 
-        bool company_found = false;
-
         while (Current != nullptr)
         {
             if (Current->company == company)
             {
-                company_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -1700,10 +1974,190 @@ private:
             Current = Current->next;
         }
 
-        if (!company_found)
-            cout << "\nStudents of Company " << company << "  does not found , Enter Valid Company Name and Try Again \n";
-        else
-            cout << "\nData Written Successfully...\n";
+        cout << "\n-----> Data Written Successfully...\n\n";
+
+        outputFile.close();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //--------------------------- Functions to Display Batchwise Data of a Particular Company for Respective Rounds ---------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    //------------------------- Helper Function to Display Batchwise Data of particular Company for Rounds 1 to 4 ------------------------------>
+
+    void DisplayBatchOFCompanyWiseDataForRound1to4(Node1 *Head, int batch, string company)
+    {
+        cout << endl;
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157);
+
+        Node1 *Current = Head;
+
+        while (Current != nullptr)
+        {
+            if (Current->batch == batch && Current->company == company)
+            {
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        PrintHorizontalLine(157);
+    }
+
+    //---------------------------- Helper Function to Display Batchwise Data of particluar Company for the Final Round ---------------------------->
+
+    void DisplayBatchOFCompanyWiseDataForFinalRound(Node2 *Head, int batch, string company)
+    {
+        cout << endl;
+        PrintHorizontalLine(177);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
+        PrintHorizontalLine(177);
+
+        Node2 *Current = Head;
+
+        while (Current != nullptr)
+        {
+            if (Current->batch == batch && Current->company == company)
+            {
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company << "|" << setw(15) << left << Current->package
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        PrintHorizontalLine(177);
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------->
+    //------------- Function to Display Batchwise Data of a Particular Company for Respective Rounds ---------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+
+    void DisplayBatchOFCompanyWiseData(int roundChoice, int batch, string company)
+    {
+        switch (roundChoice)
+        {
+        case 1:
+            cout << "\n<---------------------------------------------- Displaying Data For Round 1 of Batch " << batch << " and Company " << company << " ---------------------------------------->\n";
+            DisplayBatchOFCompanyWiseDataForRound1to4(HeadR1, batch, company);
+            cout << "\n<-------------------------------------------- End of Data For Round 1 of Batch " << batch << " and Company " << company << "----------------------------------------------->\n";
+            break;
+        case 2:
+            cout << "\n<---------------------------------------------- Displaying Data For Round 2 of Batch " << batch << " and Company " << company << " ---------------------------------------->\n";
+            DisplayBatchOFCompanyWiseDataForRound1to4(HeadR2, batch, company);
+            cout << "\n<-------------------------------------------- End of Data For Round 2 of Batch " << batch << " and Company " << company << " ---------------------------------------------->\n";
+            break;
+        case 3:
+            cout << "\n<---------------------------------------------- Displaying Data For Round 3 of Batch " << batch << " and Company " << company << " --------------------------------------->\n";
+            DisplayBatchOFCompanyWiseDataForRound1to4(HeadR3, batch, company);
+            cout << "\n<-------------------------------------------- End of Data For Round 3 of Batch " << batch << " and Company " << company << " --------------------------------------------->\n";
+            break;
+        case 4:
+            cout << "\n<---------------------------------------------- Displaying Data For Round 4 of Batch " << batch << " and Company " << company << " --------------------------------------->\n";
+            DisplayBatchOFCompanyWiseDataForRound1to4(HeadR4, batch, company);
+            cout << "\n<-------------------------------------------- End of Data For Round 4 of Batch " << batch << " and Company " << company << " --------------------------------------------->\n";
+            break;
+        case 5:
+            cout << "\n<-------------------------------------------- Displaying Data For Final Round of Batch " << batch << " and Company " << company << " ------------------------------------->\n";
+            DisplayBatchOFCompanyWiseDataForFinalRound(HeadFR, batch, company);
+            cout << "\n<------------------------------------------ End of Data For Final Round of Batch " << batch << " and Company " << company << " ------------------------------------------->\n";
+            break;
+        default:
+            cout << "\nInvalid Choice \n\n";
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //--------------------- Functions to Write Batchwise Data of Particular Company for Respective Rounds in a file ---------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    //-------------------------------------------------------------------------------------------------------------------------->
+    //------------------- Function to Write Batchwise Sorted Data of Particular Company for Rounds 1 to 4 ---------------------->
+    //-------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteBatchOFCompanyWiseSortedDataForRound1To4(const string &filepath, Node1 *Head, int batch, string company)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+        int i = 1;
+        Node1 *Current = Head;
+
+        while (Current != nullptr)
+        {
+            if (Current->batch == batch && Current->company == company)
+            {
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        cout << "\n-----> Data Written Successfully...\n\n";
+
+        outputFile.close();
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------->
+    //--------------------- Function to Write Batchwise Sorted Data of Particular Company for Final Round ---------------------->
+    //-------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteBatchOFCompanyWiseSortedDataForFinalRound(const string &filepath, Node2 *Head, int batch, string company)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Package,Year\n";
+
+        int i = 1;
+        Node2 *Current = Head;
+
+        while (Current != nullptr)
+        {
+            if (Current->batch == batch && Current->company == company)
+            {
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->package << "," << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        cout << "\n-----> Data Written Successfully...\n\n";
 
         outputFile.close();
     }
@@ -1719,19 +2173,16 @@ private:
     void DisplayRound1to4ProgramOFBatchWiseData(Node1 *Head, string program, int batch)
     {
         cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
 
         Node1 *Current = Head;
-
-        bool programOFbatch_found = false;
 
         while (Current != NULL)
         {
             if (Current->program == program && Current->batch == batch)
             {
-                programOFbatch_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -1742,10 +2193,7 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFbatch_found)
-            cout << "\nStudents of Program " << program << " and Batch " << batch << " do not found, Enter Valid Program and Batch Name and Try Again \n";
-
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
     }
 
     //---------------------------- Helper Function to Display Programwise Data of particluar Batch for the Final Round ---------------------------->
@@ -1754,19 +2202,16 @@ private:
     {
 
         cout << endl;
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
 
         Node2 *Current = Head;
-
-        bool programOFbatch_found = false;
 
         while (Current != NULL)
         {
             if (Current->program == program && Current->batch == batch)
             {
-                programOFbatch_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -1777,10 +2222,7 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFbatch_found)
-            cout << "\nStudents of Program " << program << " and Batch " << batch << " do not found, Enter Valid Program and Batch Name and Try Again \n";
-
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
@@ -1845,7 +2287,7 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
             return;
         }
 
@@ -1854,13 +2296,10 @@ private:
         int i = 1;
         Node1 *Current = Head;
 
-        bool programOFbatch_found = false;
-
         while (Current != nullptr)
         {
             if (Current->program == program && Current->batch == batch)
             {
-                programOFbatch_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -1872,10 +2311,7 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFbatch_found)
-            cout << "\nStudents of Program " << program << " and Batch " << batch << " do not found, Enter Valid Program and Batch Try Again \n";
-        else
-            cout << "Data Written Successfully...\n";
+        cout << "\n-----> Data Written Successfully...\n\n";
 
         outputFile.close();
     }
@@ -1890,7 +2326,7 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
             return;
         }
 
@@ -1899,13 +2335,10 @@ private:
         int i = 1;
         Node2 *Current = Head;
 
-        bool programOFbatch_found = false;
-
         while (Current != nullptr)
         {
             if (Current->program == program && Current->batch == batch)
             {
-                programOFbatch_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -1917,10 +2350,7 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFbatch_found)
-            cout << "\nStudents of Program " << program << " and Batch " << batch << " do not found, Enter Valid Program and Batch Try Again \n";
-        else
-            cout << "\nData Written Successfully...\n";
+        cout << "\n-----> Data Written Successfully...\n\n";
 
         outputFile.close();
     }
@@ -1936,18 +2366,16 @@ private:
     void DisplayRound1to4ProgramOFCompanyWiseData(Node1 *Head, string program, string company)
     {
         cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
 
         Node1 *Current = Head;
-        bool programOFcompany_found = false;
 
         while (Current != NULL)
         {
             if (Current->program == program && Current->company == company)
             {
-                programOFcompany_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -1958,10 +2386,7 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFcompany_found)
-            cout << "\nStudents of Program " << program << " and Company " << company << " do not found, Enter Valid Program and Company Try Again \n";
-
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
     }
 
     //---------------------------- Helper Function to Display Programwise Data of particluar Company for the Final Round ---------------------------->
@@ -1970,19 +2395,16 @@ private:
     {
 
         cout << endl;
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
 
         Node2 *Current = Head;
-
-        bool programOFcompany_found = false;
 
         while (Current != NULL)
         {
             if (Current->program == program && Current->company == company)
             {
-                programOFcompany_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -1993,10 +2415,7 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFcompany_found)
-            cout << "\nStudents of Program " << program << " and Company " << company << " do not found, Enter Valid Program and Company Try Again \n";
-
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
@@ -2061,7 +2480,7 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
             return;
         }
 
@@ -2070,13 +2489,10 @@ private:
         int i = 1;
         Node1 *Current = Head;
 
-        bool programOFcompany_found = false;
-
         while (Current != nullptr)
         {
             if (Current->program == program && Current->company == company)
             {
-                programOFcompany_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -2088,10 +2504,7 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFcompany_found)
-            cout << "\nStudents of Program " << program << " and Company " << company << " do not found, Enter Valid Program and Company Try Again \n";
-        else
-            cout << "Data Written Successfully...\n";
+        cout << "\n-----> Data Written Successfully...\n\n";
 
         outputFile.close();
     }
@@ -2106,7 +2519,7 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
             return;
         }
 
@@ -2115,13 +2528,10 @@ private:
         int i = 1;
         Node2 *Current = Head;
 
-        bool programOFcompany_found = false;
-
         while (Current != nullptr)
         {
             if (Current->program == program && Current->company == company)
             {
-                programOFcompany_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -2133,17 +2543,14 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFcompany_found)
-            cout << "\nStudents of Program " << program << " and Company " << company << " do not found, Enter Valid Program and Company Try Again \n";
-        else
-            cout << "\nData Written Successfully...\n";
+        cout << "\n-----> Data Written Successfully...\n\n";
 
         outputFile.close();
     }
 
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
-    //--------------------------- Functions to Display Yearwise Data of a Particular Batch for Respective Rounds ---------------------------->
+    //------------------------------ Functions to Display Yearwise Data of a Particular Batch for Respective Rounds ---------------------------->
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
 
@@ -2152,18 +2559,16 @@ private:
     void DisplayRound1to4YearAndBatchWiseData(Node1 *Head, int year, int batch)
     {
         cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
 
         Node1 *Current = Head;
 
-        bool programOFbatch_found = false;
         while (Current != NULL)
         {
             if (Current->year == year && Current->batch == batch)
             {
-                programOFbatch_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -2174,10 +2579,7 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFbatch_found)
-            cout << "\nStudents of Year " << year << " and Batch " << batch << " do not found, Enter Valid Year and Batch Try Again \n";
-
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
     }
 
     //---------------------------- Helper Function to Display Yearwise Data of particluar Batch for the Final Round ---------------------------->
@@ -2186,19 +2588,16 @@ private:
     {
 
         cout << endl;
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
 
         Node2 *Current = Head;
-
-        bool programOFbatch_found = false;
 
         while (Current != NULL)
         {
             if (Current->year == year && Current->batch == batch)
             {
-                programOFbatch_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -2209,14 +2608,11 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFbatch_found)
-            cout << "\nStudents of Year " << year << " and Batch " << batch << " do not found, Enter Valid Year and Batch Try Again \n";
-
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
-    //------------- Function to Display Yearwise Data of a Particular Batch for Respective Rounds ---------------------->
+    //----------------- Function to Display Yearwise Data of a Particular Batch for Respective Rounds --------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
     void DisplayYearAndBatchWiseData(int choice, int year, int batch)
@@ -2263,12 +2659,12 @@ private:
 
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
-    //--------------------- Functions to Write Yearwise Data of Particular Batch for Respective Rounds in a file ---------------------------->
+    //------------------------ Functions to Write Yearwise Data of Particular Batch for Respective Rounds in a file ---------------------------->
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
 
     //-------------------------------------------------------------------------------------------------------------------------->
-    //------------------- Function to Write Yearwise Sorted Data of Particular Batch for Rounds 1 to 4 ---------------------->
+    //---------------------- Function to Write Yearwise Sorted Data of Particular Batch for Rounds 1 to 4 ---------------------->
     //-------------------------------------------------------------------------------------------------------------------------->
 
     void WriteYearAndBatchWiseSortedDataForRound1to4(const string &filepath, Node1 *Head, int year, int batch)
@@ -2277,7 +2673,7 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
             return;
         }
 
@@ -2286,13 +2682,10 @@ private:
         int i = 1;
         Node1 *Current = Head;
 
-        bool programOFbatch_found = false;
-
         while (Current != nullptr)
         {
             if (Current->year == year && Current->batch == batch)
             {
-                programOFbatch_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -2304,16 +2697,13 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFbatch_found)
-            cout << "\nStudents of Year " << year << " and Batch " << batch << " do not found, Enter Valid Year and Batch Try Again \n";
-        else
-            cout << "Data Written Successfully...\n";
+        cout << "\n-----> Data Written Successfully...\n\n";
 
         outputFile.close();
     }
 
     //-------------------------------------------------------------------------------------------------------------------------->
-    //--------------------- Function to Write Yearwise Sorted Data of Particular Batch for Final Round ---------------------->
+    //------------------------ Function to Write Yearwise Sorted Data of Particular Batch for Final Round ---------------------->
     //-------------------------------------------------------------------------------------------------------------------------->
 
     void WriteYearAndBatchWiseSortedDataForFinalRound(const string &filepath, Node2 *Head, int year, int batch)
@@ -2322,7 +2712,7 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
             return;
         }
 
@@ -2331,13 +2721,10 @@ private:
         int i = 1;
         Node2 *Current = Head;
 
-        bool programOFbatch_found = false;
-
         while (Current != nullptr)
         {
             if (Current->year == year && Current->batch == batch)
             {
-                programOFbatch_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -2349,10 +2736,7 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFbatch_found)
-            cout << "\nStudents of Year " << year << " and Batch " << batch << " do not found, Enter Valid Year and Batch and Try Again \n";
-        else
-            cout << "\nData Written Successfully...\n";
+        cout << "\n-----> Data Written Successfully...\n\n";
 
         outputFile.close();
     }
@@ -2368,19 +2752,16 @@ private:
     void DisplayRound1to4ProgramOFYearWiseData(Node1 *Head, string program, int year)
     {
         cout << endl;
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
 
         Node1 *Current = Head;
-
-        bool programOFyear_found = false;
 
         while (Current != NULL)
         {
             if (Current->program == program && Current->year == year)
             {
-                programOFyear_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -2391,10 +2772,7 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFyear_found)
-            cout << "\nStudents of Program " << program << " and Year " << year << " do not found, Enter Valid Year and Program Try Again \n";
-
-        PrintHorizontalLine(157); // Printing horizontal line
+        PrintHorizontalLine(157);
     }
 
     //---------------------------- Helper Function to Display Programwise Data of particluar Year for the Final Round ---------------------------->
@@ -2403,19 +2781,16 @@ private:
     {
 
         cout << endl;
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
         cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
 
         Node2 *Current = Head;
-
-        bool programOFyear_found = false;
 
         while (Current != NULL)
         {
             if (Current->program == program && Current->year == year)
             {
-                programOFyear_found = true;
 
                 cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                      << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -2426,10 +2801,7 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFyear_found)
-            cout << "\nStudents of Program " << program << " and Batch " << year << " do not found, Enter Valid Year and Program Try Again \n";
-
-        PrintHorizontalLine(177); // Printing horizontal line
+        PrintHorizontalLine(177);
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
@@ -2494,7 +2866,7 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
             return;
         }
 
@@ -2503,13 +2875,10 @@ private:
         int i = 1;
         Node1 *Current = Head;
 
-        bool programOFyear_found = false;
-
         while (Current != nullptr)
         {
             if (Current->program == program && Current->year == year)
             {
-                programOFyear_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -2521,10 +2890,7 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFyear_found)
-            cout << "\nStudents of Program " << program << " and Year " << year << " do not found, Enter Valid Year and Program Try Again \n";
-        else
-            cout << "Data Written Successfully...\n";
+        cout << "\n-----> Data Written Successfully...\n\n";
 
         outputFile.close();
     }
@@ -2539,7 +2905,7 @@ private:
 
         if (!outputFile.is_open())
         {
-            cerr << "\nError in Opening File for Writing Data\n";
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
             return;
         }
 
@@ -2548,13 +2914,10 @@ private:
         int i = 1;
         Node2 *Current = Head;
 
-        bool programOFyear_found = false;
-
         while (Current != nullptr)
         {
             if (Current->program == program && Current->year == year)
             {
-                programOFyear_found = true;
 
                 outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                            << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -2566,91 +2929,36 @@ private:
             Current = Current->next;
         }
 
-        if (!programOFyear_found)
-            cout << "\nStudents of Program " << program << " and Year " << year << " do not found, Enter Valid Year and Program  Try Again \n";
-        else
-            cout << "\nData Written Successfully...\n";
+        cout << "\n-----> Data Written Successfully...\n\n";
 
         outputFile.close();
     }
 
-    ////////////////
-
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------------------- Function to Find Median Package --------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-
-    float FindMedianPackage(vector<float> &nums)
-    {
-        int n = nums.size();
-        std ::sort(nums.begin(), nums.end());
-
-        if (n % 2 == 0)
-        {
-            // If number of elements is even, median is the average of the middle two elements
-            return (nums[n / 2 - 1] + nums[n / 2]) / 2.0f;
-        }
-        else
-        {
-            // If number of elements is odd, median is the middle element
-            return nums[n / 2];
-        }
-    }
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //-------------------------------------------------------- //  Functions for Sorting Data // ----------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
 
 public:
     //--------------------------------------------------------------------------------------------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
-    //---------------------------------------Function to Input Data ------------------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-
-    void InputPlacementData()
-    {
-        string CompanyName;
-        cout << "\nEnter Company's Name : ";
-        getline(cin, CompanyName);
-
-        string filepath;
-        cout << "\nEnter File Path for Round 1's file : ";
-        cin >> filepath;
-        ReadFileForRound1(filepath, CompanyName); // Collect Data From Round1's File
-
-        cout << "\nEnter File Path for Round 2's file : ";
-        cin >> filepath;
-        ReadFileForRound2(filepath, CompanyName); // Collect Data From Round2's File
-
-        cout << "\nEnter File Path for Round 3's file : ";
-        cin >> filepath;
-        ReadFileForRound3(filepath, CompanyName); // Collect Data From Round3's File
-
-        cout << "\nEnter File Path for Round 4's file : ";
-        cin >> filepath;
-        ReadFileForRound4(filepath, CompanyName); // Collect Data From Round4's File
-
-        cout << "\nEnter File Path for Final Round's file : ";
-        cin >> filepath;
-        ReadFileForFinalRound(filepath, CompanyName); // Collect Data From Final Round's File
-    }
-
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-    //---------------------------------------------- Functions To Sort Data ----------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-
-    //--------------------------------------------------------------------------------------------------------------------->
     //---------------------------------------Function to Sort Whole Data -------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
     void SortWholeData()
     {
-        cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
+
+        cout << "\n#-----> To sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
         int choice;
-        cout << "\nEnter Choise : ";
+        cout << "\n#-----> Enter Choise : ";
         cin >> choice;
 
         string filepath;
@@ -2659,20 +2967,14 @@ public:
         {
         case 1:
 
-            if (HeadR1 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice1;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice1;
 
             if (choice1 == 'Y')
                 DisplayWholeDataRoundWise(1);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteWholeSortedDataForRound1to4(filepath, HeadR1);
@@ -2681,20 +2983,14 @@ public:
 
         case 2:
 
-            if (HeadR2 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice2;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice2;
 
             if (choice2 == 'Y')
                 DisplayWholeDataRoundWise(2);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteWholeSortedDataForRound1to4(filepath, HeadR2);
@@ -2703,20 +2999,14 @@ public:
 
         case 3:
 
-            if (HeadR3 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice3;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice3;
 
             if (choice3 == 'Y')
                 DisplayWholeDataRoundWise(3);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteWholeSortedDataForRound1to4(filepath, HeadR3);
@@ -2725,20 +3015,14 @@ public:
 
         case 4:
 
-            if (HeadR4 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice4;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice4;
 
             if (choice4 == 'Y')
                 DisplayWholeDataRoundWise(4);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteWholeSortedDataForRound1to4(filepath, HeadR4);
@@ -2747,20 +3031,14 @@ public:
 
         case 5:
 
-            if (HeadFR == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice5;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice5;
 
             if (choice5 == 'Y')
                 DisplayWholeDataRoundWise(5);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteWholeSortedDataForFinalRound(filepath, HeadFR);
@@ -2769,25 +3047,41 @@ public:
 
         default:
 
-            cout << "\nInvalid Choice \n";
+            cout << "\n<-----------------------> Invalid Choice <----------------------->\n\n";
         }
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
-    //-------------------------------------- Function to Sort Data Batch Wise --------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //-------------------------------------- Function to Sort Whole Data Batch Wise --------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
     void SortDataBatchWise()
     {
 
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
+
         int batch;
-        cout << "\nEnter Batch : ";
+        cout << "\n#-----> Enter Batch : ";
         cin >> batch;
 
-        cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
+        // Find Batch is in Data or Not
+
+        if (R1BatchAttempts[batch] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " does not found , Enter Valid Batch and Try Again \n\n";
+            return;
+        }
+
+        cout << "\n#-----> To sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
         int choice;
-        cout << "\nEnter Choise : ";
+        cout << "\n#-----> Enter Choise : ";
         cin >> choice;
 
         string filepath;
@@ -2796,20 +3090,14 @@ public:
         {
         case 1:
 
-            if (HeadR1 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice1;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice1;
 
             if (choice1 == 'Y')
                 DisplayBatchWiseData(1, batch);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteBatchWiseSortedDataForRound1to4(filepath, HeadR1, batch);
@@ -2818,20 +3106,14 @@ public:
 
         case 2:
 
-            if (HeadR2 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice2;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice2;
 
             if (choice2 == 'Y')
                 DisplayBatchWiseData(2, batch);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteBatchWiseSortedDataForRound1to4(filepath, HeadR2, batch);
@@ -2840,20 +3122,14 @@ public:
 
         case 3:
 
-            if (HeadR3 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice3;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice3;
 
             if (choice3 == 'Y')
                 DisplayBatchWiseData(3, batch);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteBatchWiseSortedDataForRound1to4(filepath, HeadR3, batch);
@@ -2862,20 +3138,14 @@ public:
 
         case 4:
 
-            if (HeadR4 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice4;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice4;
 
             if (choice4 == 'Y')
                 DisplayBatchWiseData(4, batch);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteBatchWiseSortedDataForRound1to4(filepath, HeadR4, batch);
@@ -2884,20 +3154,14 @@ public:
 
         case 5:
 
-            if (HeadFR == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice5;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice5;
 
             if (choice5 == 'Y')
                 DisplayBatchWiseData(5, batch);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteBatchWiseSortedDataForFinalRound(filepath, HeadFR, batch);
@@ -2906,25 +3170,43 @@ public:
 
         default:
 
-            cout << "\nInvalid Choice \n";
+            cout << "\n<-----------------------> Invalid Choice <----------------------->\n\n";
         }
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
     //-------------------------------------- Function to Sort Data Program Wise ------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
     void SortDataProgramWise()
     {
 
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
+
+        cin.ignore();
+
         string program;
-        cout << "\nEnter Program : ";
+        cout << "\n#-----> Enter Program : ";
         getline(cin, program);
 
-        cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
+        // Find Program is in Data or Not
+
+        if (R1ProgramAttempts[program] == 0)
+        {
+            cout << "\n-----> Students of Program " << program << " does not found , Enter Valid program and Try Again \n\n";
+            return;
+        }
+
+        cout << "\n#-----> To sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
         int choice;
-        cout << "\nEnter Choise : ";
+        cout << "\n#-----> Enter Choise : ";
         cin >> choice;
 
         string filepath;
@@ -2933,20 +3215,14 @@ public:
         {
         case 1:
 
-            if (HeadR1 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice1;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice1;
 
             if (choice1 == 'Y')
                 DisplayProgramWiseData(1, program);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramWiseSortedDataForRound1to4(filepath, HeadR1, program);
@@ -2955,20 +3231,14 @@ public:
 
         case 2:
 
-            if (HeadR2 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice2;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice2;
 
             if (choice2 == 'Y')
                 DisplayProgramWiseData(2, program);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramWiseSortedDataForRound1to4(filepath, HeadR2, program);
@@ -2977,20 +3247,14 @@ public:
 
         case 3:
 
-            if (HeadR3 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice3;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice3;
 
             if (choice3 == 'Y')
                 DisplayProgramWiseData(3, program);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramWiseSortedDataForRound1to4(filepath, HeadR3, program);
@@ -2999,20 +3263,14 @@ public:
 
         case 4:
 
-            if (HeadR4 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice4;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice4;
 
             if (choice4 == 'Y')
                 DisplayProgramWiseData(4, program);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramWiseSortedDataForRound1to4(filepath, HeadR4, program);
@@ -3021,20 +3279,14 @@ public:
 
         case 5:
 
-            if (HeadFR == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice5;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice5;
 
             if (choice5 == 'Y')
                 DisplayProgramWiseData(5, program);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramWiseSortedDataForFinalRound(filepath, HeadFR, program);
@@ -3043,25 +3295,38 @@ public:
 
         default:
 
-            cout << "\nInvalid Choice \n";
+            cout << "\n<-----------------------> Invalid Choice <----------------------->\n\n";
         }
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
-    //-------------------------------------- Function to Sort Data Company Wise ------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------- Function to Sort Whole Data Year Wise --------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
-    void SortDataCompanyWise()
+    void SortDataYearWise()
     {
+        if (IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
 
-        string company;
-        cout << "\nEnter Company Name : ";
-        getline(cin, company);
+        int year;
+        cout << "\n#-----> Enter Year : ";
+        cin >> year;
 
-        cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
+        if (R1YearAttempts[year] == 0)
+        {
+            cout << "\n-----> Students of Year " << year << " does not found , Enter Valid Year and Try Again \n\n";
+            return;
+        }
+
+        cout << "\n#-----> To sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
         int choice;
-        cout << "\nEnter Choise : ";
+        cout << "\n#-----> Enter Choise : ";
         cin >> choice;
 
         string filepath;
@@ -3070,20 +3335,139 @@ public:
         {
         case 1:
 
-            if (HeadR1 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-                break;
-            }
+            char choice1;
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+            cin >> choice1;
+
+            if (choice1 == 'Y')
+                DisplayYearWiseData(1, year);
+
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+            cin >> filepath;
+
+            WriteYearWiseSortedDataForRound1to4(filepath, HeadR1, year);
+
+            break;
+
+        case 2:
+
+            char choice2;
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+            cin >> choice2;
+
+            if (choice2 == 'Y')
+                DisplayYearWiseData(2, year);
+
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+            cin >> filepath;
+
+            WriteYearWiseSortedDataForRound1to4(filepath, HeadR2, year);
+
+            break;
+
+        case 3:
+
+            char choice3;
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+            cin >> choice3;
+
+            if (choice3 == 'Y')
+                DisplayYearWiseData(3, year);
+
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+            cin >> filepath;
+
+            WriteYearWiseSortedDataForRound1to4(filepath, HeadR3, year);
+
+            break;
+
+        case 4:
+
+            char choice4;
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+            cin >> choice4;
+
+            if (choice4 == 'Y')
+                DisplayYearWiseData(4, year);
+
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+            cin >> filepath;
+
+            WriteYearWiseSortedDataForRound1to4(filepath, HeadR4, year);
+
+            break;
+
+        case 5:
+
+            char choice5;
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+            cin >> choice5;
+
+            if (choice5 == 'Y')
+                DisplayYearWiseData(5, year);
+
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+            cin >> filepath;
+
+            WriteYearWiseSortedDataForFinalRound(filepath, HeadFR, year);
+
+            break;
+
+        default:
+
+            cout << "\n<-----------------------> Invalid Choice <----------------------->\n\n";
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //-------------------------------------- Function to Sort Data Company Wise ------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+
+    void SortDataCompanyWise()
+    {
+
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
+
+        cin.ignore();
+
+        string company;
+        cout << "\n#-----> Enter Company Name : ";
+        getline(cin, company);
+
+        // Find Company is in Data or Not
+
+        if (R1CompanyAttempts[company] == 0)
+        {
+            cout << "\n-----> Students of Company " << company << " does not found , Enter Valid Company and Try Again \n\n";
+            return;
+        }
+
+        cout << "\n#-----> To sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
+
+        int choice;
+        cout << "\n#-----> Enter Choise : ";
+        cin >> choice;
+
+        string filepath;
+
+        switch (choice)
+        {
+        case 1:
 
             char choice1;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice1;
 
             if (choice1 == 'Y')
                 DisplayCompanyWiseData(1, company);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteCompanyWiseSortedDataForRound1to4(filepath, HeadR1, company);
@@ -3092,20 +3476,14 @@ public:
 
         case 2:
 
-            if (HeadR2 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice2;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice2;
 
             if (choice2 == 'Y')
                 DisplayCompanyWiseData(2, company);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteCompanyWiseSortedDataForRound1to4(filepath, HeadR2, company);
@@ -3114,20 +3492,14 @@ public:
 
         case 3:
 
-            if (HeadR3 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice3;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice3;
 
             if (choice3 == 'Y')
                 DisplayCompanyWiseData(3, company);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteCompanyWiseSortedDataForRound1to4(filepath, HeadR3, company);
@@ -3136,20 +3508,14 @@ public:
 
         case 4:
 
-            if (HeadR4 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice4;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice4;
 
             if (choice4 == 'Y')
                 DisplayCompanyWiseData(4, company);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteCompanyWiseSortedDataForRound1to4(filepath, HeadR4, company);
@@ -3158,20 +3524,14 @@ public:
 
         case 5:
 
-            if (HeadFR == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice5;
-            cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice5;
 
             if (choice5 == 'Y')
                 DisplayCompanyWiseData(5, company);
 
-            cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
             cin >> filepath;
 
             WriteCompanyWiseSortedDataForFinalRound(filepath, HeadFR, company);
@@ -3180,29 +3540,47 @@ public:
 
         default:
 
-            cout << "\nInvalid Choice \n";
+            cout << "\n<-----------------------> Invalid Choice <----------------------->\n\n";
         }
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
-    //--------- Function to Sort Programwise Data of a Particular Batch for Respective Rounds ----------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //------------------ Function to Sort Batchwise Data of a Particular Company for Respective Rounds -------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
-    void SortDataProgramOFBatchWise()
+    void SortDataBatchAndCompanyWise()
     {
 
-        string program;
-        cout << "\nEnter Program : ";
-        getline(cin, program);
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
 
         int batch;
-        cout << "\nEnter Batch : ";
+        cout << "\n#-----> Enter Batch : ";
         cin >> batch;
 
-        cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
+        cin.ignore();
+
+        string company;
+        cout << "\n#-----> Enter Company Name : ";
+        getline(cin, company);
+
+        // Find Batch and Company is in Data or Not
+
+        if (R1BatchAttempts[batch] == 0 || R1CompanyAttempts[company] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
+            return;
+        }
+
+        cout << "\n#-----> To sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
         int choice;
-        cout << "\nEnter Choice : ";
+        cout << "\n#-----> Enter Choise : ";
         cin >> choice;
 
         string filepath;
@@ -3211,20 +3589,142 @@ public:
         {
         case 1:
 
-            if (HeadR1 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-                break;
-            }
+            char choice1;
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+            cin >> choice1;
+
+            if (choice1 == 'Y')
+                DisplayBatchOFCompanyWiseData(1, batch, company);
+
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+            cin >> filepath;
+
+            WriteBatchOFCompanyWiseSortedDataForRound1To4(filepath, HeadR1, batch, company);
+
+            break;
+
+        case 2:
+
+            char choice2;
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+            cin >> choice2;
+
+            if (choice2 == 'Y')
+                DisplayBatchOFCompanyWiseData(2, batch, company);
+
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+            cin >> filepath;
+
+            WriteBatchOFCompanyWiseSortedDataForRound1To4(filepath, HeadR2, batch, company);
+
+            break;
+
+        case 3:
+
+            char choice3;
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+            cin >> choice3;
+
+            if (choice3 == 'Y')
+                DisplayBatchOFCompanyWiseData(3, batch, company);
+
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+            cin >> filepath;
+
+            WriteBatchOFCompanyWiseSortedDataForRound1To4(filepath, HeadR3, batch, company);
+
+            break;
+
+        case 4:
+
+            char choice4;
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+            cin >> choice4;
+
+            if (choice4 == 'Y')
+                DisplayBatchOFCompanyWiseData(4, batch, company);
+
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+            cin >> filepath;
+
+            WriteBatchOFCompanyWiseSortedDataForRound1To4(filepath, HeadR4, batch, company);
+            break;
+
+        case 5:
+
+            char choice5;
+            cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+            cin >> choice5;
+
+            if (choice5 == 'Y')
+                DisplayBatchOFCompanyWiseData(5, batch, company);
+
+            cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+            cin >> filepath;
+
+            WriteBatchOFCompanyWiseSortedDataForFinalRound(filepath, HeadFR, batch, company);
+
+            break;
+
+        default:
+
+            cout << "\n<-----------------------> Invalid Choice <----------------------->\n\n";
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //------------------- Function to Sort Programwise Data of a Particular Batch for Respective Rounds ------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+
+    void SortDataProgramOFBatchWise()
+    {
+
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
+
+        int batch;
+        cout << "\n#-----> Enter Batch : ";
+        cin >> batch;
+
+        cin.ignore();
+
+        string program;
+        cout << "\n#-----> Enter Program : ";
+        getline(cin, program);
+
+        // Find Batch and Program is in Data or not
+
+        if (R1BatchAttempts[batch] == 0 || R1ProgramAttempts[program] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
+            return;
+        }
+
+        cout << "\n#-----> To sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
+
+        int choice;
+        cout << "\n#-----> Enter Choice : ";
+        cin >> choice;
+
+        string filepath;
+
+        switch (choice)
+        {
+        case 1:
 
             char choice1;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice1;
 
             if (choice1 == 'Y')
                 DisplayProgramOFBatchWiseData(1, program, batch);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFBatchWiseSortedDataForRound1to4(filepath, HeadR1, program, batch);
@@ -3233,20 +3733,14 @@ public:
 
         case 2:
 
-            if (HeadR2 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice2;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice2;
 
             if (choice2 == 'Y')
                 DisplayProgramOFBatchWiseData(2, program, batch);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFBatchWiseSortedDataForRound1to4(filepath, HeadR2, program, batch);
@@ -3255,20 +3749,14 @@ public:
 
         case 3:
 
-            if (HeadR3 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice3;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice3;
 
             if (choice3 == 'Y')
                 DisplayProgramOFBatchWiseData(3, program, batch);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFBatchWiseSortedDataForRound1to4(filepath, HeadR3, program, batch);
@@ -3277,20 +3765,14 @@ public:
 
         case 4:
 
-            if (HeadR4 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice4;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice4;
 
             if (choice4 == 'Y')
                 DisplayProgramOFBatchWiseData(4, program, batch);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFBatchWiseSortedDataForRound1to4(filepath, HeadR4, program, batch);
@@ -3299,20 +3781,14 @@ public:
 
         case 5:
 
-            if (HeadFR == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice5;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice5;
 
             if (choice5 == 'Y')
                 DisplayProgramOFBatchWiseData(5, program, batch);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFBatchWiseSortedDataForFinalRound(filepath, HeadFR, program, batch);
@@ -3321,29 +3797,41 @@ public:
 
         default:
 
-            cout << "\nInvalid Choice \n";
+            cout << "\n<-----------------------> Invalid Choice <----------------------->\n\n";
         }
     }
-
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------- Function to Sort Programwise Data of a Particular Company for Respective Rounds ----------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
 
     void SortDataProgramOFCompanyWise()
     {
 
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
+
+        cin.ignore();
+
         string program;
-        cout << "\nEnter Program : ";
+        cout << "\n#-----> Enter Program : ";
         getline(cin, program);
 
         string company;
-        cout << "\nEnter Company Name : ";
+        cout << "\n#-----> Enter Company Name : ";
         getline(cin, company);
 
-        cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
+        // To find Program and Company is in the data or not
+
+        if (R1ProgramAttempts[program] == 0 || R1CompanyAttempts[company] == 0)
+        {
+            cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
+            return;
+        }
+
+        cout << "\n#-----> To sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
         int choice;
-        cout << "\nEnter Choice : ";
+        cout << "\n#-----> Enter Choice : ";
         cin >> choice;
 
         string filepath;
@@ -3352,20 +3840,14 @@ public:
         {
         case 1:
 
-            if (HeadR1 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice1;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice1;
 
             if (choice1 == 'Y')
                 DisplayProgramOFCompanyWiseData(1, program, company);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFCompanyWiseSortedDataForRound1to4(filepath, HeadR1, program, company);
@@ -3374,20 +3856,14 @@ public:
 
         case 2:
 
-            if (HeadR2 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice2;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice2;
 
             if (choice2 == 'Y')
                 DisplayProgramOFCompanyWiseData(2, program, company);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFCompanyWiseSortedDataForRound1to4(filepath, HeadR2, program, company);
@@ -3396,20 +3872,14 @@ public:
 
         case 3:
 
-            if (HeadR3 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice3;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice3;
 
             if (choice3 == 'Y')
                 DisplayProgramOFCompanyWiseData(3, program, company);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFCompanyWiseSortedDataForRound1to4(filepath, HeadR3, program, company);
@@ -3418,20 +3888,14 @@ public:
 
         case 4:
 
-            if (HeadR4 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice4;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice4;
 
             if (choice4 == 'Y')
                 DisplayProgramOFCompanyWiseData(4, program, company);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFCompanyWiseSortedDataForRound1to4(filepath, HeadR4, program, company);
@@ -3440,20 +3904,14 @@ public:
 
         case 5:
 
-            if (HeadFR == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice5;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice5;
 
             if (choice5 == 'Y')
                 DisplayProgramOFCompanyWiseData(5, program, company);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFCompanyWiseSortedDataForFinalRound(filepath, HeadFR, program, company);
@@ -3462,29 +3920,45 @@ public:
 
         default:
 
-            cout << "\nInvalid Choice \n";
+            cout << "\n<-----------------------> Invalid Choice <----------------------->\n\n";
         }
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
-    //--------- Function to Sort Yearwise Data of a Particular Batch for Respective Rounds ----------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //------------ Function to Sort Yearwise Data of a Particular Batch for Respective Rounds ----------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
     void SortDataYearAndBatchWise()
     {
 
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
+
         int year;
-        cout << "\nEnter Year : ";
+        cout << "\n#-----> Enter Year : ";
         cin >> year;
 
         int batch;
-        cout << "\nEnter Batch : ";
+        cout << "\n#-----> Enter Batch : ";
         cin >> batch;
 
-        cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
+        // To find Year and Batch is in the data or not
+
+        if (R1BatchAttempts[batch] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
+            return;
+        }
+
+        cout << "\n#-----> To sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
         int choice;
-        cout << "\nEnter Choice : ";
+        cout << "\n#-----> Enter Choice : ";
         cin >> choice;
 
         string filepath;
@@ -3493,20 +3967,14 @@ public:
         {
         case 1:
 
-            if (HeadR1 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice1;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice1;
 
             if (choice1 == 'Y')
                 DisplayYearAndBatchWiseData(1, year, batch);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteYearAndBatchWiseSortedDataForRound1to4(filepath, HeadR1, year, batch);
@@ -3515,20 +3983,14 @@ public:
 
         case 2:
 
-            if (HeadR2 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice2;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice2;
 
             if (choice2 == 'Y')
                 DisplayYearAndBatchWiseData(2, year, batch);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteYearAndBatchWiseSortedDataForRound1to4(filepath, HeadR2, year, batch);
@@ -3537,20 +3999,14 @@ public:
 
         case 3:
 
-            if (HeadR3 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice3;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice3;
 
             if (choice3 == 'Y')
                 DisplayYearAndBatchWiseData(3, year, batch);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteYearAndBatchWiseSortedDataForRound1to4(filepath, HeadR3, year, batch);
@@ -3559,20 +4015,14 @@ public:
 
         case 4:
 
-            if (HeadR4 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice4;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice4;
 
             if (choice4 == 'Y')
                 DisplayYearAndBatchWiseData(4, year, batch);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteYearAndBatchWiseSortedDataForRound1to4(filepath, HeadR4, year, batch);
@@ -3581,20 +4031,14 @@ public:
 
         case 5:
 
-            if (HeadFR == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice5;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice5;
 
             if (choice5 == 'Y')
                 DisplayYearAndBatchWiseData(5, year, batch);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteYearAndBatchWiseSortedDataForFinalRound(filepath, HeadFR, year, batch);
@@ -3603,29 +4047,47 @@ public:
 
         default:
 
-            cout << "\nInvalid Choice \n";
+            cout << "\n<-----------------------> Invalid Choice <----------------------->\n\n";
         }
     }
 
     //--------------------------------------------------------------------------------------------------------------------->
-    //--------- Function to Sort Programwise Data of a Particular Year for Respective Rounds ----------------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
+    //---------------- Function to Sort Programwise Data of a Particular Year for Respective Rounds ----------------------->
+    //--------------------------------------------------------------------------------------------------------------------->
     //--------------------------------------------------------------------------------------------------------------------->
 
     void SortDataProgramOFYearWise()
     {
 
-        string program;
-        cout << "\nEnter Program : ";
-        getline(cin, program);
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
 
         int year;
-        cout << "\nEnter Year : ";
+        cout << "\n#-----> Enter Year : ";
         cin >> year;
 
-        cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
+        cin.ignore();
+
+        string program;
+        cout << "\n#-----> Enter Program : ";
+        getline(cin, program);
+
+        // To find Year and Program is in the data or not
+
+        if (R1ProgramAttempts[program] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\n-----> Students of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
+            return;
+        }
+
+        cout << "\n#-----> To sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
         int choice;
-        cout << "\nEnter Choice : ";
+        cout << "\n#-----> Enter Choice : ";
         cin >> choice;
 
         string filepath;
@@ -3634,20 +4096,14 @@ public:
         {
         case 1:
 
-            if (HeadR1 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice1;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice1;
 
             if (choice1 == 'Y')
                 DisplayProgramOFYearWiseData(1, program, year);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFYearWiseSortedDataForRound1to4(filepath, HeadR1, program, year);
@@ -3656,20 +4112,14 @@ public:
 
         case 2:
 
-            if (HeadR2 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice2;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice2;
 
             if (choice2 == 'Y')
                 DisplayProgramOFYearWiseData(2, program, year);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFYearWiseSortedDataForRound1to4(filepath, HeadR2, program, year);
@@ -3678,20 +4128,14 @@ public:
 
         case 3:
 
-            if (HeadR3 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice3;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice3;
 
             if (choice3 == 'Y')
                 DisplayProgramOFYearWiseData(3, program, year);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFYearWiseSortedDataForRound1to4(filepath, HeadR3, program, year);
@@ -3700,20 +4144,14 @@ public:
 
         case 4:
 
-            if (HeadR4 == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice4;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice4;
 
             if (choice4 == 'Y')
                 DisplayProgramOFYearWiseData(4, program, year);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFYearWiseSortedDataForRound1to4(filepath, HeadR4, program, year);
@@ -3722,20 +4160,14 @@ public:
 
         case 5:
 
-            if (HeadFR == NULL)
-            {
-                cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-                break;
-            }
-
             char choice5;
-            cout << "\nDo you want to Display Data(Y/N) ? \nAns : ";
+            cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
             cin >> choice5;
 
             if (choice5 == 'Y')
                 DisplayProgramOFYearWiseData(5, program, year);
 
-            cout << "\nEnter File Path Where you want to store the Sorted Data : ";
+            cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
             cin >> filepath;
 
             WriteProgramOFYearWiseSortedDataForFinalRound(filepath, HeadFR, program, year);
@@ -3744,43 +4176,96 @@ public:
 
         default:
 
-            cout << "\nInvalid Choice \n";
+            cout << "\n<-----------------------> Invalid Choice <----------------------->\n\n";
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-    //---------------------------------- Functions To Find Placement Statistics ------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //<---------------------------------------------------// FUNCTIONS TO Find Placement Statistics //------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
 
-    //--------------------------------------------------------------------------------------------------------------------->
-    //------------------------------------ Function to Find Placement Details OF Student ---------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
+public:
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------- Function to Find Overall Placement Statistics ------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindOverallPlacementStatistics()
+    {
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
+        else
+        {
+            cout << endl;
+            PrintHorizontalLine(60);
+            cout << "\n# Overall Placement Statistics : \n";
+
+            cout << "\n# Overall Placement Statistics : \n";
+            cout << "\nNo. Students Attempted in Round 1 : " << NOofStudentR1;
+            cout << "\nNo. Students Attempted in Round 2 : " << NOofStudentR2;
+            cout << "\nNo. Students Attempted in Round 3 : " << NOofStudentR3;
+            cout << "\nNo. Students Attempted in Round 4 : " << NOofStudentR4;
+            cout << "\nNo. Students Got Job Offer        : " << NOofStudentFR;
+            cout << "\nSucceess Rate                     : " << float(NOofStudentFR) / NOofStudentR1 * 100 << "%";
+            cout << "\n\nMaximum Package Offered         : " << MaxPackageOverall;
+            cout << "\nMinimum Package Offered         : " << MinPackageOverall;
+            cout << "\nAverage Package                 : " << AveragePackageOverall;
+            cout << "\nMedian Package                  : " << FindMedianPackage(PackagesOfferedOverall);
+            cout << endl
+                 << endl;
+
+            PrintHorizontalLine(150);
+
+            cout << "\nNo. Of Companies Visited : " << CompaniesVisitedOverall.size();
+            cout << "\n\nCompanies : \n\n";
+            for (int i = 0; i < CompaniesVisitedOverall.size(); i++)
+            {
+                cout << CompaniesVisitedOverall[i] << " , ";
+                if ((i + 1) % 15 == 0)
+                    cout << endl;
+            }
+            cout << endl;
+            PrintHorizontalLine(150);
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------- Function to Find Student's Placement Statistics --------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
 
     void FindStudentPlacementDetails()
     {
-        long long id;
-        cout << "\nEnter Student's ID : ";
-        cin >> id;
-
-        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        if (!IsDataInserted())
         {
-            cout << "\nInsufficient Data to Find Details,please insert Data and Try agian \nThank You\n";
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
             return;
         }
 
+        long long id;
+        cout << "\n#-----> Enter Student's ID : ";
+        cin >> id;
+
         if (StudentName[id] == "")
         {
-            cout << "\nInvalid ID entered , enter valid ID and Try Agian \nThank You\n";
+            cout << "\n-----> Invalid ID entered , enter valid ID and Try Agian \nThank You\n\n";
             return;
         }
 
         else
         {
             cout << endl;
-            PrintHorizontalLine(50);
+            PrintHorizontalLine(60);
+            cout << "\n# " << id << "'s Placement Details : \n";
 
             cout << "\nName             : " << StudentName[id];
             cout << "\nID               : " << id;
@@ -3827,7 +4312,7 @@ public:
             {
                 cout << Company << " , ";
             }
-            cout << "\nPackages : ";
+            cout << "\nPackages[LPA] : ";
             for (float Package : PackageOfferedStudent[id])
             {
                 cout << Package << " , ";
@@ -3835,74 +4320,34 @@ public:
 
             cout << endl
                  << endl;
-            PrintHorizontalLine(50);
+            PrintHorizontalLine(100);
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------------------->
-    //------------------------------------ Function to Find Overall Placement Statistics ---------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-
-    void FindOverallPlacementStatistics()
-    {
-        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
-        {
-            cout << "\nInsufficient Data to Find Details,please insert Data and Try agian \nThank You\n";
-            return;
-        }
-        else
-        {
-            cout << endl;
-            PrintHorizontalLine(50);
-            cout << "\nNo. Students Attempted in Round 1 : " << NOofStudentR1;
-            cout << "\nNo. Students Attempted in Round 2 : " << NOofStudentR2;
-            cout << "\nNo. Students Attempted in Round 3 : " << NOofStudentR3;
-            cout << "\nNo. Students Attempted in Round 4 : " << NOofStudentR4;
-            cout << "\nNo. Students Got Job Offer        : " << NOofStudentFR;
-            cout << "\nSucceess Rate                     : " << float(NOofStudentFR) / NOofStudentR1 * 100 << "%";
-            cout << "\n\nMaximum Package Offered         : " << MaxPackageOverall;
-            cout << "\nMinimum Package Offered         : " << MinPackageOverall;
-            cout << "\nAverage Package                 : " << AveragePackageOverall;
-            cout << "\nMedian Package                  : " << FindMedianPackage(PackagesOfferedOverall);
-            cout << endl
-                 << endl;
-
-            PrintHorizontalLine(150);
-
-            cout << "\nNo. Of Companis Visted : " << CompaniesVisitedOverall.size();
-            cout << "\nCompanies : \n";
-            for (int i = 0; i < CompaniesVisitedOverall.size(); i++)
-            {
-                cout << CompaniesVisitedOverall[i] << " , ";
-                if ((i + 1) % 15 == 0)
-                    cout << endl;
-            }
-            cout << endl
-                 << endl;
-            PrintHorizontalLine(150);
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------------------->
-    //------------------------------------ Function to Find BatchWise Placement Statistics -------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //-------------------------------------- Function to Find Batch Wise Placement Statistics --------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
 
     void FindBatchWisePlacementStatistics()
     {
-        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        if (!IsDataInserted())
         {
-            cout << "\nInsufficient Data to Find Details,please insert Data and Try agian \nThank You\n";
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
             return;
         }
         else
         {
             int batch;
-            cout << "\nEnter Batch : ";
+            cout << "\n#-----> Enter Batch : ";
             cin >> batch;
+
+            // Find Batch is in Data or Not
 
             if (R1BatchAttempts[batch] == 0)
             {
-                cout << "\nInvalid Batch entered , enter valid Batch and Try Agian \nThank You\n";
+                cout << "\n-----> Students of Batch " << batch << " does not found , Enter Valid Batch and Try Again \n\n";
                 return;
             }
             else
@@ -3931,6 +4376,7 @@ public:
 
                         packages.push_back(Current->package);
 
+                        // Insert company name into set
                         uniqueCompanies.insert(Current->company);
                     }
 
@@ -3938,7 +4384,9 @@ public:
                 }
 
                 cout << endl;
-                PrintHorizontalLine(50);
+                PrintHorizontalLine(60);
+                cout << "\n# Placement Statistics of Batch " << batch << " : \n";
+
                 cout << "\nNo. Students Attempted in Round 1 : " << R1BatchAttempts[batch];
                 cout << "\nNo. Students Attempted in Round 2 : " << R2BatchAttempts[batch];
                 cout << "\nNo. Students Attempted in Round 3 : " << R3BatchAttempts[batch];
@@ -3954,7 +4402,7 @@ public:
 
                 PrintHorizontalLine(150);
 
-                cout << "\nNo. Of Companies Visted : " << uniqueCompanies.size();
+                cout << "\nNo. Of Companies Visited : " << uniqueCompanies.size();
                 cout << "\n\nCompanies : \n\n";
 
                 int i = 0;
@@ -3973,26 +4421,32 @@ public:
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------------------->
-    //----------------------------------- Function to Find ProgramWise Placement Statistics ------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------- Function to Find Program Wise Placement Statistics -------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
 
     void FindProgramWisePlacementStatistics()
     {
-        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        if (!IsDataInserted())
         {
-            cout << "Insufficient Data to Find Details,please insert Data and Try agian \nThank You\n";
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
             return;
         }
         else
         {
+            cin.ignore();
+
             string program;
-            cout << "\nEnter Program : ";
+            cout << "\n#-----> Enter Program : ";
             getline(cin, program);
+
+            // Find Program is in Data or Not
 
             if (R1ProgramAttempts[program] == 0)
             {
-                cout << "\nInvalid Program entered, enter valid Program and Try Agian \nThank You\n";
+                cout << "\n-----> Students of Program " << program << " does not found , Enter Valid program and Try Again \n\n";
                 return;
             }
             else
@@ -4029,7 +4483,9 @@ public:
                 }
 
                 cout << endl;
-                PrintHorizontalLine(50);
+                PrintHorizontalLine(60);
+                cout << "\n# Placement Statistics of Program " << program << " : \n";
+
                 cout << "\nNo. Students Attempted in Round 1 : " << R1ProgramAttempts[program];
                 cout << "\nNo. Students Attempted in Round 2 : " << R2ProgramAttempts[program];
                 cout << "\nNo. Students Attempted in Round 3 : " << R3ProgramAttempts[program];
@@ -4040,13 +4496,12 @@ public:
                 cout << "\nMinimum Package Offered         : " << minPackage;
                 cout << "\nAverage Package                 : " << totalPackage / TotalProgramOffers[program];
                 cout << "\nMedian Package                  : " << FindMedianPackage(packages);
-                cout << endl
-                     << endl;
+                cout << endl;
 
-                PrintHorizontalLine(150);
+                PrintHorizontalLine(50);
 
                 int i = 0;
-                cout << "\nNo. Of Companies Visted : " << uniqueCompanies.size();
+                cout << "\nNo. Of Companies Visited : " << uniqueCompanies.size();
                 cout << "\n\nCompanies : \n\n";
                 for (string company : uniqueCompanies)
                 {
@@ -4063,26 +4518,127 @@ public:
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------------------->
-    //----------------------------------- Function to Find CompanyWise Placement Statistics ------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------- Function to Find Year Wise Placement Statistics --------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
 
-    void FindCompanyWisePlacementStatistics()
+    void FindYearWisePlacementStatistics()
     {
-        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        if (!IsDataInserted())
         {
-            cout << "\nInsufficient Data to Find Details,please insert Data and Try agian \nThank You\n";
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
             return;
         }
         else
         {
+            int year;
+            cout << "\n#-----> Enter Year : ";
+            cin >> year;
+
+            if (R1YearAttempts[year] == 0)
+            {
+                cout << "\n-----> Students of Year " << year << " does not found , Enter Valid Year and Try Again \n\n";
+                return;
+            }
+
+            else
+            {
+                Node2 *Current = HeadFR;
+
+                vector<float> packages;
+
+                float maxPackage = numeric_limits<float>::min();
+                float minPackage = numeric_limits<float>::max();
+                float totalPackage = 0;
+
+                // Set to store unique company names
+                set<string> uniqueCompanies;
+
+                while (Current != NULL)
+                {
+                    if (Current->year == year)
+                    {
+                        if (Current->package > maxPackage)
+                            maxPackage = Current->package;
+                        if (Current->package < minPackage)
+                            minPackage = Current->package;
+
+                        totalPackage += Current->package;
+
+                        packages.push_back(Current->package);
+
+                        // Insert company name into set
+                        uniqueCompanies.insert(Current->company);
+                    }
+
+                    Current = Current->next;
+                }
+
+                cout << endl;
+                PrintHorizontalLine(60);
+                cout << "\n# Placement Statistics in Year " << year << " : \n";
+
+                cout << "\nNo. Students Attempted in Round 1 : " << R1YearAttempts[year];
+                cout << "\nNo. Students Attempted in Round 2 : " << R2YearAttempts[year];
+                cout << "\nNo. Students Attempted in Round 3 : " << R3YearAttempts[year];
+                cout << "\nNo. Students Attempted in Round 4 : " << R4YearAttempts[year];
+                cout << "\nNo. Students Got Job Offer        : " << TotalYearOffers[year];
+                cout << "\nSucceess Rate                     : " << float(TotalYearOffers[year]) / R1YearAttempts[year] * 100 << "%";
+                cout << "\n\nMaximum Package Offered         : " << maxPackage;
+                cout << "\nMinimum Package Offered         : " << minPackage;
+                cout << "\nAverage Package                 : " << totalPackage / TotalYearOffers[year];
+                cout << "\nMedian Package                  : " << FindMedianPackage(packages);
+                cout << endl
+                     << endl;
+
+                PrintHorizontalLine(150);
+
+                cout << "\nNo. Of Companies Visited in " << year << " : " << uniqueCompanies.size();
+                cout << "\n\nCompanies : \n\n";
+
+                int i = 0;
+                for (string Companies : uniqueCompanies)
+                {
+                    cout << Companies << " , ";
+                    if ((i + 1) % 15 == 0)
+                        cout << endl;
+
+                    i++;
+                }
+                cout << endl
+                     << endl;
+                PrintHorizontalLine(150);
+            }
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //-------------------------------------- Function to Find Company Wise Placement Statistics ------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindCompanyWisePlacementStatistics()
+    {
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
+        else
+        {
+            cin.ignore();
+
             string company;
-            cout << "\nEnter Company Name : ";
+            cout << "\n#-----> Enter Company Name : ";
             getline(cin, company);
 
+            // Find Company is in Data or Not
             if (R1CompanyAttempts[company] == 0)
             {
-                cout << "\nInvalid Company Name entered, enter valid Company Name and Try Agian \nThank You\n";
+                cout << "\n-----> Students of Company " << company << " does not found , Enter Valid Company and Try Again \n\n";
                 return;
             }
             else
@@ -4111,7 +4667,7 @@ public:
 
                         packages.push_back(Current->package);
 
-                        // Insert the company name and program into the set
+                        // Insert the batch and program into the set
                         uniqueProgramOFBatch.insert(to_string(Current->batch) + " " + Current->program);
                     }
 
@@ -4119,11 +4675,13 @@ public:
                 }
 
                 cout << endl;
-                PrintHorizontalLine(50);
+                PrintHorizontalLine(60);
+                cout << "\n# Placement Statistics of Company " << company << " : \n";
+
                 cout << "\nNo. Students Attempted in Round 1 : " << R1CompanyAttempts[company];
-                cout << "\nNo. Students Attempted in Round 2 : " << R2CompanyAttempts[company];
-                cout << "\nNo. Students Attempted in Round 3 : " << R3CompanyAttempts[company];
-                cout << "\nNo. Students Attempted in Round 4 : " << R4CompanyAttempts[company];
+                cout << "\nNo. Students Attempted in Round 2 : " << R1CompanyAttempts[company];
+                cout << "\nNo. Students Attempted in Round 3 : " << R1CompanyAttempts[company];
+                cout << "\nNo. Students Attempted in Round 4 : " << R1CompanyAttempts[company];
                 cout << "\nNo. Students Got Job Offer        : " << TotalCompanyOffers[company];
                 cout << "\nSucceess Rate                     : " << float(TotalCompanyOffers[company]) / R1CompanyAttempts[company] * 100 << "%";
                 cout << "\n\nMaximum Package Offered         : " << maxPackage;
@@ -4135,7 +4693,7 @@ public:
 
                 PrintHorizontalLine(150);
 
-                cout << "\nPograms of Batch from " << company << " has hired students : \n\n";
+                cout << "\nPrograms of Batch from " << company << " has hired students : \n\n";
 
                 int i = 0;
                 for (string str : uniqueProgramOFBatch)
@@ -4154,421 +4712,38 @@ public:
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------------------->
-    //-------------------------------------- Function to Find YearWise Placement Statistics ------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-
-    void FindYearWisePlacementStatistics()
-    {
-        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
-        {
-            cout << "\nInsufficient Data to Find Details,please insert Data and Try agian \nThank You\n";
-            return;
-        }
-        else
-        {
-            int year;
-            cout << "\nEnter Year : ";
-            cin >> year;
-
-            if (R1YearAttempts[year] == 0)
-            {
-                cout << "\nInvalid Year entered , enter valid Year and Try Agian \nThank You\n";
-                return;
-            }
-            else
-            {
-                Node2 *Current = HeadFR;
-
-                vector<float> packages;
-
-                float maxPackage = numeric_limits<float>::min();
-                float minPackage = numeric_limits<float>::max();
-                float totalPackage = 0;
-
-                // Set to store unique company names
-                set<string> uniqueCompanies;
-
-                while (Current != NULL)
-                {
-                    if (Current->year == year)
-                    {
-                        if (Current->package > maxPackage)
-                            maxPackage = Current->package;
-                        if (Current->package < minPackage)
-                            minPackage = Current->package;
-
-                        totalPackage += Current->package;
-
-                        packages.push_back(Current->package);
-
-                        uniqueCompanies.insert(Current->company);
-                    }
-
-                    Current = Current->next;
-                }
-
-                cout << endl;
-                PrintHorizontalLine(50);
-                cout << "\nNo. Students Attempted in Round 1 : " << R1YearAttempts[year];
-                cout << "\nNo. Students Attempted in Round 2 : " << R2YearAttempts[year];
-                cout << "\nNo. Students Attempted in Round 3 : " << R3YearAttempts[year];
-                cout << "\nNo. Students Attempted in Round 4 : " << R4YearAttempts[year];
-                cout << "\nNo. Students Got Job Offer        : " << TotalYearOffers[year];
-                cout << "\nSucceess Rate                     : " << float(TotalYearOffers[year]) / R1YearAttempts[year] * 100 << "%";
-                cout << "\n\nMaximum Package Offered         : " << maxPackage;
-                cout << "\nMinimum Package Offered         : " << minPackage;
-                cout << "\nAverage Package                 : " << totalPackage / TotalYearOffers[year];
-                cout << "\nMedian Package                  : " << FindMedianPackage(packages);
-                cout << endl
-                     << endl;
-
-                PrintHorizontalLine(150);
-
-                cout << "\nNo. Of Companies Visited in " << year << " : " << uniqueCompanies.size();
-                cout << "\n\nCompanies : \n\n";
-
-                int i = 0;
-                for (string Companies : uniqueCompanies)
-                {
-                    cout << Companies << " , ";
-                    if ((i + 1) % 10 == 0)
-                        cout << endl;
-
-                    i++;
-                }
-                cout << endl
-                     << endl;
-                PrintHorizontalLine(150);
-            }
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------- Function to Find Program with BatchWise Placement Statistics --------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-
-    void FindProgramAndBatchWisePlacementStatistics()
-    {
-        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
-        {
-            cout << "\nInsufficient Data to Find Details,please insert Data and Try agian \nThank You\n";
-            return;
-        }
-        else
-        {
-            string program;
-            cout << "\nEnter Program : ";
-            getline(cin, program);
-            int batch;
-            cout << "\nEnter Batch : ";
-            cin >> batch;
-
-            //----> Variables to find attempts and job Offers
-
-            int R1Attempts = 0;
-            int R2Attempts = 0;
-            int R3Attempts = 0;
-            int R4Attempts = 0;
-            int TotalOfferes = 0;
-
-            bool ProgramAndBatchFound = false; // To find Program and Batch is in the data or not
-
-            //----> Finding Attempts in Round 1
-
-            Node1 *Temp = HeadR1;
-            while (Temp != NULL)
-            {
-                if (Temp->program == program && Temp->batch == batch)
-                {
-                    ProgramAndBatchFound = true;
-                    R1Attempts++;
-                }
-
-                Temp = Temp->next;
-            }
-
-            if (!ProgramAndBatchFound)
-            {
-                cout << "\nInvalid Batch and Program , please Enter Valid Batch and Program \nThank You\n";
-                return;
-            }
-
-            //---->Finding Attempts in Round 2
-
-            Temp = HeadR2;
-            while (Temp != NULL)
-            {
-                if (Temp->program == program && Temp->batch == batch)
-                {
-                    R2Attempts++;
-                }
-                Temp = Temp->next;
-            }
-
-            //---->Finding Attempts in Round 3
-
-            Temp = HeadR3;
-            while (Temp != NULL)
-            {
-                if (Temp->program == program && Temp->batch == batch)
-                {
-                    R3Attempts++;
-                }
-                Temp = Temp->next;
-            }
-
-            //---->Finding Attempts in Round 2
-
-            Temp = HeadR4;
-            while (Temp != NULL)
-            {
-                if (Temp->program == program && Temp->batch == batch)
-                {
-                    R4Attempts++;
-                }
-                Temp = Temp->next;
-            }
-
-            Node2 *Current = HeadFR;
-
-            vector<float> packages;
-
-            float maxPackage = numeric_limits<float>::min();
-            float minPackage = numeric_limits<float>::max();
-            float totalPackage = 0;
-
-            // Set to store unique company names
-            set<string> uniqueCompanies;
-
-            while (Current != NULL)
-            {
-                if (Current->program == program && Current->batch == batch)
-                {
-
-                    TotalOfferes++;
-                    if (Current->package > maxPackage)
-                        maxPackage = Current->package;
-                    if (Current->package < minPackage)
-                        minPackage = Current->package;
-
-                    totalPackage += Current->package;
-
-                    packages.push_back(Current->package);
-
-                    // Insert the company name into the set
-                    uniqueCompanies.insert(Current->company);
-                }
-
-                Current = Current->next;
-            }
-
-            cout << endl;
-            PrintHorizontalLine(50);
-            cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
-            cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
-            cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
-            cout << "\nNo. Students Attempted in Round 4 : " << R4Attempts;
-            cout << "\nNo. Students Got Job Offer        : " << TotalOfferes;
-            cout << "\nSucceess Rate                     : " << float(TotalOfferes) / R1Attempts * 100 << "%";
-            cout << "\n\nMaximum Package Offered         : " << maxPackage;
-            cout << "\nMinimum Package Offered         : " << minPackage;
-            cout << "\nAverage Package                 : " << totalPackage / TotalOfferes;
-            cout << "\nMedian Package                  : " << FindMedianPackage(packages);
-            cout << endl
-                 << endl;
-
-            PrintHorizontalLine(150);
-
-            int i = 0;
-            cout << "\nNo. Of Companies Visted : " << uniqueCompanies.size();
-            cout << "\n\nCompanies : \n\n";
-            for (string company : uniqueCompanies)
-            {
-                cout << company << " , ";
-                if ((i + 1) % 10 == 0)
-                    cout << endl;
-
-                i++;
-            }
-            cout << endl
-                 << endl;
-            PrintHorizontalLine(150);
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------------------->
-    //------------------------- Function to Find Program with CompanyWise Placement Statistics ---------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-
-    void FindProgramAndCompanyWisePlacementStatistics()
-    {
-        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
-        {
-            cout << "\nInsufficient Data to Find Details,please insert Data and Try agian \nThank You\n";
-            return;
-        }
-        else
-        {
-            string program;
-            cout << "\nEnter Program : ";
-            getline(cin, program);
-            string company;
-            cout << "\nEnter Company Name : ";
-            getline(cin, company);
-
-            //----> Variables to find attempts and job Offers
-
-            int R1Attempts = 0;
-            int R2Attempts = 0;
-            int R3Attempts = 0;
-            int R4Attempts = 0;
-            int TotalOfferes = 0;
-
-            bool ProgramAndCompanyFound = false; // To find Program and Company is in the data or not
-
-            //----> Finding Attempts in Round 1
-
-            Node1 *Temp = HeadR1;
-            while (Temp != NULL)
-            {
-                if (Temp->program == program && Temp->company == company)
-                {
-                    ProgramAndCompanyFound = true;
-                    R1Attempts++;
-                }
-
-                Temp = Temp->next;
-            }
-
-            if (!ProgramAndCompanyFound)
-            {
-                cout << "\nInvalid Program and Company , please Enter Valid Program and Company , Try again \nThank You\n";
-                return;
-            }
-
-            //---->Finding Attempts in Round 2
-
-            Temp = HeadR2;
-            while (Temp != NULL)
-            {
-                if (Temp->program == program && Temp->company == company)
-                {
-                    R2Attempts++;
-                }
-                Temp = Temp->next;
-            }
-
-            //---->Finding Attempts in Round 3
-
-            Temp = HeadR3;
-            while (Temp != NULL)
-            {
-                if (Temp->program == program && Temp->company == company)
-                {
-                    R3Attempts++;
-                }
-                Temp = Temp->next;
-            }
-
-            //---->Finding Attempts in Round 2
-
-            Temp = HeadR4;
-            while (Temp != NULL)
-            {
-                if (Temp->program == program && Temp->company == company)
-                {
-                    R4Attempts++;
-                }
-                Temp = Temp->next;
-            }
-
-            Node2 *Current = HeadFR;
-
-            vector<float> packages;
-
-            float maxPackage = numeric_limits<float>::min();
-            float minPackage = numeric_limits<float>::max();
-            float totalPackage = 0;
-
-            // Set to store unique batch
-            set<int> uniqueBatches;
-
-            while (Current != NULL)
-            {
-                if (Current->program == program && Current->company == company)
-                {
-
-                    TotalOfferes++;
-                    if (Current->package > maxPackage)
-                        maxPackage = Current->package;
-                    if (Current->package < minPackage)
-                        minPackage = Current->package;
-
-                    totalPackage += Current->package;
-
-                    packages.push_back(Current->package);
-
-                    // Insert the batch into the set
-                    uniqueBatches.insert(Current->batch);
-                }
-
-                Current = Current->next;
-            }
-
-            cout << endl;
-            PrintHorizontalLine(50);
-            cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
-            cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
-            cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
-            cout << "\nNo. Students Attempted in Round 4 : " << R4Attempts;
-            cout << "\nNo. Students Got Job Offer        : " << TotalOfferes;
-            cout << "\nSucceess Rate                     : " << float(TotalOfferes) / R1Attempts * 100 << "%";
-            cout << "\n\nMaximum Package Offered         : " << maxPackage;
-            cout << "\nMinimum Package Offered         : " << minPackage;
-            cout << "\nAverage Package                 : " << totalPackage / TotalOfferes;
-            cout << "\nMedian Package                  : " << FindMedianPackage(packages);
-            cout << endl
-                 << endl;
-
-            PrintHorizontalLine(150);
-
-            int i = 0;
-            cout << "\nNo. Of Batches whose Student got Job Offers : " << uniqueBatches.size();
-            cout << "\n\nBatches : \n\n";
-            for (int batch : uniqueBatches)
-            {
-                cout << batch << " , ";
-                if ((i + 1) % 10 == 0)
-                    cout << endl;
-
-                i++;
-            }
-            cout << endl
-                 << endl;
-            PrintHorizontalLine(150);
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------------------->
-    //------------------------- Function to Find Batch with CompanyWise Placement Statistics ------------------------------>
-    //--------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //----------------------------- Function to Find Batch and Company Wise Placement Statistics ------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
 
     void FindBatchAndCompanyWisePlacementStatistics()
     {
-        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        if (!IsDataInserted())
         {
-            cout << "\nInsufficient Data to Find Details,please insert Data and Try agian \nThank You\n";
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
             return;
         }
         else
         {
             int batch;
-            cout << "\nEnter batch : ";
+            cout << "\n#-----> Enter batch : ";
             cin >> batch;
+
+            cin.ignore();
+
             string company;
-            cout << "\nEnter Company Name : ";
+            cout << "\n#-----> Enter Company Name : ";
             getline(cin, company);
+
+            // Find Batch and Company is in Data or Not
+
+            if (R1BatchAttempts[batch] == 0 || R1CompanyAttempts[company] == 0)
+            {
+                cout << "\n-----> Students of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
+                return;
+            }
 
             //----> Variables to find attempts and job Offers
 
@@ -4578,26 +4753,15 @@ public:
             int R4Attempts = 0;
             int TotalOfferes = 0;
 
-            bool BatchAndCompanyFound = false; // To find  Batch and Company is in the data or not
-
-            //----> Finding Attempts in Round 1
-
             Node1 *Temp = HeadR1;
             while (Temp != NULL)
             {
                 if (Temp->batch == batch && Temp->company == company)
                 {
-                    BatchAndCompanyFound = true;
                     R1Attempts++;
                 }
 
                 Temp = Temp->next;
-            }
-
-            if (!BatchAndCompanyFound)
-            {
-                cout << "\nInvalid Batch and Company , please Enter Valid Batch and Company , Try again \nThank You\n";
-                return;
             }
 
             //---->Finding Attempts in Round 2
@@ -4624,7 +4788,7 @@ public:
                 Temp = Temp->next;
             }
 
-            //---->Finding Attempts in Round 2
+            //---->Finding Attempts in Round 4
 
             Temp = HeadR4;
             while (Temp != NULL)
@@ -4670,7 +4834,9 @@ public:
             }
 
             cout << endl;
-            PrintHorizontalLine(50);
+            PrintHorizontalLine(60);
+            cout << "\n# Placement Statistics of Batch " << batch << " and Company " << company << " : \n";
+
             cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
             cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
             cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
@@ -4692,7 +4858,7 @@ public:
             for (string program : uniquePrograms)
             {
                 cout << program << " , ";
-                if ((i + 1) % 10 == 0)
+                if ((i + 1) % 15 == 0)
                     cout << endl;
 
                 i++;
@@ -4703,25 +4869,39 @@ public:
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------- Function to Find Year with BatchWise Placement Statistics ------------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //----------------------------- Function to Find Program and Batch Wise Placement Statistics ------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
 
-    void FindYearAndBatchWisePlacementStatistics()
+    void FindProgramAndBatchWisePlacementStatistics()
     {
-        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        if (!IsDataInserted())
         {
-            cout << "\nInsufficient Data to Find Details,please insert Data and Try agian \nThank You\n";
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
             return;
         }
         else
         {
-            int year;
-            cout << "\nEnter Year : ";
-            cin >> year;
+
             int batch;
-            cout << "\nEnter Batch : ";
+            cout << "\n#-----> Enter Batch : ";
             cin >> batch;
+
+            cin.ignore();
+
+            string program;
+            cout << "\n#-----> Enter Program : ";
+            getline(cin, program);
+
+            // Find Batch and Program is in Data or not
+
+            if (R1BatchAttempts[batch] == 0 || R1ProgramAttempts[program] == 0)
+            {
+                cout << "\n-----> Students of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
+                return;
+            }
 
             //----> Variables to find attempts and job Offers
 
@@ -4731,7 +4911,321 @@ public:
             int R4Attempts = 0;
             int TotalOfferes = 0;
 
-            bool YearAndBatchFound = false; // To find Year and Batch is in the data or not
+            //----> Finding Attempts in Round 1
+
+            Node1 *Temp = HeadR1;
+            while (Temp != NULL)
+            {
+                if (Temp->program == program && Temp->batch == batch)
+                {
+                    R1Attempts++;
+                }
+
+                Temp = Temp->next;
+            }
+
+            //---->Finding Attempts in Round 2
+
+            Temp = HeadR2;
+            while (Temp != NULL)
+            {
+                if (Temp->program == program && Temp->batch == batch)
+                {
+                    R2Attempts++;
+                }
+                Temp = Temp->next;
+            }
+
+            //---->Finding Attempts in Round 3
+
+            Temp = HeadR3;
+            while (Temp != NULL)
+            {
+                if (Temp->program == program && Temp->batch == batch)
+                {
+                    R3Attempts++;
+                }
+                Temp = Temp->next;
+            }
+
+            //---->Finding Attempts in Round 4
+
+            Temp = HeadR4;
+            while (Temp != NULL)
+            {
+                if (Temp->program == program && Temp->batch == batch)
+                {
+                    R4Attempts++;
+                }
+                Temp = Temp->next;
+            }
+
+            Node2 *Current = HeadFR;
+
+            vector<float> packages;
+
+            float maxPackage = numeric_limits<float>::min();
+            float minPackage = numeric_limits<float>::max();
+            float totalPackage = 0;
+
+            // Set to store unique company names
+            set<string> uniqueCompanies;
+
+            while (Current != NULL)
+            {
+                if (Current->program == program && Current->batch == batch)
+                {
+
+                    TotalOfferes++;
+                    if (Current->package > maxPackage)
+                        maxPackage = Current->package;
+                    if (Current->package < minPackage)
+                        minPackage = Current->package;
+
+                    totalPackage += Current->package;
+
+                    packages.push_back(Current->package);
+
+                    // Insert the company name into the set
+                    uniqueCompanies.insert(Current->company);
+                }
+
+                Current = Current->next;
+            }
+
+            cout << endl;
+            PrintHorizontalLine(60);
+            cout << "\n# Placement Statistics of Batch " << batch << " and Program " << program << " : \n";
+
+            cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
+            cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
+            cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
+            cout << "\nNo. Students Attempted in Round 4 : " << R4Attempts;
+            cout << "\nNo. Students Got Job Offer        : " << TotalOfferes;
+            cout << "\nSucceess Rate                     : " << float(TotalOfferes) / R1Attempts * 100 << "%";
+            cout << "\n\nMaximum Package Offered         : " << maxPackage;
+            cout << "\nMinimum Package Offered         : " << minPackage;
+            cout << "\nAverage Package                 : " << totalPackage / TotalOfferes;
+            cout << "\nMedian Package                  : " << FindMedianPackage(packages);
+            cout << endl
+                 << endl;
+
+            PrintHorizontalLine(150);
+
+            int i = 0;
+            cout << "\nNo. Of Companies Visited : " << uniqueCompanies.size();
+            cout << "\n\nCompanies : \n\n";
+            for (string company : uniqueCompanies)
+            {
+                cout << company << " , ";
+                if ((i + 1) % 15 == 0)
+                    cout << endl;
+
+                i++;
+            }
+            cout << endl
+                 << endl;
+            PrintHorizontalLine(150);
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //----------------------------- Function to Find Program and Company Wise Placement Statistics ---------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindProgramAndCompanyWisePlacementStatistics()
+    {
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
+        else
+        {
+            cin.ignore();
+
+            string program;
+            cout << "\n#-----> Enter Program : ";
+            getline(cin, program);
+
+            string company;
+            cout << "\n#-----> Enter Company Name : ";
+            getline(cin, company);
+
+            // To find Program and Company is in the data or not
+
+            if (R1ProgramAttempts[program] == 0 || R1CompanyAttempts[company] == 0)
+            {
+                cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
+                return;
+            }
+
+            //----> Variables to find attempts and job Offers
+
+            int R1Attempts = 0;
+            int R2Attempts = 0;
+            int R3Attempts = 0;
+            int R4Attempts = 0;
+            int TotalOfferes = 0;
+
+            //----> Finding Attempts in Round 1
+
+            Node1 *Temp = HeadR1;
+            while (Temp != NULL)
+            {
+                if (Temp->program == program && Temp->company == company)
+                {
+                    R1Attempts++;
+                }
+
+                Temp = Temp->next;
+            }
+
+            //---->Finding Attempts in Round 2
+
+            Temp = HeadR2;
+            while (Temp != NULL)
+            {
+                if (Temp->program == program && Temp->company == company)
+                {
+                    R2Attempts++;
+                }
+                Temp = Temp->next;
+            }
+
+            //---->Finding Attempts in Round 3
+
+            Temp = HeadR3;
+            while (Temp != NULL)
+            {
+                if (Temp->program == program && Temp->company == company)
+                {
+                    R3Attempts++;
+                }
+                Temp = Temp->next;
+            }
+
+            //---->Finding Attempts in Round 4
+
+            Temp = HeadR4;
+            while (Temp != NULL)
+            {
+                if (Temp->program == program && Temp->company == company)
+                {
+                    R4Attempts++;
+                }
+                Temp = Temp->next;
+            }
+
+            Node2 *Current = HeadFR;
+
+            vector<float> packages;
+
+            float maxPackage = numeric_limits<float>::min();
+            float minPackage = numeric_limits<float>::max();
+            float totalPackage = 0;
+
+            // Set to store unique batch
+            set<int> uniqueBatches;
+
+            while (Current != NULL)
+            {
+                if (Current->program == program && Current->company == company)
+                {
+
+                    TotalOfferes++;
+                    if (Current->package > maxPackage)
+                        maxPackage = Current->package;
+                    if (Current->package < minPackage)
+                        minPackage = Current->package;
+
+                    totalPackage += Current->package;
+
+                    packages.push_back(Current->package);
+
+                    // Insert the batch into the set
+                    uniqueBatches.insert(Current->batch);
+                }
+
+                Current = Current->next;
+            }
+
+            cout << endl;
+            PrintHorizontalLine(60);
+            cout << "\n# Placement Statistics of Program " << program << " and Company " << company << " : \n";
+
+            cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
+            cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
+            cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
+            cout << "\nNo. Students Attempted in Round 4 : " << R4Attempts;
+            cout << "\nNo. Students Got Job Offer        : " << TotalOfferes;
+            cout << "\nSucceess Rate                     : " << float(TotalOfferes) / R1Attempts * 100 << "%";
+            cout << "\n\nMaximum Package Offered         : " << maxPackage;
+            cout << "\nMinimum Package Offered         : " << minPackage;
+            cout << "\nAverage Package                 : " << totalPackage / TotalOfferes;
+            cout << "\nMedian Package                  : " << FindMedianPackage(packages);
+            cout << endl
+                 << endl;
+
+            PrintHorizontalLine(150);
+
+            int i = 0;
+            cout << "\nNo. Of Batches whose Student got Job Offers : " << uniqueBatches.size();
+            cout << "\n\nBatches : \n\n";
+            for (int batch : uniqueBatches)
+            {
+                cout << batch << " , ";
+                if ((i + 1) % 15 == 0)
+                    cout << endl;
+
+                i++;
+            }
+            cout << endl
+                 << endl;
+            PrintHorizontalLine(150);
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //-------------------------------- Function to Find Year and Batch Wise Placement Statistics ------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindYearAndBatchWisePlacementStatistics()
+    {
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
+        else
+        {
+            int year;
+            cout << "\n#-----> Enter Year : ";
+            cin >> year;
+
+            int batch;
+            cout << "\n#-----> Enter Batch : ";
+            cin >> batch;
+
+            // To find Year and Batch is in the data or not
+
+            if (R1BatchAttempts[batch] == 0 || R1YearAttempts[year] == 0)
+            {
+                cout << "\n-----> Students of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
+                return;
+            }
+
+            //----> Variables to find attempts and job Offers
+
+            int R1Attempts = 0;
+            int R2Attempts = 0;
+            int R3Attempts = 0;
+            int R4Attempts = 0;
+            int TotalOfferes = 0;
 
             //----> Finding Attempts in Round 1
 
@@ -4740,17 +5234,10 @@ public:
             {
                 if (Temp->year == year && Temp->batch == batch)
                 {
-                    YearAndBatchFound = true;
                     R1Attempts++;
                 }
 
                 Temp = Temp->next;
-            }
-
-            if (!YearAndBatchFound)
-            {
-                cout << "\nInvalid Year and Batch , please Enter Valid Year and Batch , Try again \nThank You\n";
-                return;
             }
 
             //---->Finding Attempts in Round 2
@@ -4777,7 +5264,7 @@ public:
                 Temp = Temp->next;
             }
 
-            //---->Finding Attempts in Round 2
+            //---->Finding Attempts in Round 4
 
             Temp = HeadR4;
             while (Temp != NULL)
@@ -4798,7 +5285,6 @@ public:
             float totalPackage = 0;
 
             // Set to store unique Batches ,Programs and Companies
-
             set<string> uniqueProgramCompany;
 
             while (Current != NULL)
@@ -4824,7 +5310,9 @@ public:
             }
 
             cout << endl;
-            PrintHorizontalLine(50);
+            PrintHorizontalLine(60);
+            cout << "\n# Placement Statistics of Batch " << batch << " in Year " << year << " : \n";
+
             cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
             cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
             cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
@@ -4840,7 +5328,7 @@ public:
 
             PrintHorizontalLine(150);
 
-            cout << "\nPrograms from which company has hired Students in " << year << " from Batch " << batch << " : \n\n";
+            cout << "\nPrograms from which companies has hired Students in " << year << " from Batch " << batch << " : \n\n";
 
             int i = 0;
             for (string str : uniqueProgramCompany)
@@ -4858,179 +5346,39 @@ public:
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------------------->
-    //--------------------------- Function to Find Year with ProgramWise Placement Statistics ----------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
-
-    void FindYearAndProgramWisePlacementStatistics()
-    {
-        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
-        {
-            cout << "\nInsufficient Data to Find Details,please insert Data and Try agian \nThank You\n";
-            return;
-        }
-        else
-        {
-
-            int year;
-            cout << "\nEnter Year : ";
-            cin >> year;
-            string program;
-            cout << "\nEnter Program : ";
-            getline(cin, program);
-
-            //----> Variables to find attempts and job Offers
-
-            int R1Attempts = 0;
-            int R2Attempts = 0;
-            int R3Attempts = 0;
-            int R4Attempts = 0;
-            int TotalOfferes = 0;
-
-            bool YearAndProgramFound = false; // To find Year and Program is in the data or not
-
-            //----> Finding Attempts in Round 1
-
-            Node1 *Temp = HeadR1;
-            while (Temp != NULL)
-            {
-                if (Temp->year == year && Temp->program == program)
-                {
-                    YearAndProgramFound = true;
-                    R1Attempts++;
-                }
-
-                Temp = Temp->next;
-            }
-
-            if (!YearAndProgramFound)
-            {
-                cout << "\nInvalid Year and Program , please Enter Valid Year and Program , Try Again \nThank You\n";
-                return;
-            }
-
-            //---->Finding Attempts in Round 2
-
-            Temp = HeadR2;
-            while (Temp != NULL)
-            {
-                if (Temp->year == year && Temp->program == program)
-                {
-                    R2Attempts++;
-                }
-                Temp = Temp->next;
-            }
-
-            //---->Finding Attempts in Round 3
-
-            Temp = HeadR3;
-            while (Temp != NULL)
-            {
-                if (Temp->year == year && Temp->program == program)
-                {
-                    R3Attempts++;
-                }
-                Temp = Temp->next;
-            }
-
-            //---->Finding Attempts in Round 2
-
-            Temp = HeadR4;
-            while (Temp != NULL)
-            {
-                if (Temp->year == year && Temp->program == program)
-                {
-                    R4Attempts++;
-                }
-                Temp = Temp->next;
-            }
-
-            Node2 *Current = HeadFR;
-
-            vector<float> packages;
-
-            float maxPackage = numeric_limits<float>::min();
-            float minPackage = numeric_limits<float>::max();
-            float totalPackage = 0;
-
-            // Set to store unique batches and company names
-            set<string> uniqueBatchAndCompany;
-
-            while (Current != NULL)
-            {
-                if (Current->year == year && Current->program == program)
-                {
-
-                    TotalOfferes++;
-                    if (Current->package > maxPackage)
-                        maxPackage = Current->package;
-                    if (Current->package < minPackage)
-                        minPackage = Current->package;
-
-                    totalPackage += Current->package;
-
-                    packages.push_back(Current->package);
-
-                    // Insert the batch and company name into the set
-                    uniqueBatchAndCompany.insert(to_string(Current->batch) + " - " + Current->company);
-                }
-
-                Current = Current->next;
-            }
-
-            cout << endl;
-            PrintHorizontalLine(50);
-            cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
-            cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
-            cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
-            cout << "\nNo. Students Attempted in Round 4 : " << R4Attempts;
-            cout << "\nNo. Students Got Job Offer        : " << TotalOfferes;
-            cout << "\nSucceess Rate                     : " << float(TotalOfferes) / R1Attempts * 100 << "%";
-            cout << "\n\nMaximum Package Offered         : " << maxPackage;
-            cout << "\nMinimum Package Offered         : " << minPackage;
-            cout << "\nAverage Package                 : " << totalPackage / TotalOfferes;
-            cout << "\nMedian Package                  : " << FindMedianPackage(packages);
-            cout << endl
-                 << endl;
-
-            PrintHorizontalLine(150);
-
-            int i = 0;
-            cout << "\nBatches from company has hired Students in " << year << " from " << program << " : \n\n";
-            for (string str : uniqueBatchAndCompany)
-            {
-                cout << str << " , ";
-                if ((i + 1) % 5 == 0)
-                    cout << endl;
-
-                i++;
-            }
-            cout << endl
-                 << endl;
-            PrintHorizontalLine(150);
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------------------->
-    //----------------------------- Function to Find Year with CompanyWise Placement Statistics---------------------------->
-    //--------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------ Function to Find Year and Company Wise Placement Statistics ------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
 
     void FindYearAndCompanyWisePlacementStatistics()
     {
-        if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+        if (!IsDataInserted())
         {
-            cout << "\nInsufficient Data to Find Details,please insert Data and Try agian \nThank You\n";
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
             return;
         }
         else
         {
 
             int year;
-            cout << "\nEnter Year : ";
+            cout << "\n#-----> Enter Year : ";
             cin >> year;
+
+            cin.ignore();
+
             string company;
-            cout << "\nEnter Company Name : ";
+            cout << "\n#-----> Enter Company Name : ";
             getline(cin, company);
+
+            // To find Year and Company is in the data or not
+
+            if (R1CompanyAttempts[company] == 0 || R1YearAttempts[year] == 0)
+            {
+                cout << "\n-----> Students of Company " << company << " and Year " << year << " does not found , Enter Valid Company and Year and Try Again \n\n";
+                return;
+            }
 
             //----> Variables to find attempts and job Offers
 
@@ -5040,8 +5388,6 @@ public:
             int R4Attempts = 0;
             int TotalOfferes = 0;
 
-            bool YearAndCompanyFound = false; // To find Year and Company is in the data or not
-
             //----> Finding Attempts in Round 1
 
             Node1 *Temp = HeadR1;
@@ -5049,17 +5395,10 @@ public:
             {
                 if (Temp->year == year && Temp->company == company)
                 {
-                    YearAndCompanyFound = true;
                     R1Attempts++;
                 }
 
                 Temp = Temp->next;
-            }
-
-            if (!YearAndCompanyFound)
-            {
-                cout << "\nInvalid Year and Program , please Enter Valid Year and Program , Try Again \nThank You\n";
-                return;
             }
 
             //---->Finding Attempts in Round 2
@@ -5086,7 +5425,7 @@ public:
                 Temp = Temp->next;
             }
 
-            //---->Finding Attempts in Round 2
+            //---->Finding Attempts in Round 4
 
             Temp = HeadR4;
             while (Temp != NULL)
@@ -5124,7 +5463,7 @@ public:
 
                     packages.push_back(Current->package);
 
-                    // Insert the company name into the set
+                    // Insert the batch and program name into the set
                     uniqueBatchAndProgram.insert(to_string(Current->batch) + " - " + Current->program);
                 }
 
@@ -5132,7 +5471,9 @@ public:
             }
 
             cout << endl;
-            PrintHorizontalLine(50);
+            PrintHorizontalLine(60);
+            cout << "\n# Placement Statistics of Company " << company << " in Year " << year << " : \n";
+
             cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
             cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
             cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
@@ -5162,5 +5503,1553 @@ public:
                  << endl;
             PrintHorizontalLine(150);
         }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------ Function to Find Year and Program Wise Placement Statistics ------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindYearAndProgramWisePlacementStatistics()
+    {
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
+            return;
+        }
+        else
+        {
+
+            int year;
+            cout << "\n#-----> Enter Year : ";
+            cin >> year;
+
+            cin.ignore();
+
+            string program;
+            cout << "\n#-----> Enter Program : ";
+            getline(cin, program);
+
+            // To find Year and Program is in the data or not
+
+            if (R1ProgramAttempts[program] == 0 || R1YearAttempts[year] == 0)
+            {
+                cout << "\n-----> Students of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
+                return;
+            }
+
+            //----> Variables to find attempts and job Offers
+
+            int R1Attempts = 0;
+            int R2Attempts = 0;
+            int R3Attempts = 0;
+            int R4Attempts = 0;
+            int TotalOfferes = 0;
+
+            //----> Finding Attempts in Round 1
+
+            Node1 *Temp = HeadR1;
+            while (Temp != NULL)
+            {
+                if (Temp->year == year && Temp->program == program)
+                {
+                    R1Attempts++;
+                }
+
+                Temp = Temp->next;
+            }
+
+            //---->Finding Attempts in Round 2
+
+            Temp = HeadR2;
+            while (Temp != NULL)
+            {
+                if (Temp->year == year && Temp->program == program)
+                {
+                    R2Attempts++;
+                }
+                Temp = Temp->next;
+            }
+
+            //---->Finding Attempts in Round 3
+
+            Temp = HeadR3;
+            while (Temp != NULL)
+            {
+                if (Temp->year == year && Temp->program == program)
+                {
+                    R3Attempts++;
+                }
+                Temp = Temp->next;
+            }
+
+            //---->Finding Attempts in Round 4
+
+            Temp = HeadR4;
+            while (Temp != NULL)
+            {
+                if (Temp->year == year && Temp->program == program)
+                {
+                    R4Attempts++;
+                }
+                Temp = Temp->next;
+            }
+
+            Node2 *Current = HeadFR;
+
+            vector<float> packages;
+
+            float maxPackage = numeric_limits<float>::min();
+            float minPackage = numeric_limits<float>::max();
+            float totalPackage = 0;
+
+            // Set to store unique batches and company names
+            set<string> uniqueBatchAndCompany;
+
+            while (Current != NULL)
+            {
+                if (Current->year == year && Current->program == program)
+                {
+
+                    TotalOfferes++;
+                    if (Current->package > maxPackage)
+                        maxPackage = Current->package;
+                    if (Current->package < minPackage)
+                        minPackage = Current->package;
+
+                    totalPackage += Current->package;
+
+                    packages.push_back(Current->package);
+
+                    // Insert the company name and batch into the set
+                    uniqueBatchAndCompany.insert(to_string(Current->batch) + " - " + Current->company);
+                }
+
+                Current = Current->next;
+            }
+
+            cout << endl;
+            PrintHorizontalLine(60);
+            cout << "\n# Placement Statistics of Program " << program << " in Year " << year << " : \n";
+
+            cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
+            cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
+            cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
+            cout << "\nNo. Students Attempted in Round 4 : " << R4Attempts;
+            cout << "\nNo. Students Got Job Offer        : " << TotalOfferes;
+            cout << "\nSucceess Rate                     : " << float(TotalOfferes) / R1Attempts * 100 << "%";
+            cout << "\n\nMaximum Package Offered         : " << maxPackage;
+            cout << "\nMinimum Package Offered         : " << minPackage;
+            cout << "\nAverage Package                 : " << totalPackage / TotalOfferes;
+            cout << "\nMedian Package                  : " << FindMedianPackage(packages);
+            cout << endl
+                 << endl;
+
+            PrintHorizontalLine(150);
+
+            int i = 0;
+            cout << "\nBatches from company has hired Students in " << year << " from " << program << " : \n\n";
+            for (string str : uniqueBatchAndCompany)
+            {
+                cout << str << " , ";
+                if ((i + 1) % 5 == 0)
+                    cout << endl;
+
+                i++;
+            }
+            cout << endl
+                 << endl;
+            PrintHorizontalLine(150);
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //<---------------------------------------------------// FUNCTIONS TO Find Not Selected Student //------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+private:
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //--------------------------------- // Helper Functions for Display and Writing Data Of Not Selected Students //---------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------ Function to Display Not Selected Students BatchWise -------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void DisplayNotSelectedBatchWise(int batch)
+    {
+
+        cout << "\n<------------------------------------------------ Displaying Not Selected Students of Batch " << batch << " ----------------------------------------->\n";
+        cout << endl;
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157);
+
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->batch == batch && TotalStudnetOffers[Current->id] == 0)
+            {
+                Success = true;
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Batch " << batch << " are placed <---------------------------\n\n";
+        }
+
+        PrintHorizontalLine(157);
+
+        cout << "\n<----------------------------------------------- End of Not Selected Students of Batch " << batch << " --------------------------------------------->\n";
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------ Function to Write Not Selected Students BatchWise ---------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteNotSelectedBatchWise(const string &filepath, int batch)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+        bool Success = false;
+
+        int i = 1;
+        Node1 *Current = HeadR1;
+
+        while (Current != NULL)
+        {
+            if (Current->batch == batch && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Batch " << batch << " are placed <---------------------------\n\n";
+        }
+        else
+        {
+            cout << "\n-----> Data Written Successfully....\n\n";
+        }
+
+        outputFile.close();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //----------------------------------- Function to Display Not Selected Students ProgramWise ------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void DisplayNotSelectedProgramWise(string program)
+    {
+
+        cout << "\n<------------------------------------------------ Displaying Not Selected Students of Program " << program << " ----------------------------------------->\n";
+        cout << endl;
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157);
+
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->program == program && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Program " << program << " are placed <---------------------------\n\n";
+        }
+
+        PrintHorizontalLine(157);
+        cout << "\n<----------------------------------------------- End of Not Selected Students of Program " << program << " --------------------------------------------->\n";
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //----------------------------------- Function to Write Not Selected Students ProgramWise --------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteNotSelectedProgramWise(const string &filepath, string program)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+        int i = 1;
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->program == program && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Program " << program << " are placed <---------------------------\n\n";
+        }
+        else
+        {
+            cout << "\n-----> Data Written Successfully....\n\n";
+        }
+        outputFile.close();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //----------------------------------- Function to Display Not Selected Students CompanyWise ------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void DisplayNotSelectedCompanyWise(string company)
+    {
+
+        cout << "\n<------------------------------------------------ Displaying Not Selected Students of Company " << company << " ----------------------------------------->\n";
+        cout << endl;
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157);
+
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->company == company && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Company " << company << " are placed <---------------------------\n\n";
+        }
+
+        PrintHorizontalLine(157);
+        cout << "\n<----------------------------------------------- End of Not Selected Students of Company " << company << " --------------------------------------------->\n";
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //----------------------------------- Function to Write Not Selected Students CompanyWise --------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteNotSelectedCompanyWise(const string &filepath, string company)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+        int i = 1;
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->company == company && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Company " << company << " are placed <---------------------------\n\n";
+        }
+        else
+        {
+            cout << "\n-----> Data Written Successfully....\n\n";
+        }
+        outputFile.close();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------ Function to Display Not Selected Students YearWise --------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void DisplayNotSelectedYearWise(int year)
+    {
+
+        cout << "\n<------------------------------------------------ Displaying Not Selected Students of Year " << year << " ----------------------------------------->\n";
+        cout << endl;
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157);
+
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->year == year && TotalStudnetOffers[Current->id] == 0)
+            {
+                Success = true;
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Year " << year << " are placed <---------------------------\n\n";
+        }
+
+        PrintHorizontalLine(157);
+
+        cout << "\n<----------------------------------------------- End of Not Selected Students of Year " << year << " --------------------------------------------->\n";
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------- Function to Write Not Selected Students YearWise ---------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteNotSelectedYearWise(const string &filepath, int year)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+        bool Success = false;
+
+        int i = 1;
+        Node1 *Current = HeadR1;
+
+        while (Current != NULL)
+        {
+            if (Current->year == year && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Year " << year << " are placed <---------------------------\n\n";
+        }
+        else
+        {
+            cout << "\n-----> Data Written Successfully....\n\n";
+        }
+
+        outputFile.close();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //---------------------------- Function to Display Not Selected Students Batch and Company Wise --------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void DisplayNotSelectedBatchAndCompanyWise(int batch, string company)
+    {
+        cout << "\n<-------------------------------- Displaying Not Selected Students of Batch " << batch << " and Company " << company << "----------------------------------->\n";
+        cout << endl;
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157);
+
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->batch == batch && Current->company == company && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n--------------------------> Wow !!! All Students of Batch " << batch << " and Company " << company << " are placed <--------------------------\n\n";
+        }
+
+        PrintHorizontalLine(157);
+        cout << "\n<-------------------------------- End of Not Selected Students of Batch " << batch << " and Company " << company << " ---------------------------------------->\n";
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //----------------------------- Function to Write Not Selected Students Batch and Company Wise ---------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteNotSelectedBatchAndCompanyWise(const string &filepath, int batch, string company)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+        int i = 1;
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->batch == batch && Current->company == company && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Batch " << batch << " and Company " << company << " are placed <---------------------------\n\n";
+        }
+        else
+        {
+            cout << "\n-----> Data Written Successfully...\n\n";
+        }
+        outputFile.close();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------ Function to Display Not Selected Students Batch and Program Wise ------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void DisplayNotSelectedBatchAndProgramWise(int batch, string program)
+    {
+        cout << "\n<-------------------------------- Displaying Not Selected Students of Batch " << batch << " and Program " << program << "----------------------------------->\n";
+        cout << endl;
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157);
+
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->batch == batch && Current->program == program && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n--------------------------> Wow !!! All Students of Batch " << batch << " and Program " << program << " are placed <--------------------------\n\n";
+        }
+
+        PrintHorizontalLine(157);
+        cout << "\n<-------------------------------- End of Not Selected Students of Batch " << batch << " and Program " << program << " ---------------------------------------->\n";
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //---------------------------- Function to Write Not Selected Students Batch and Program Wise ----------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteNotSelectedBatchAndProgramWise(const string &filepath, int batch, string program)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+        int i = 1;
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->batch == batch && Current->program == program && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Batch " << batch << " and Program " << program << " are placed <---------------------------\n\n";
+        }
+        else
+        {
+            cout << "\n-----> Data Written Successfully....\n\n";
+        }
+        outputFile.close();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------ Function to Display Not Selected Students ProgramWise of particular Company -------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void DisplayNotSelectedCompanyAndProgramWise(string company, string program)
+    {
+        cout << "\n<-------------------------------------- Displaying Not Selected Students of Program " << program << " and Company " << company << "------------------------------------->\n";
+        cout << endl;
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157);
+
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->program == program && Current->company == company && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Program " << program << " and Company " << company << " are placed <---------------------------\n\n";
+        }
+
+        PrintHorizontalLine(157);
+        cout << "\n<----------------------------------- End of Not Selected Students of Program " << program << " and Company " << company << " ------------------------------------------->\n";
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //---------------------- Function to Write Not Selected Students ProgramWise of particular Company ------------------------>
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteNotSelectedCompanyAndProgramWise(const string &filepath, string company, string program)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+        int i = 1;
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->program == program && Current->company == company && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Program " << program << " and Company " << company << " are placed <---------------------------\n\n";
+        }
+        else
+        {
+            cout << "\nData Written Successfully....\n\n";
+        }
+        outputFile.close();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------ Function to Display Not Selected Students BatchWise of particular Year ------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void DisplayNotSelectedYearAndBatchWise(int year, int batch)
+    {
+        cout << "\n<-------------------------------------- Displaying Not Selected Students of Batch " << batch << " and Year " << year << "------------------------------------->\n";
+        cout << endl;
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157);
+
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->batch == batch && Current->year == year && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Batch " << batch << " and Year " << year << " are placed <---------------------------\n\n";
+        }
+
+        PrintHorizontalLine(157);
+        cout << "\n<----------------------------------- End of Not Selected Students of Batch " << batch << " and Year " << year << " ------------------------------------------->\n";
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //-------------------------- Function to Write Not Selected Students BatchWise of particulat Year ------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteNotSelectedYearAndBatchWise(const string &filepath, int year, int batch)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+        int i = 1;
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->batch == batch && Current->year == year && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Batch " << batch << " and Year " << year << " are placed <---------------------------\n\n";
+        }
+        else
+        {
+            cout << "\n-----> Data Written Successfully....\n\n";
+        }
+        outputFile.close();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------- Function to Display Not Selected Students Year and Company Wise ------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void DisplayNotSelectedYearAndCompanyWise(int year, string company)
+    {
+        cout << "\n<-------------------------------- Displaying Not Selected Students of Year " << year << " and Company " << company << "----------------------------------->\n";
+        cout << endl;
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157);
+
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->year == year && Current->company == company && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n--------------------------> Wow !!! All Students of Year " << year << " and Company " << company << " are placed <--------------------------\n\n";
+        }
+
+        PrintHorizontalLine(157);
+        cout << "\n<-------------------------------- End of Not Selected Students of Year " << year << " and Company " << company << " ---------------------------------------->\n";
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------- Function to Write Not Selected Students Year and Company Wise --------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteNotSelectedYearAndCompanyWise(const string &filepath, int year, string company)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+        int i = 1;
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->year == year && Current->company == company && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Year " << year << " and Company " << company << " are placed <---------------------------\n\n";
+        }
+        else
+        {
+            cout << "\n-----> Data Written Successfully....\n\n";
+        }
+        outputFile.close();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //---------------------- Function to Display Not Selected Students ProgramWise of particular Year ------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void DisplayNotSelectedYearAndProgramWise(int year, string program)
+    {
+        cout << "\n<-------------------------------------- Displaying Not Selected Students of Program " << program << " and Year " << year << "------------------------------------->\n";
+        cout << endl;
+        PrintHorizontalLine(157);
+        cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
+        PrintHorizontalLine(157);
+
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->program == program && Current->year == year && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
+                     << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
+                     << "|" << setw(15) << left << Current->whatsappNO << "|" << setw(20) << left << Current->company
+                     << "|" << setw(10) << left << Current->year << "|" << endl;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Program " << program << " and Year " << year << " are placed <---------------------------\n\n";
+        }
+
+        PrintHorizontalLine(157);
+        cout << "\n<----------------------------------- End of Not Selected Students of Program " << program << " and Year " << year << " ------------------------------------------->\n";
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------ Function to Write Not Selected Students ProgramWise of particulat Year ------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void WriteNotSelectedYearAndProgramWise(const string &filepath, int year, string program)
+    {
+        ofstream outputFile(filepath);
+
+        if (!outputFile.is_open())
+        {
+            cerr << "\n-----> Error in Opening File for Writing Data\n\n";
+            return;
+        }
+
+        outputFile << "Sr.no,ID,Name,Batch,Program,Email,Contact No,WhatsApp No,Company,Year\n";
+
+        int i = 1;
+        Node1 *Current = HeadR1;
+
+        bool Success = false;
+
+        while (Current != NULL)
+        {
+            if (Current->program == program && Current->year == year && TotalStudnetOffers[Current->id] == 0)
+            {
+
+                Success = true;
+
+                outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
+                           << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
+                           << Current->year << "\n";
+
+                i++;
+            }
+
+            Current = Current->next;
+        }
+
+        if (!Success)
+        {
+            cout << "\n---------------------------> Wow !!! All Students of Program " << program << " and Year " << year << " are placed <---------------------------\n\n";
+        }
+        else
+        {
+            cout << "\n-----> Data Written Successfully....\n\n";
+        }
+        outputFile.close();
+    }
+
+public:
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //<---------------------------------------------------// FUNCTIONS TO Find Not Selected Student //------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //-------------------------------------- Function to Find Not Selected Students BatchWise --------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindNotSelectedBatchWise()
+    {
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , Insert Data and Try Again \n-----> Thank You \n\n";
+            return;
+        }
+
+        int batch;
+        cout << "\n#-----> Enter Batch : ";
+        cin >> batch;
+
+        if (R1BatchAttempts[batch] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " does not found , Enter Valid Batch and Try Again \n\n";
+            return;
+        }
+
+        char choice1;
+        cout << "\nDo you want to Display Data(Y/N) ? \n#-----> Ans : ";
+        cin >> choice1;
+
+        if (choice1 == 'Y')
+            DisplayNotSelectedBatchWise(batch);
+
+        string filepath;
+        cout << "\nEnter File Path Where you wanted to strore the Sorted Data : ";
+        cin >> filepath;
+
+        WriteNotSelectedBatchWise(filepath, batch);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------ Function to Find Not Selected Students ProgramWise --------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindNotSelectedProgramWise()
+    {
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , Insert Data and Try Again \n-----> Thank You \n\n";
+            return;
+        }
+
+        cin.ignore();
+
+        string program;
+        cout << "\n#-----> Enter Program : ";
+        getline(cin, program);
+
+        if (R1ProgramAttempts[program] == 0)
+        {
+            cout << "\n-----> Students of Program " << program << " does not found , Enter Valid program and Try Again \n\n";
+            return;
+        }
+
+        char choice1;
+        cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+        cin >> choice1;
+
+        if (choice1 == 'Y')
+            DisplayNotSelectedProgramWise(program);
+
+        string filepath;
+        cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+        cin >> filepath;
+
+        WriteNotSelectedProgramWise(filepath, program);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------ Function to Find Not Selected Students CompanyWise --------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindNotSelectedCompanyWise()
+    {
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , Insert Data and Try Again \n-----> Thank You \n\n";
+            return;
+        }
+
+        cin.ignore();
+
+        string company;
+        cout << "\n#-----> Enter Company : ";
+        getline(cin, company);
+
+        if (R1CompanyAttempts[company] == 0)
+        {
+            cout << "\n-----> Students of Company " << company << " does not found , Enter Valid Company and Try Again \n\n";
+            return;
+        }
+
+        char choice1;
+        cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
+        cin >> choice1;
+
+        if (choice1 == 'Y')
+            DisplayNotSelectedCompanyWise(company);
+
+        string filepath;
+        cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+        cin >> filepath;
+
+        WriteNotSelectedCompanyWise(filepath, company);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //--------------------------------------- Function to Find Not Selected Students YearWise --------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindNotSelectedYearWise()
+    {
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , Insert Data and Try Again \n-----> Thank You \n\n";
+            return;
+        }
+
+        int year;
+        cout << "\n#-----> Enter Year : ";
+        cin >> year;
+
+        if (R1YearAttempts[year] == 0)
+        {
+            cout << "\n-----> Students of Year " << year << " does not found , Enter Valid Year and Try Again \n\n";
+            return;
+        }
+
+        char choice1;
+        cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+        cin >> choice1;
+
+        if (choice1 == 'Y')
+            DisplayNotSelectedYearWise(year);
+
+        string filepath;
+        cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+        cin >> filepath;
+
+        WriteNotSelectedYearWise(filepath, year);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------- Function to Find Not Selected Students Batch and Company Wise --------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindNotSelectedBatchAndCompanyWise()
+    {
+
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , Insert Data and Try Again \n-----> Thank You \n\n";
+            return;
+        }
+
+        int batch;
+        cout << "\n#-----> Enter Batch : ";
+        cin >> batch;
+
+        cin.ignore();
+
+        string company;
+        cout << "\n#-----> Enter Company : ";
+        getline(cin, company);
+
+        if (R1BatchAttempts[batch] == 0 || R1CompanyAttempts[company] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
+            return;
+        }
+
+        char choice;
+        cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
+        cin >> choice;
+
+        if (choice == 'Y')
+            DisplayNotSelectedBatchAndCompanyWise(batch, company);
+
+        string filepath;
+        cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
+        cin >> filepath;
+
+        WriteNotSelectedBatchAndCompanyWise(filepath, batch, company);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //---------------------------- Function to Find Not Selected Students Batch and Program Wise ------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindNotSelectedBatchAndProgramWise()
+    {
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , Insert Data and Try Again \n-----> Thank You \n\n";
+            return;
+        }
+
+        int batch;
+        cout << "\n#-----> Enter Batch : ";
+        cin >> batch;
+
+        cin.ignore();
+
+        string program;
+        cout << "\n#-----> Enter Program : ";
+        getline(cin, program);
+
+        if (R1BatchAttempts[batch] == 0 || R1ProgramAttempts[program] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
+            return;
+        }
+
+        char choice;
+        cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
+        cin >> choice;
+
+        if (choice == 'Y')
+            DisplayNotSelectedBatchAndProgramWise(batch, program);
+
+        string filepath;
+        cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
+        cin >> filepath;
+
+        WriteNotSelectedBatchAndProgramWise(filepath, batch, program);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //---------------------- Function to Find Not Selected Students ProgramWise of particular Company ------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindNotSelectedCompanyAndProgramWise()
+    {
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , Insert Data and Try Again \n-----> Thank You \n\n";
+            return;
+        }
+
+        cin.ignore();
+
+        string company;
+        cout << "\n#-----> Enter Company : ";
+        getline(cin, company);
+
+        string program;
+        cout << "\n#-----> Enter Program : ";
+        getline(cin, program);
+
+        if (R1ProgramAttempts[program] == 0 || R1CompanyAttempts[company] == 0)
+        {
+            cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
+            return;
+        }
+
+        char choice1;
+        cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
+        cin >> choice1;
+
+        if (choice1 == 'Y')
+            DisplayNotSelectedCompanyAndProgramWise(company, program);
+
+        string filepath;
+        cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+        cin >> filepath;
+
+        WriteNotSelectedCompanyAndProgramWise(filepath, company, program);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //-------------------------- Function to Find Not Selected Students BatchWise of particular Year -------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindNotSelectedYearAndBatchWise()
+    {
+
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , Insert Data and Try Again \n-----> Thank You \n\n";
+            return;
+        }
+
+        int year;
+        cout << "\nEnter Year : ";
+        cin >> year;
+
+        int batch;
+        cout << "\nEnter Batch : ";
+        cin >> batch;
+
+        if (R1BatchAttempts[batch] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
+            return;
+        }
+
+        char choice1;
+        cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+        cin >> choice1;
+
+        if (choice1 == 'Y')
+            DisplayNotSelectedYearAndBatchWise(year, batch);
+
+        string filepath;
+        cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+        cin >> filepath;
+
+        WriteNotSelectedYearAndBatchWise(filepath, year, batch);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------ Function to Find Not Selected Students ProgramWise of particular Year -------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindNotSelectedYearAndProgramWise()
+    {
+
+        if (!IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , Insert Data and Try Again \n-----> Thank You \n\n";
+            return;
+        }
+
+        int year;
+        cout << "\n#-----> Enter Year : ";
+        cin >> year;
+
+        cin.ignore();
+
+        string program;
+        cout << "\n#-----> Enter Program : ";
+        getline(cin, program);
+
+        if (R1ProgramAttempts[program] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\n-----> Students of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
+            return;
+        }
+
+        char choice1;
+        cout << "\n#-----> Do you to Display Data(Y/N) ? \n#-----> Ans : ";
+        cin >> choice1;
+
+        if (choice1 == 'Y')
+            DisplayNotSelectedYearAndProgramWise(year, program);
+
+        string filepath;
+        cout << "\n#-----> Enter File Path Where you wanted to strore the Sorted Data : ";
+        cin >> filepath;
+
+        WriteNotSelectedYearAndProgramWise(filepath, year, program);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------- Function to Find Not Selected Students Year and Company Wise ---------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------->
+
+    void FindNotSelectedYearAndCompanyWise()
+    {
+        if (IsDataInserted())
+        {
+            cout << "\n-----> Insufficient Data Inserted , Insert Data and Try Again \n-----> Thank You \n\n";
+            return;
+        }
+
+        int year;
+        cout << "\n#-----> Enter Year : ";
+        cin >> year;
+
+        cin.ignore();
+
+        string company;
+        cout << "\n#-----> Enter Company : ";
+        getline(cin, company);
+
+        if (R1CompanyAttempts[company] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\n-----> Students of Company " << company << " and Year " << year << " does not found , Enter Valid Company and Year and Try Again \n\n";
+            return;
+        }
+
+        char choice;
+        cout << "\n#-----> Do you want to Display Data(Y/N) ? \n#-----> Ans : ";
+        cin >> choice;
+
+        if (choice == 'Y')
+            DisplayNotSelectedYearAndCompanyWise(year, company);
+
+        string filepath;
+        cout << "\n#-----> Enter File Path Where you want to store the Sorted Data : ";
+        cin >> filepath;
+
+        WriteNotSelectedYearAndCompanyWise(filepath, year, company);
     }
 };
