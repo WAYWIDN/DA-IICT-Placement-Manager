@@ -8,11 +8,17 @@
 
 using namespace std;
 
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+//-------------------------------- Function to Find Year and Batch Wise Placement Statistics ------------------------------>
+//------------------------------------------------------------------------------------------------------------------------->
+//------------------------------------------------------------------------------------------------------------------------->
+
 void FindYearAndBatchWisePlacementStatistics()
 {
-    if (HeadR1 == NULL || HeadR2 == NULL || HeadR3 == NULL || HeadR4 == NULL || HeadFR == NULL)
+    if (!IsDataInserted())
     {
-        cout << "\nInsufficient Data to find Find Details,please insert Data and Try agian \nThank You\n";
+        cout << "\nInsufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
         return;
     }
     else
@@ -20,9 +26,18 @@ void FindYearAndBatchWisePlacementStatistics()
         int year;
         cout << "\nEnter Year : ";
         cin >> year;
+
         int batch;
         cout << "\nEnter Batch : ";
         cin >> batch;
+
+        // To find Year and Batch is in the data or not
+
+        if (R1BatchAttempts[batch] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\nStudents of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
+            return;
+        }
 
         //----> Variables to find attempts and job Offers
 
@@ -32,8 +47,6 @@ void FindYearAndBatchWisePlacementStatistics()
         int R4Attempts = 0;
         int TotalOfferes = 0;
 
-        bool YearAndBatchFound = false; // To find Year and Batch is in the data or not
-
         //----> Finding Attempts in Round 1
 
         Node1 *Temp = HeadR1;
@@ -41,17 +54,10 @@ void FindYearAndBatchWisePlacementStatistics()
         {
             if (Temp->year == year && Temp->batch == batch)
             {
-                YearAndBatchFound = true;
                 R1Attempts++;
             }
 
             Temp = Temp->next;
-        }
-
-        if (!YearAndBatchFound)
-        {
-            cout << "\nInvalid Year and Batch , please Enter Valid Year and Batch , Try again \nThank You\n";
-            return;
         }
 
         //---->Finding Attempts in Round 2
@@ -78,7 +84,7 @@ void FindYearAndBatchWisePlacementStatistics()
             Temp = Temp->next;
         }
 
-        //---->Finding Attempts in Round 2
+        //---->Finding Attempts in Round 4
 
         Temp = HeadR4;
         while (Temp != NULL)
@@ -117,14 +123,17 @@ void FindYearAndBatchWisePlacementStatistics()
 
                 packages.push_back(Current->package);
 
+                // Insert program and company name into set
                 uniqueProgramCompany.insert(Current->program + " - " + Current->company);
             }
 
             Current = Current->next;
         }
 
-        cout << endl;
-        PrintHorizontalLine(50);
+        cout <<endl;
+        PrintHorizontalLine(60);
+        cout << "\n# Placement Statistics of Batch " << batch << " in Year " << year << " : \n";
+
         cout << "\nNo. Students Attempted in Round 1 : " << R1Attempts;
         cout << "\nNo. Students Attempted in Round 2 : " << R2Attempts;
         cout << "\nNo. Students Attempted in Round 3 : " << R3Attempts;
@@ -140,7 +149,7 @@ void FindYearAndBatchWisePlacementStatistics()
 
         PrintHorizontalLine(150);
 
-        cout << "\nPograms from which companies has hired Students in " << year << " from Batch " << batch << " : \n\n";
+        cout << "\nPrograms from which companies has hired Students in " << year << " from Batch " << batch << " : \n\n";
 
         int i = 0;
         for (string str : uniqueProgramCompany)
@@ -157,5 +166,4 @@ void FindYearAndBatchWisePlacementStatistics()
         PrintHorizontalLine(150);
     }
 }
-
 
