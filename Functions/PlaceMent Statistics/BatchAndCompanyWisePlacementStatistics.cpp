@@ -8,6 +8,27 @@
 
 using namespace std;
 
+//-------------------------------------------- Function To Find Batch and Company is in Data or Not ---------------------------------------->
+
+bool IsBatchAndCompanyInData(int batch, string company)
+{
+    bool found = false;
+
+    Node1 *Temp = HeadR1;
+
+    while (Temp != NULL)
+    {
+        if (Temp->batch == batch && Temp->company == company)
+        {
+            found = true;
+        }
+
+        Temp = Temp->next;
+    }
+
+    return found;
+}
+
 //------------------------------------------------------------------------------------------------------------------------->
 //------------------------------------------------------------------------------------------------------------------------->
 //----------------------------- Function to Find Batch and Company Wise Placement Statistics ------------------------------>
@@ -41,6 +62,14 @@ void FindBatchAndCompanyWisePlacementStatistics()
             return;
         }
 
+        // Find Batch and Company is in Data or Not
+
+        if (!IsBatchAndCompanyInData(batch, company))
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
+            return;
+        }
+
         //----> Variables to find attempts and job Offers
 
         int R1Attempts = 0;
@@ -48,7 +77,6 @@ void FindBatchAndCompanyWisePlacementStatistics()
         int R3Attempts = 0;
         int R4Attempts = 0;
         int TotalOfferes = 0;
-
 
         Node1 *Temp = HeadR1;
         while (Temp != NULL)
@@ -130,7 +158,7 @@ void FindBatchAndCompanyWisePlacementStatistics()
             Current = Current->next;
         }
 
-        cout <<endl;
+        cout << endl;
         PrintHorizontalLine(60);
         cout << "\n# Placement Statistics of Batch " << batch << " and Company " << company << " : \n";
 
@@ -165,4 +193,3 @@ void FindBatchAndCompanyWisePlacementStatistics()
         PrintHorizontalLine(150);
     }
 }
-
