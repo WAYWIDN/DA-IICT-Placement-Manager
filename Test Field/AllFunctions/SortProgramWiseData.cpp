@@ -16,19 +16,16 @@ using namespace std;
 void DisplayRound1to4ProgramWiseData(Node1 *Head, string program)
 {
     cout << endl;
-    PrintHorizontalLine(157); // Printing horizontal line
+    PrintHorizontalLine(157);
     cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |   Year   |\n";
-    PrintHorizontalLine(157); // Printing horizontal line
+    PrintHorizontalLine(157);
 
     Node1 *Current = Head;
-
-    bool program_found = false;
 
     while (Current != NULL)
     {
         if (Current->program == program)
         {
-            program_found = true;
 
             cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                  << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -39,9 +36,6 @@ void DisplayRound1to4ProgramWiseData(Node1 *Head, string program)
         Current = Current->next;
     }
 
-    if (!program_found)
-        cout << "\nStudent of Program " << program << "  does not found , Enter Valid Program Name and Try Again \n";
-
     PrintHorizontalLine(157); // Printing horizontal line
 }
 
@@ -50,19 +44,16 @@ void DisplayRound1to4ProgramWiseData(Node1 *Head, string program)
 void DisplayFinalRoundProgramWiseData(Node2 *Head, string program)
 {
     cout << endl;
-    PrintHorizontalLine(177); // Printing horizontal line
+    PrintHorizontalLine(177);
     cout << "|    ID    |        Name        |   Batch  |    Program    |          Email          |   Contact No  |  WhatsApp No  |      Company       |    Package    |   Year   |\n";
-    PrintHorizontalLine(177); // Printing horizontal line
+    PrintHorizontalLine(177);
 
     Node2 *Current = Head;
-
-    bool program_found = false;
 
     while (Current != NULL)
     {
         if (Current->program == program)
         {
-            program_found = true;
 
             cout << "|" << setw(10) << left << Current->id << "|" << setw(20) << left << Current->name << "|" << setw(10) << left << Current->batch
                  << "|" << setw(15) << left << Current->program << "|" << setw(25) << left << Current->email << "|" << setw(15) << left << Current->contactNO
@@ -73,10 +64,7 @@ void DisplayFinalRoundProgramWiseData(Node2 *Head, string program)
         Current = Current->next;
     }
 
-    if (!program_found)
-        cout << "\nStudents of Program " << program << "  does not found , Enter Valid Program Name and Try Again \n";
-
-    PrintHorizontalLine(177); // Printing horizontal line
+    PrintHorizontalLine(177);
 }
 
 //--------------------------------------------------------------------------------------------------------------------->
@@ -144,7 +132,7 @@ void WriteProgramWiseSortedDataForRound1to4(const string &filepath, Node1 *Head,
 
     if (!outputFile.is_open())
     {
-        cerr << "\nError in Opening File for Writing Data\n";
+        cerr << "\nError in Opening File for Writing Data\n\n";
         return;
     }
 
@@ -153,13 +141,10 @@ void WriteProgramWiseSortedDataForRound1to4(const string &filepath, Node1 *Head,
     int i = 1;
     Node1 *Current = Head;
 
-    bool program_found = false;
-
     while (Current != nullptr)
     {
         if (Current->program == program)
         {
-            program_found = true;
 
             outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                        << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -171,10 +156,7 @@ void WriteProgramWiseSortedDataForRound1to4(const string &filepath, Node1 *Head,
         Current = Current->next;
     }
 
-    if (!program_found)
-        cout << "\nStudents of Program " << program << "  does not found , Enter Valid Program Name and Try Again \n";
-    else
-        cout << "\nData Written Successfully...\n";
+    cout << "\nData Written Successfully...\n\n";
 
     outputFile.close();
 }
@@ -189,7 +171,7 @@ void WriteProgramWiseSortedDataForFinalRound(const string &filepath, Node2 *Head
 
     if (!outputFile.is_open())
     {
-        cerr << "\nError in Opening File for Writing Data\n";
+        cerr << "\nError in Opening File for Writing Data\n\n";
         return;
     }
 
@@ -198,13 +180,10 @@ void WriteProgramWiseSortedDataForFinalRound(const string &filepath, Node2 *Head
     int i = 1;
     Node2 *Current = Head;
 
-    bool program_found = false;
-
     while (Current != nullptr)
     {
         if (Current->program == program)
         {
-            program_found = true;
 
             outputFile << i << "," << Current->id << "," << Current->name << "," << Current->batch << "," << Current->program << ","
                        << Current->email << "," << Current->contactNO << "," << Current->whatsappNO << "," << Current->company << ","
@@ -216,10 +195,7 @@ void WriteProgramWiseSortedDataForFinalRound(const string &filepath, Node2 *Head
         Current = Current->next;
     }
 
-    if (!program_found)
-        cout << "\nStudents of Program " << program << "  does not found , Enter Valid Program Name and Try Again \n";
-    else
-        cout << "\nData Written Successfully...\n";
+    cout << "\nData Written Successfully...\n\n";
 
     outputFile.close();
 }
@@ -231,9 +207,23 @@ void WriteProgramWiseSortedDataForFinalRound(const string &filepath, Node2 *Head
 void SortDataProgramWise()
 {
 
+    if (!IsDataInserted())
+    {
+        cout << "Insufficient Data Inserted , please insert Data and Try agian \nThank You\n\n";
+        return;
+    }
+
     string program;
     cout << "\nEnter Program : ";
-    cin >> program;
+    getline(cin, program);
+
+    // Find Program is in Data or Not
+
+    if (R1ProgramAttempts[program] == 0)
+    {
+        cout << "\nStudents of Program " << program << " does not found , Enter Valid program and Try Again \n\n";
+        return;
+    }
 
     cout << "\nTo sort data for Round 1, Round 2, Round 3, Round 4, or the Final Round ; Enter 1, 2, 3, 4, or 5 respectively \n ";
 
@@ -246,12 +236,6 @@ void SortDataProgramWise()
     switch (choice)
     {
     case 1:
-
-        if (HeadR1 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 1 , Insert the data and try again \n Thank You \n";
-            break;
-        }
 
         char choice1;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
@@ -269,12 +253,6 @@ void SortDataProgramWise()
 
     case 2:
 
-        if (HeadR2 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 2 , Insert the data and try again \n Thank You \n";
-            break;
-        }
-
         char choice2;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
         cin >> choice2;
@@ -290,12 +268,6 @@ void SortDataProgramWise()
         break;
 
     case 3:
-
-        if (HeadR3 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 3 , Insert the data and try again \n Thank You \n";
-            break;
-        }
 
         char choice3;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
@@ -313,12 +285,6 @@ void SortDataProgramWise()
 
     case 4:
 
-        if (HeadR4 == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Round 4 , Insert the data and try again \n Thank You \n";
-            break;
-        }
-
         char choice4;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
         cin >> choice4;
@@ -334,12 +300,6 @@ void SortDataProgramWise()
         break;
 
     case 5:
-
-        if (HeadFR == NULL)
-        {
-            cout << "\nInsufficient data Inserted for Final Round , Insert the data and try again \n Thank You \n";
-            break;
-        }
 
         char choice5;
         cout << "\nDo you to Display Data(Y/N) ? \nAns : ";
@@ -357,6 +317,6 @@ void SortDataProgramWise()
 
     default:
 
-        cout << "\nInvalid Choice \n";
+        cout << "\nInvalid Choice \n\n";
     }
 }
