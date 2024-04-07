@@ -107,9 +107,9 @@ void WriteNotSelectedYearAndProgramWise(const string &filepath, int year, string
 void FindNotSelectedYearAndProgramWise()
 {
 
-    if(!IsDataInserted())
+    if (!IsDataInserted())
     {
-        cout<<"\nInsufficient Data Inserted , Insert Data and Try Again \nThank You \n\n";
+        cout << "\nInsufficient Data Inserted , Insert Data and Try Again \nThank You \n\n";
         return;
     }
 
@@ -123,10 +123,19 @@ void FindNotSelectedYearAndProgramWise()
     cout << "\nEnter Program : ";
     getline(cin, program);
 
+    // Find Year or Program is in Data or Not
 
     if (R1ProgramAttempts[program] == 0 || R1YearAttempts[year] == 0)
     {
         cout << "\nStudents of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
+        return;
+    }
+
+    // Find Year and Program is in Data or Not
+
+    if (!IsYearAndProgramInData(year, program))
+    {
+        cout << "\n-----> Students of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
         return;
     }
 
