@@ -161,15 +161,15 @@ unordered_map<int, int> TotalYearOffers;
 
 // Variables to keep Track on whole Placement Statics
 
-int NOofStudentR1;
-int NOofStudentR2;
-int NOofStudentR3;
-int NOofStudentR4;
-int NOofStudentFR;
+int NOofStudentR1 = 0;
+int NOofStudentR2 = 0;
+int NOofStudentR3 = 0;
+int NOofStudentR4 = 0;
+int NOofStudentFR = 0;
 float MinPackageOverall = numeric_limits<float>::max();
 float MaxPackageOverall = numeric_limits<float>::min();
-float TotalPackageOverall;
-float AveragePackageOverall;
+float TotalPackageOverall = 0;
+float AveragePackageOverall = 0;
 vector<float> PackagesOfferedOverall;
 vector<string> CompaniesVisitedOverall;
 
