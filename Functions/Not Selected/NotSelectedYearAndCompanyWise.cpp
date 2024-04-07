@@ -107,9 +107,9 @@ void WriteNotSelectedYearAndCompanyWise(const string &filepath, int year, string
 
 void FindNotSelectedYearAndCompanyWise()
 {
-    if(IsDataInserted())
+    if (IsDataInserted())
     {
-        cout<<"\nInsufficient Data Inserted , Insert Data and Try Again \nThank You \n\n";
+        cout << "\nInsufficient Data Inserted , Insert Data and Try Again \nThank You \n\n";
         return;
     }
 
@@ -123,9 +123,19 @@ void FindNotSelectedYearAndCompanyWise()
     cout << "\nEnter Company : ";
     getline(cin, company);
 
+    // Find Year or Company is in Data or Not
+
     if (R1CompanyAttempts[company] == 0 || R1YearAttempts[year] == 0)
     {
         cout << "\nStudents of Company " << company << " and Year " << year << " does not found , Enter Valid Company and Year and Try Again \n\n";
+        return;
+    }
+
+    // Find Year and Company is in Data or Not
+
+    if (!IsYearAndCompanyInData(year, company))
+    {
+        cout << "\n-----> Students of Company " << company << " and Year " << year << " does not found , Enter Valid Company and Year and Try Again \n\n";
         return;
     }
 
@@ -142,4 +152,3 @@ void FindNotSelectedYearAndCompanyWise()
 
     WriteNotSelectedYearAndCompanyWise(filepath, year, company);
 }
-
