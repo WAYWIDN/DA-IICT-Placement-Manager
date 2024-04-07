@@ -12,6 +12,18 @@ This project contains the four main parts:
     3) Placement Statistics --> Give The Placement Statistics Of Data
     4) Not Selected Student Details --> Sort Not Selected Students Data
 
+## How To Run It ##
+    1) Download A zip file or Clone A Repo On Your Local Computer(If you downloaded zip file unzip it).
+
+    2) Run Main.cpp.
+
+    3) Select 1 and add data from the csv files.
+
+    4) Now Select Option 2 - 4 to do work mentioned above also select sub options to do particular work.
+
+    5) You can save all your output in file except placement statistics.
+
+    6) After work select 5 and Exit the program.
 
 ## Languages used
  - [C++](https://www.cplusplus.com)
