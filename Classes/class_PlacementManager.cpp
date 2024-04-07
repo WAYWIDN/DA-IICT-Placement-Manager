@@ -249,6 +249,166 @@ private:
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //<------------------------------------------------- // FUNCTIONS TO FIND IS IN DATA OR NOT  // -------------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //-------------------------------------------- Function To Find Batch and Company is in Data or Not ---------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    bool IsBatchAndCompanyInData(int batch, string company)
+    {
+        bool found = false;
+
+        Node1 *Temp = HeadR1;
+
+        while (Temp != NULL)
+        {
+            if (Temp->batch == batch && Temp->company == company)
+            {
+                found = true;
+            }
+
+            Temp = Temp->next;
+        }
+
+        return found;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //-------------------------------------------- Function To Find Batch and Program is in Data or Not ---------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    bool IsBatchAndProgramInData(int batch, string program)
+    {
+        bool found = false;
+
+        Node1 *Temp = HeadR1;
+
+        while (Temp != NULL)
+        {
+            if (Temp->batch == batch && Temp->program == program)
+            {
+                found = true;
+            }
+
+            Temp = Temp->next;
+        }
+
+        return found;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------ Function To Find Program And Company is in Data or Not ---------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    bool IsProgramAndCompanyInData(string program, string company)
+    {
+        bool found = false;
+
+        Node1 *Temp = HeadR1;
+
+        while (Temp != NULL)
+        {
+            if (Temp->program == program && Temp->company == company)
+            {
+                found = true;
+            }
+
+            Temp = Temp->next;
+        }
+
+        return found;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //---------------------------------------------- Function To Find Year And Batch is in Data or Not ----------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    bool IsYearAndBatchInData(int year, int batch)
+    {
+        bool found = false;
+
+        Node1 *Temp = HeadR1;
+
+        while (Temp != NULL)
+        {
+            if (Temp->year == year && Temp->batch == batch)
+            {
+                found = true;
+            }
+
+            Temp = Temp->next;
+        }
+
+        return found;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //---------------------------------------------- Function To Find Year And Program is in Data or Not ----------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    bool IsYearAndProgramInData(int year, string program)
+    {
+        bool found = false;
+
+        Node1 *Temp = HeadR1;
+
+        while (Temp != NULL)
+        {
+            if (Temp->year == year && Temp->program == program)
+            {
+                found = true;
+            }
+
+            Temp = Temp->next;
+        }
+
+        return found;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //---------------------------------------------- Function To Find Year And Company is in Data or Not ----------------------------------------->
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+
+    bool IsYearAndCompanyInData(int year, string company)
+    {
+        bool found = false;
+
+        Node1 *Temp = HeadR1;
+
+        while (Temp != NULL)
+        {
+            if (Temp->year == year && Temp->company == company)
+            {
+                found = true;
+            }
+
+            Temp = Temp->next;
+        }
+
+        return found;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
+    //------------------------------------------------------------------------------------------------------------------------------------------>
     //<---------------------------------------------------// FUNCTIONS TO COLLECT DATA //------------------------------------------------------->
     //------------------------------------------------------------------------------------------------------------------------------------------>
     //------------------------------------------------------------------------------------------------------------------------------------------>
@@ -1996,6 +2156,8 @@ private:
 
         Node1 *Current = Head;
 
+        bool found = false; // To find
+
         while (Current != nullptr)
         {
             if (Current->batch == batch && Current->company == company)
@@ -3307,7 +3469,7 @@ public:
 
     void SortDataYearWise()
     {
-        if (IsDataInserted())
+        if (!IsDataInserted())
         {
             cout << "\n-----> Insufficient Data Inserted , please insert Data and Try agian \n-----> Thank You\n\n";
             return;
@@ -3569,9 +3731,17 @@ public:
         cout << "\n#-----> Enter Company Name : ";
         getline(cin, company);
 
-        // Find Batch and Company is in Data or Not
+        // Find Batch or Company is in Data or Not
 
         if (R1BatchAttempts[batch] == 0 || R1CompanyAttempts[company] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
+            return;
+        }
+
+        // Find Batch And Company is in Data or Not
+
+        if (!IsBatchAndCompanyInData(batch, company))
         {
             cout << "\n-----> Students of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
             return;
@@ -3697,9 +3867,17 @@ public:
         cout << "\n#-----> Enter Program : ";
         getline(cin, program);
 
-        // Find Batch and Program is in Data or not
+        // Find Batch or Program is in Data or not
 
         if (R1BatchAttempts[batch] == 0 || R1ProgramAttempts[program] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
+            return;
+        }
+
+        // Find Batch and Program is in Data or Not
+
+        if (!IsBatchAndProgramInData(batch, program))
         {
             cout << "\n-----> Students of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
             return;
@@ -3820,9 +3998,17 @@ public:
         cout << "\n#-----> Enter Company Name : ";
         getline(cin, company);
 
-        // To find Program and Company is in the data or not
+        // To find Program or Company is in the data or not
 
         if (R1ProgramAttempts[program] == 0 || R1CompanyAttempts[company] == 0)
+        {
+            cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
+            return;
+        }
+
+        // To find Program and Company is in the data or not
+
+        if (!IsProgramAndCompanyInData(program, company))
         {
             cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
             return;
@@ -3947,9 +4133,17 @@ public:
         cout << "\n#-----> Enter Batch : ";
         cin >> batch;
 
-        // To find Year and Batch is in the data or not
+        // To find Year or Batch is in the data or not
 
         if (R1BatchAttempts[batch] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
+            return;
+        }
+
+        // To Find Year and Batch is in the Data or Not
+
+        if (!IsYearAndBatchInData(year, batch))
         {
             cout << "\n-----> Students of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
             return;
@@ -4076,9 +4270,17 @@ public:
         cout << "\n#-----> Enter Program : ";
         getline(cin, program);
 
-        // To find Year and Program is in the data or not
+        // To find Year or Program is in the data or not
 
         if (R1ProgramAttempts[program] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\n-----> Students of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
+            return;
+        }
+
+        // To find Year and Program is in the data or not
+
+        if (!IsYearAndProgramInData(year, program))
         {
             cout << "\n-----> Students of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
             return;
@@ -4737,9 +4939,17 @@ public:
             cout << "\n#-----> Enter Company Name : ";
             getline(cin, company);
 
-            // Find Batch and Company is in Data or Not
+            // Find Batch or Company is in Data or Not
 
             if (R1BatchAttempts[batch] == 0 || R1CompanyAttempts[company] == 0)
+            {
+                cout << "\n-----> Students of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
+                return;
+            }
+
+            // Find Batch and Company is in Data or Not
+
+            if (!IsBatchAndCompanyInData(batch, company))
             {
                 cout << "\n-----> Students of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
                 return;
@@ -4895,9 +5105,17 @@ public:
             cout << "\n#-----> Enter Program : ";
             getline(cin, program);
 
-            // Find Batch and Program is in Data or not
+            // Find Batch or Program is in Data or not
 
             if (R1BatchAttempts[batch] == 0 || R1ProgramAttempts[program] == 0)
+            {
+                cout << "\n-----> Students of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
+                return;
+            }
+
+            // Find Batch and Program is in Data or not
+
+            if (!IsBatchAndProgramInData(batch, program))
             {
                 cout << "\n-----> Students of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
                 return;
@@ -5054,9 +5272,17 @@ public:
             cout << "\n#-----> Enter Company Name : ";
             getline(cin, company);
 
-            // To find Program and Company is in the data or not
+            // To find Program or Company is in the data or not
 
             if (R1ProgramAttempts[program] == 0 || R1CompanyAttempts[company] == 0)
+            {
+                cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
+                return;
+            }
+
+            // To find Program and Company is in the data or not
+
+            if (!IsProgramAndCompanyInData(program, company))
             {
                 cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
                 return;
@@ -5211,9 +5437,17 @@ public:
             cout << "\n#-----> Enter Batch : ";
             cin >> batch;
 
-            // To find Year and Batch is in the data or not
+            // To find Year or Batch is in the data or not
 
             if (R1BatchAttempts[batch] == 0 || R1YearAttempts[year] == 0)
+            {
+                cout << "\n-----> Students of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
+                return;
+            }
+
+            // To find Year and Batch is in the data or not
+
+            if (!IsYearAndBatchInData(year, batch))
             {
                 cout << "\n-----> Students of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
                 return;
@@ -5372,9 +5606,17 @@ public:
             cout << "\n#-----> Enter Company Name : ";
             getline(cin, company);
 
-            // To find Year and Company is in the data or not
+            // To find Year or Company is in the data or not
 
             if (R1CompanyAttempts[company] == 0 || R1YearAttempts[year] == 0)
+            {
+                cout << "\n-----> Students of Company " << company << " and Year " << year << " does not found , Enter Valid Company and Year and Try Again \n\n";
+                return;
+            }
+
+            // To find Year and Company is in the data or not
+
+            if (!IsYearAndCompanyInData(year, company))
             {
                 cout << "\n-----> Students of Company " << company << " and Year " << year << " does not found , Enter Valid Company and Year and Try Again \n\n";
                 return;
@@ -5531,9 +5773,17 @@ public:
             cout << "\n#-----> Enter Program : ";
             getline(cin, program);
 
-            // To find Year and Program is in the data or not
+            // To find Year or Program is in the data or not
 
             if (R1ProgramAttempts[program] == 0 || R1YearAttempts[year] == 0)
+            {
+                cout << "\n-----> Students of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
+                return;
+            }
+
+            // To find Year and Program is in the data or not
+
+            if (!IsYearAndProgramInData(year, program))
             {
                 cout << "\n-----> Students of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
                 return;
@@ -6813,7 +7063,17 @@ public:
         cout << "\n#-----> Enter Company : ";
         getline(cin, company);
 
+        // Find Batch or Company is in Data or Not
+
         if (R1BatchAttempts[batch] == 0 || R1CompanyAttempts[company] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
+            return;
+        }
+
+        // Find Batch And Company is in Data or Not
+
+        if (!IsBatchAndCompanyInData(batch, company))
         {
             cout << "\n-----> Students of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
             return;
@@ -6857,7 +7117,17 @@ public:
         cout << "\n#-----> Enter Program : ";
         getline(cin, program);
 
+        // Find Batch or Program is in Data or Not
+
         if (R1BatchAttempts[batch] == 0 || R1ProgramAttempts[program] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
+            return;
+        }
+
+        // Find Batch And Program is in Data or Not
+
+        if (!IsBatchAndProgramInData(batch, program))
         {
             cout << "\n-----> Students of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
             return;
@@ -6901,7 +7171,17 @@ public:
         cout << "\n#-----> Enter Program : ";
         getline(cin, program);
 
+        // Find Program or Company is in Data or Not
+
         if (R1ProgramAttempts[program] == 0 || R1CompanyAttempts[company] == 0)
+        {
+            cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
+            return;
+        }
+
+        // Find Program And Company is in Data or Not
+
+        if (!IsProgramAndCompanyInData(program, company))
         {
             cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
             return;
@@ -6944,7 +7224,17 @@ public:
         cout << "\nEnter Batch : ";
         cin >> batch;
 
+        // Find Batch or Year is in Data or Not
+
         if (R1BatchAttempts[batch] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\n-----> Students of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
+            return;
+        }
+
+        // Find Batch and Year is in Data or Not
+
+        if (!IsYearAndBatchInData(year, batch))
         {
             cout << "\n-----> Students of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
             return;
@@ -6989,7 +7279,17 @@ public:
         cout << "\n#-----> Enter Program : ";
         getline(cin, program);
 
+        // Find Year or Program is in Data or Not
+
         if (R1ProgramAttempts[program] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\n-----> Students of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
+            return;
+        }
+
+        // Find Year and Program is in Data or Not
+
+        if (!IsYearAndProgramInData(year, program))
         {
             cout << "\n-----> Students of Program " << program << " and Year " << year << " does not found , Enter Valid Year and Program and Try Again \n\n";
             return;
@@ -7033,7 +7333,17 @@ public:
         cout << "\n#-----> Enter Company : ";
         getline(cin, company);
 
+        // Find Company or Year is in Data or Not
+
         if (R1CompanyAttempts[company] == 0 || R1YearAttempts[year] == 0)
+        {
+            cout << "\n-----> Students of Company " << company << " and Year " << year << " does not found , Enter Valid Company and Year and Try Again \n\n";
+            return;
+        }
+
+        // Find Year and Company is in Data or Not
+
+        if (!IsYearAndCompanyInData(year, company))
         {
             cout << "\n-----> Students of Company " << company << " and Year " << year << " does not found , Enter Valid Company and Year and Try Again \n\n";
             return;
