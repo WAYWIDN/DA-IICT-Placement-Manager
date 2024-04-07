@@ -7317,7 +7317,7 @@ public:
 
     void FindNotSelectedYearAndCompanyWise()
     {
-        if (IsDataInserted())
+        if (!IsDataInserted())
         {
             cout << "\n-----> Insufficient Data Inserted , Insert Data and Try Again \n-----> Thank You \n\n";
             return;
