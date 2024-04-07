@@ -38,45 +38,45 @@ Data Structues Used In This Project
 ## Contribution ##
 
 #### Contribution By Vivek Parmar ####
-    - Main Class
-    - Input Placement Data
-    - Not Selected Batch Wise
-    - Not Selected Company Wise 
-    - Not Selected Program Wise
-    - Not Selected Year Wise
-    - Not Selected Batch And Company Wise
-    - Not Selected Batch And Program Wise
-    - Not Selected Company And Program Wise
+- Main Class
+- Input Placement Data
+- Not Selected Batch Wise
+- Not Selected Company Wise 
+- Not Selected Program Wise
+- Not Selected Year Wise
+- Not Selected Batch And Company Wise
+- Not Selected Batch And Program Wise
+- Not Selected Company And Program Wise
 
 #### Contribution By Ansh Badresiya ####
-    - Sort Whole Data
-    - Sort Program Wise
-    - Sort Batch And Company Wise
-    - Sort Program And Batch Wise
-    - Sort Program And Company Wise
-    - Sort Year And Batch Wise
-    - Sort Year And Program Wise
+- Sort Whole Data
+- Sort Program Wise
+- Sort Batch And Company Wise
+- Sort Program And Batch Wise
+- Sort Program And Company Wise
+- Sort Year And Batch Wise
+- Sort Year And Program Wise
 
 #### Contribution By Nilesh Mori ####
-    - Not Selected Year And Batch Wise
-    - Not Selected Year And Company Wise
-    - Not Selected Year And Program Wise
-    - Overall Placement Statistics
-    - Batch Wise Placement Statistics
-    - Company Wise Placement Statistics
-    - Program Wise Placement Statistics
-    - Year Wise Placement Statistics
-    - Batch And Company Wise Placement Statistics
+- Not Selected Year And Batch Wise
+- Not Selected Year And Company Wise
+- Not Selected Year And Program Wise
+- Overall Placement Statistics
+- Batch Wise Placement Statistics
+- Company Wise Placement Statistics
+- Program Wise Placement Statistics
+- Year Wise Placement Statistics
+- Batch And Company Wise Placement Statistics
 
-#### Contribution By Aum Patel ####
-    - Sort Batch Wise
-    - Sort Company Wise
-    - Program And Batch Wise Placement Statistics
-    - Program And Company Wise Placement Statistics
-    - Year And Batch Wise Placement Statistics
-    - Year And Company Wise Placement Statistics
-    - Year Program Wise Placement Statistics
-    - Student Placement Details
+#### Contribution By Aum Patel  
+- Sort Batch Wise
+- Sort Company Wise
+- Program And Batch Wise Placement Statistics
+- Program And Company Wise Placement Statistics
+- Year And Batch Wise Placement Statistics
+- Year And Company Wise Placement Statistics
+- Year Program Wise Placement Statistics
+- Student Placement Details
 
 
 ## Made by
