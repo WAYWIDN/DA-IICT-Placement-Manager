@@ -107,9 +107,9 @@ void WriteNotSelectedBatchAndProgramWise(const string &filepath, int batch, stri
 
 void FindNotSelectedBatchAndProgramWise()
 {
-    if(!IsDataInserted())
+    if (!IsDataInserted())
     {
-        cout<<"\nInsufficient Data Inserted , Insert Data and Try Again \nThank You \n\n";
+        cout << "\nInsufficient Data Inserted , Insert Data and Try Again \nThank You \n\n";
         return;
     }
 
@@ -122,11 +122,20 @@ void FindNotSelectedBatchAndProgramWise()
     string program;
     cout << "\nEnter Program : ";
     getline(cin, program);
-    
+
+    // Find Batch or Program is in Data or Not
 
     if (R1BatchAttempts[batch] == 0 || R1ProgramAttempts[program] == 0)
     {
         cout << "\nStudents of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
+        return;
+    }
+
+    // Find Batch And Program is in Data or Not
+
+    if (!IsBatchAndProgramInData(batch, program))
+    {
+        cout << "\n-----> Students of Batch " << batch << " and Program " << program << " does not found , Enter Valid Batch and Program and Try Again \n\n";
         return;
     }
 
@@ -143,4 +152,3 @@ void FindNotSelectedBatchAndProgramWise()
 
     WriteNotSelectedBatchAndProgramWise(filepath, batch, program);
 }
-
