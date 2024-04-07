@@ -124,9 +124,19 @@ void FindNotSelectedBatchAndCompanyWise()
     cout << "\nEnter Company : ";
     getline(cin, company);
 
+    // Find Batch or Company is in Data or Not
+
     if (R1BatchAttempts[batch] == 0 || R1CompanyAttempts[company] == 0)
     {
         cout << "\nStudents of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
+        return;
+    }
+
+    // Find Batch And Company is in Data or Not
+
+    if (!IsBatchAndCompanyInData(batch, company))
+    {
+        cout << "\n-----> Students of Batch " << batch << " and Company " << company << " does not found , Enter Valid Batch and Company and Try Again \n\n";
         return;
     }
 
@@ -143,4 +153,3 @@ void FindNotSelectedBatchAndCompanyWise()
 
     WriteNotSelectedBatchAndCompanyWise(filepath, batch, company);
 }
-
