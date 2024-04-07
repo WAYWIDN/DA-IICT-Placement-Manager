@@ -1,7 +1,7 @@
 ## *Code Crushers* ##
 
 
-## **DAIICT Placement Manager** 
+## **P-2: DAIICT Placement Manager** 
 
 We implemented Placment Management System that help to manage placment data.This is our college project for the 2nd sem.
 
