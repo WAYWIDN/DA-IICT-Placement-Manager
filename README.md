@@ -1,8 +1,9 @@
-# **Capstone Project**
+## *Code Crushers* ##
+
 
 ## **DAIICT Placement Manager** 
 
-We implemented Placment Management System that help to manage placment data.
+We implemented Placment Management System that help to manage placment data.This is our college project for the 2nd sem.
 
 ## Project Details
 This project contains the four main parts:
@@ -11,6 +12,12 @@ This project contains the four main parts:
     2) Sorting Data --> Sort The Data
     3) Placement Statistics --> Give The Placement Statistics Of Data
     4) Not Selected Student Details --> Sort Not Selected Students Data
+ 
+Data Structues Used In This Project
+
+* Linked List
+* Maps
+* Sets
 
 ## How To Run It ##
     1) Download A zip file or Clone A Repo On Your Local Computer(If you downloaded zip file unzip it).
@@ -83,4 +90,9 @@ This project contains the four main parts:
 
 ## Reference
 
-[Placement Management System](https://github.com/kailash360/Placement-Management-System.git)
+* [Placement Management System](https://github.com/kailash360/Placement-Management-System.git)
+
+* [Chatgpt](https://chat.openai.com/)
+
+
+
