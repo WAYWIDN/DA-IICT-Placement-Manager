@@ -121,9 +121,19 @@ void FindNotSelectedYearAndBatchWise()
     cout << "\nEnter Batch : ";
     cin >> batch;
 
+    // Find Batch or Year is in Data or Not
+
     if (R1BatchAttempts[batch] == 0 || R1YearAttempts[year] == 0)
     {
         cout << "\nStudents of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
+        return;
+    }
+
+    // Find Batch and Year is in Data or Not
+
+    if (!IsYearAndBatchInData(year, batch))
+    {
+        cout << "\n-----> Students of Batch " << batch << " and Year " << year << " does not found , Enter Valid Batch and Year and Try Again \n\n";
         return;
     }
 
