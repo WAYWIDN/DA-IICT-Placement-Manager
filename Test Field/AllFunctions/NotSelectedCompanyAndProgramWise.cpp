@@ -110,15 +110,25 @@ void FindNotSelectedCompanyAndProgramWise()
 
     string company;
     cout << "\nEnter Company : ";
-    getline(cin,company);
+    getline(cin, company);
 
     string program;
     cout << "\nEnter Program : ";
     getline(cin, program);
 
+    // Find Program or Company is in Data or Not
+
     if (R1ProgramAttempts[program] == 0 || R1CompanyAttempts[company] == 0)
     {
         cout << "\nStudents of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
+        return;
+    }
+
+    // Find Program And Company is in Data or Not
+
+    if (!IsProgramAndCompanyInData(program, company))
+    {
+        cout << "\n-----> Students of Program " << program << " and Company " << company << " does not found , Enter Valid program and Company Try Again \n\n";
         return;
     }
 
@@ -135,4 +145,3 @@ void FindNotSelectedCompanyAndProgramWise()
 
     WriteNotSelectedCompanyAndProgramWise(filepath, company, program);
 }
-
