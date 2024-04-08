@@ -20,18 +20,12 @@ Data Structues Used In This Project
 * Sets
 
 ## How To Run It ##
-    1) Download A zip file or Clone A Repo On Your Local Computer(If you downloaded zip file unzip it).
 
-    2) Run Main.cpp.
-
-    3) Select 1 and add data from the csv files.
-
-    4) Now Select Option 2 - 4 to do work mentioned above also select sub options to do particular work.
-
-    5) You can save all your output in file except placement statistics.
-
-    6) After work select 5 and Exit the program.
-
+    1) Download " main.cpp " and " class_PlacementManager.cpp " from the folder Classes.
+    2) Include the file " class_PlacementManager.cpp " into the " main.cpp ".
+    3) Compile your code to ensure that all files are successfully integrated.
+    4) Run the system and verify that it operates as expected.
+    
 ## Languages used
  - [C++](https://www.cplusplus.com)
 
