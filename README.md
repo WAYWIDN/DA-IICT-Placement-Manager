@@ -3,15 +3,18 @@
 
 ## **P-2: DAIICT Placement Manager** 
 
-We implemented Placment Management System that help to manage placment data.This is our college project for the 2nd sem.
+During our second semester in the Data Structures course, our assignment was to develop a Placement Management System as our Capstone Challenge. This project applies concepts learned in programming languages, data structures, and algorithmic problem-solving to real-world scenarios. It serves as a practical application of our skills, aiming to enhance proficiency in these areas.
+
+Throughout the development process, we applied our knowledge of data structures such as arrays, linked lists, and trees to efficiently manage placement data. Algorithmic problem-solving techniques were utilized to implement features like search and retrieval functionalities, ensuring seamless navigation and access to information.
 
 ## Project Details
+
 This project contains the four main parts:
 
-    1) Input Placement Data --> Take a filepath and companyname as a Input
-    2) Sorting Data --> Sort The Data
-    3) Placement Statistics --> Give The Placement Statistics Of Data
-    4) Not Selected Student Details --> Sort Not Selected Students Data
+    1) Input Placement Data --> Take a filepath and companyname as a Input to collect the data
+    2) Sorting Data --> Sort The Data as User's Requrirement
+    3) Placement Statistics --> Find The Placement Statistics from Data as User's Requrirement 
+    4) Not Selected Student Details --> Find Not Selected Students from Data as User's Requrirement
  
 Data Structues Used In This Project
 
@@ -82,11 +85,11 @@ Data Structues Used In This Project
 | 202301448 | Aum Patel | [aum9049](https://github.com/aum9049) |
 
 
-## Reference
+## Inspiration and Reference
 
 * [Placement Management System](https://github.com/kailash360/Placement-Management-System.git)
 
-* [Chatgpt](https://chat.openai.com/)
+* [Chatgpt](https://chat.openai.com/) 
 
 
 
