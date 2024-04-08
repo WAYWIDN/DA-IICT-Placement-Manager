@@ -5,7 +5,7 @@
 
 During our second semester in the Data Structures course, our assignment was to develop a Placement Management System as our Capstone Challenge. This project applies concepts learned in programming languages, data structures, and algorithmic problem-solving to real-world scenarios. It serves as a practical application of our skills, aiming to enhance proficiency in these areas.
 
-Throughout the development process, we applied our knowledge of data structures such as arrays, linked lists, and trees to efficiently manage placement data. Algorithmic problem-solving techniques were utilized to implement features like search and retrieval functionalities, ensuring seamless navigation and access to information.
+Throughout the development process, we applied our knowledge of data structures such as linked lists, hashmap and sets to efficiently manage placement data. Algorithmic problem-solving techniques were utilized to implement features like search and retrieval functionalities, ensuring seamless navigation and access to information.
 
 ## Project Details
 
