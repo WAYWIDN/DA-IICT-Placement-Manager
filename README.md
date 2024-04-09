@@ -85,11 +85,9 @@ Data Structues Used In This Project
 | 202301448 | Aum Patel | [aum9049](https://github.com/aum9049) |
 
 
-## Inspiration and Reference
-
-* [Placement Management System](https://github.com/kailash360/Placement-Management-System.git)
-
-* [Chatgpt](https://chat.openai.com/) 
+## Reference
+* [Chatgpt](https://chat.openai.com/)
+To set Printing Pattern
 
 
 
