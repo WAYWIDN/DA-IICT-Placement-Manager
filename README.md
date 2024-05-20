@@ -79,7 +79,7 @@ Data Structues Used In This Project
 ## Made by
 | SID | Name | Username |
 |-------------|------|----------|
-| 202301475 | Vivek Parmar | [Vivek00021](https://github.com/Vivek00021) |
+| 202301475 | Vivek Parmar | [WAYWIDN]( https://github.com/WAYWIDN) |
 | 202301477 | Ansh Badresiya | [Ansh-Badresiya](https://github.com/Ansh-Badresiya) |
 | 20231473 | Nilesh Mori | [nilesh7757](https://github.com/nilesh7757) | 
 | 202301448 | Aum Patel | [aum9049](https://github.com/aum9049) |
