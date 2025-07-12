@@ -1,93 +1,82 @@
-## *Code Crushers* ##
+# 🎓 DA-IICT Placement Manager
 
+A C++ based console application designed to manage, analyze, and organize student placement data efficiently using fundamental data structures and algorithms. This project simulates real-world placement record management by offering interactive sorting, filtering, and statistical tools.
 
-## **P-2: DAIICT Placement Manager** 
+---
 
-During our second semester in the Data Structures course, our assignment was to develop a Placement Management System as our Capstone Challenge. This project applies concepts learned in programming languages, data structures, and algorithmic problem-solving to real-world scenarios. It serves as a practical application of our skills, aiming to enhance proficiency in these areas.
+## 📌 Features
 
-Throughout the development process, we applied our knowledge of data structures such as linked lists, hashmap and sets to efficiently manage placement data. Algorithmic problem-solving techniques were utilized to implement features like search and retrieval functionalities, ensuring seamless navigation and access to information.
+1. **Input Placement Data**
 
-## Project Details
+   * Load student placement records from a file(.csv, with specific format), specific to a company.
+2. **Customizable Sorting**
 
-This project contains the four main parts:
+   * Sort records by batch, company, program, year, or any combination.
+3. **Placement Statistics**
 
-    1) Input Placement Data --> Take a filepath and companyname as a Input to collect the data
-    2) Sorting Data --> Sort The Data as User's Requrirement
-    3) Placement Statistics --> Find The Placement Statistics from Data as User's Requrirement 
-    4) Not Selected Student Details --> Find Not Selected Students from Data as User's Requrirement
- 
-Data Structues Used In This Project
+   * Generate summary statistics based on different filters.
+4. **Not Selected Student Details**
 
-* Linked List
-* Maps
-* Sets
+   * Identify and list students who were not placed, based on custom filters.
 
-## How To Run It ##
+---
 
-    1) Download " main.cpp " and " class_PlacementManager.cpp " from the folder Classes.
-    2) Include the file " class_PlacementManager.cpp " into the " main.cpp ".
-    3) Compile your code to ensure that all files are successfully integrated.
-    4) Run the system and verify that it operates as expected.
-    
-## Languages used
- - [C++](https://www.cplusplus.com)
+## ⚙️ Technologies Used
 
-## Contribution ##
+* **Language:** C++
+* **Data Structures:**
 
-#### Contribution By Vivek Parmar ####
-- Main Class
-- Input Placement Data
-- Not Selected Batch Wise
-- Not Selected Company Wise 
-- Not Selected Program Wise
-- Not Selected Year Wise
-- Not Selected Batch And Company Wise
-- Not Selected Batch And Program Wise
-- Not Selected Company And Program Wise
+  * `Linked List` for managing dynamic student records.
+  * `Maps` for quick lookups and classification.
+  * `Sets` for handling unique records.
+* **Concepts Applied:**
 
-#### Contribution By Ansh Badresiya ####
-- Sort Whole Data
-- Sort Program Wise
-- Sort Batch And Company Wise
-- Sort Program And Batch Wise
-- Sort Program And Company Wise
-- Sort Year And Batch Wise
-- Sort Year And Program Wise
+  * File I/O
+  * OOPs
 
-#### Contribution By Nilesh Mori ####
-- Not Selected Year And Batch Wise
-- Not Selected Year And Company Wise
-- Not Selected Year And Program Wise
-- Overall Placement Statistics
-- Batch Wise Placement Statistics
-- Company Wise Placement Statistics
-- Program Wise Placement Statistics
-- Year Wise Placement Statistics
-- Batch And Company Wise Placement Statistics
+---
 
-#### Contribution By Aum Patel  
-- Sort Batch Wise
-- Sort Company Wise
-- Program And Batch Wise Placement Statistics
-- Program And Company Wise Placement Statistics
-- Year And Batch Wise Placement Statistics
-- Year And Company Wise Placement Statistics
-- Year Program Wise Placement Statistics
-- Student Placement Details
+## 📁 Project Structure
 
+```
+DA-IICT-Placement-Manager/
+├── Classes/                              # Core class definitions and logic
+│   └── class_PlacementManager.cpp
+├── Functions/
+│   ├── Not Selected/                     # Functions to filter and display unplaced students
+│   ├── Placement Statistics/             # Functions to compute placement stats (batch, year, program, etc.)
+│   └── Sorting Data/                     # Functions to sort data by various criteria
+├── Test Field/                           # Contains sample data, test drivers to validate functionalities, and results
+├── main.cpp                              # Main program entry point
+└── README.md                             # Project documentation
 
-## Made by
-| SID | Name | Username |
-|-------------|------|----------|
-| 202301475 | Vivek Parmar | [WAYWIDN]( https://github.com/WAYWIDN) |
-| 202301477 | Ansh Badresiya | [Ansh-Badresiya](https://github.com/Ansh-Badresiya) |
-| 20231473 | Nilesh Mori | [nilesh7757](https://github.com/nilesh7757) | 
-| 202301448 | Aum Patel | [aum9049](https://github.com/aum9049) |
+```
 
+---
 
-## Reference
-* [Chatgpt](https://chat.openai.com/)
-To set Printing Pattern
+## ▶️ How to Run
 
+1. **Clone the repository**
 
+   ```bash
+   git clone https://github.com/WAYWIDN/DA-IICT-Placement-Manager.git
+   cd DA-IICT-Placement-Manager
+   ```
+
+2. **Compile the code**
+
+   ```bash
+   g++ main.cpp Classes/class_PlacementManager.cpp -o PlacementManager
+   ```
+
+3. **Run the executable**
+
+   ```bash
+   ./PlacementManager
+   ```
+
+4. **Follow on-screen prompts**
+
+   * Enter the path to the CSV file (e.g., `sample_data/placements.csv`)
+   * Enter the company name to analyze
 
