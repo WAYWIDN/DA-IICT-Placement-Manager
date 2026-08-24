@@ -1,82 +1,294 @@
-# 🎓 DA-IICT Placement Manager
+Your current README is good. I’d add the **Data Storage**, **Query/Filtering**, **Statistics**, **Not-Selected**, **How to Run**, **Sample Tests**, and **Technologies** sections after the Project Structure.
 
-A C++ based console application designed to manage, analyze, and organize student placement data efficiently using fundamental data structures and algorithms. This project simulates real-world placement record management by offering interactive sorting, filtering, and statistical tools.
+Here is the complete version:
 
----
+````markdown
+# DA-IICT Placement Manager
 
-## 📌 Features
+A C++ console application for managing and analyzing student placement data.
 
-1. **Input Placement Data**
+The system supports placement data loading, filtering, sorting, placement statistics, and finding students who were not selected.
 
-   * Load student placement records from a file(.csv, with specific format), specific to a company.
-2. **Customizable Sorting**
+## Features
 
-   * Sort records by batch, company, program, year, or any combination.
-3. **Placement Statistics**
+- Load placement data from CSV files for Round 1, Round 2, Round 3, Round 4, and Final Round.
+- Validate file paths before loading data.
+- Store student records using AVL Trees.
+- Filter students using multiple conditions such as batch, program, company, and year.
+- Sort filtered placement records.
+- Find students who were not selected.
+- Generate placement statistics.
+- Display results on the console.
+- Export sorted data to CSV files.
 
-   * Generate summary statistics based on different filters.
-4. **Not Selected Student Details**
+## Architecture
 
-   * Identify and list students who were not placed, based on custom filters.
+![System Architecture](docs/architecture.png)
 
----
+The application is divided into separate components with specific responsibilities:
 
-## ⚙️ Technologies Used
+- `PlacementManager` — Coordinates the application.
+- `FileService` — Manages the file loading and writing workflow.
+- `CSVService` — Reads and writes CSV files.
+- `QueryService` — Handles filtering, sorting, and not-selected student operations.
+- `StatisticsService` — Calculates placement statistics.
+- `DisplayService` — Displays results on the console.
+- `Repository` — Provides access to placement data.
+- `AVLTree` — Stores records using a self-balancing binary search tree.
+- `Record` — Represents a student placement record.
+- `Query` — Represents filtering conditions.
+- `Statistics` — Stores placement statistics.
 
-* **Language:** C++
-* **Data Structures:**
+## Project Structure
 
-  * `Linked List` for managing dynamic student records.
-  * `Maps` for quick lookups and classification.
-  * `Sets` for handling unique records.
-* **Concepts Applied:**
-
-  * File I/O
-  * OOPs
-
----
-
-## 📁 Project Structure
-
-```
+```text
 DA-IICT-Placement-Manager/
-├── Classes/                              # Core class definitions and logic
-│   └── class_PlacementManager.cpp
-├── Functions/
-│   ├── Not Selected/                     # Functions to filter and display unplaced students
-│   ├── Placement Statistics/             # Functions to compute placement stats (batch, year, program, etc.)
-│   └── Sorting Data/                     # Functions to sort data by various criteria
-├── Test Field/                           # Contains sample data, test drivers to validate functionalities, and results
-├── main.cpp                              # Main program entry point
-└── README.md                             # Project documentation
+│
+├── include/
+│   ├── data/
+│   │   └── Repository.h
+│   │
+│   ├── ds/
+│   │   └── AVLTree.h
+│   │
+│   ├── io/
+│   │   ├── CSVService.h
+│   │   ├── DisplayService.h
+│   │   └── FileService.h
+│   │
+│   ├── models/
+│   │   ├── Query.h
+│   │   └── Record.h
+│   │
+│   ├── services/
+│   │   ├── QueryService.h
+│   │   └── StatisticsService.h
+│   │
+│   └── PlacementManager.h
+│
+├── tests/
+│   └── Sample CSV files
+│
+├── main.cpp
+├── .gitignore
+└── README.md
+````
 
+## Data Storage
+
+The `Repository` maintains five AVL Trees, one for each placement round:
+
+```text
+Repository
+│
+├── R1  → Round 1
+├── R2  → Round 2
+├── R3  → Round 3
+├── R4  → Round 4
+└── FR  → Final Round
 ```
 
----
+Each tree stores:
 
-## ▶️ How to Run
+```cpp
+AVLTree<long long, Record>
+```
 
-1. **Clone the repository**
+where:
 
-   ```bash
-   git clone https://github.com/WAYWIDN/DA-IICT-Placement-Manager.git
-   cd DA-IICT-Placement-Manager
-   ```
+* `long long` — Student ID used as the key.
+* `Record` — Student placement information.
 
-2. **Compile the code**
+The AVL Tree maintains balance after insertion and supports efficient searching using the student ID.
 
-   ```bash
-   g++ main.cpp Classes/class_PlacementManager.cpp -o PlacementManager
-   ```
+## Query and Filtering
 
-3. **Run the executable**
+The `Query` class represents the conditions used to filter student records.
 
-   ```bash
-   ./PlacementManager
-   ```
+Example:
 
-4. **Follow on-screen prompts**
+```cpp
+Query q;
 
-   * Enter the path to the CSV file (e.g., `sample_data/placements.csv`)
-   * Enter the company name to analyze
+q.setBatch(2027)
+ .setProgram("CSE")
+ .setCompany("Google");
+```
 
+`QueryService` uses these conditions to retrieve matching records through the `Repository`.
+
+Supported filters include:
+
+* Student ID
+* Batch
+* Program
+* Company
+* Year
+
+Multiple filters can be combined in a single query.
+
+## Sorting
+
+`QueryService` provides sorting operations based on different student attributes.
+
+Examples include:
+
+* Batch-wise sorting
+* Program-wise sorting
+* Company-wise sorting
+* Year-wise sorting
+* Batch and Program
+* Batch and Company
+* Program and Company
+* Year and Batch
+* Year and Program
+* Year and Company
+
+Sorted results can be displayed on the console or exported to a CSV file.
+
+## Placement Statistics
+
+`StatisticsService` calculates placement statistics based on the selected query and placement data.
+
+The system supports:
+
+* Overall placement statistics
+* Batch-wise statistics
+* Program-wise statistics
+* Company-wise statistics
+* Year-wise statistics
+* Batch and Company statistics
+* Batch and Program statistics
+* Program and Company statistics
+* Year and Batch statistics
+* Year and Program statistics
+* Year and Company statistics
+
+Package-related statistics include:
+
+* Minimum package
+* Maximum package
+* Average package
+* Median package
+
+## Not-Selected Students
+
+The system can identify students who participated in the placement process but did not receive a final offer.
+
+Not-selected students can be filtered using:
+
+* Batch
+* Program
+* Company
+* Year
+* Multiple combined conditions
+
+## How to Run
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/WAYWIDN/DA-IICT-Placement-Manager.git
+cd DA-IICT-Placement-Manager
+```
+
+### 2. Compile the Project
+
+For Windows:
+
+```powershell
+g++ -std=c++17 -I include main.cpp -o main.exe
+```
+
+For Linux/macOS:
+
+```bash
+g++ -std=c++17 -I include main.cpp -o main
+```
+
+### 3. Run the Application
+
+For Windows:
+
+```powershell
+.\main.exe
+```
+
+For Linux/macOS:
+
+```bash
+./main
+```
+
+## Loading Sample Tests
+
+Sample CSV files are provided in the `tests` directory.
+
+After running the application, select:
+
+```text
+1. Input Placement Data
+```
+
+Enter the company name and the paths of the corresponding CSV files.
+
+For example:
+
+```text
+tests/Company1R1.csv
+tests/Company1R2.csv
+tests/Company1R3.csv
+tests/Company1R4.csv
+tests/Company1FR.csv
+```
+
+Use the actual filenames available in the `tests` directory.
+
+The application validates all file paths before inserting any data. If any file path is invalid, no data is inserted.
+
+After successful loading, the remaining menu options can be used to sort data, view statistics, and find not-selected students.
+
+## Technologies and Concepts
+
+* C++17
+* Object-Oriented Programming
+* Templates
+* AVL Tree
+* Vectors
+* Sets
+* Queues
+* File I/O
+* CSV Parsing
+* Searching
+* Sorting
+* Tree Traversal
+* Recursion
+* Dynamic Memory Management
+* Dependency Injection
+* Separation of Responsibilities
+
+## Author
+
+Vivek Parmar
+
+DA-IICT
+
+````
+
+One small thing: **make sure `docs/architecture.png` actually exists** in your repository. Your current screenshot showed `tests/`, but not `docs/`. If you haven't created `docs/` yet, create it and put your architecture image there:
+
+```text
+DA-IICT-Placement-Manager/
+├── docs/
+│   └── architecture.png
+├── include/
+├── tests/
+├── main.cpp
+└── README.md
+````
+
+Then this will render correctly on GitHub:
+
+```markdown
+![System Architecture](docs/architecture.png)
+```

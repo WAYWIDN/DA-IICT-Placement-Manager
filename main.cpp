@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "Classes/class_PlacementManager.cpp"
+#include "include/PlacementManager.h"
 using namespace std;
 
 void displayMainMenu()
