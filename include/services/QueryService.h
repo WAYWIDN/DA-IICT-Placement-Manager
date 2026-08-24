@@ -82,7 +82,7 @@ private:
         WriteFR(q, fp);
     }
 
-    void SortByRound(Query &q, string filterDesc)
+    void SortByRound(Query &q, string filterDesc, bool showTotal = false)
     {
         cout << "\n#-----> Enter 1/2/3/4 for Round 1-4, or 5 for Final Round : ";
         int choice;
@@ -93,21 +93,37 @@ private:
             return "Data For Round " + to_string(r) + " - " + filterDesc;
         };
 
+        auto showRoundTotal = [&](AVLTree<long long, Record> &tree, int round)
+        {
+            if (showTotal)
+            {
+                cout << "\n<--- Displaying All Data For Round " << round
+                     << " (Total: " << repo.CountInTree(tree, q) << ") --->\n";
+            }
+        };
+
         switch (choice)
         {
         case 1:
+            showRoundTotal(repo.GetR1(), 1);
             AskAndSortR1to4(repo.GetR1(), q, label(1));
             break;
         case 2:
+            showRoundTotal(repo.GetR2(), 2);
             AskAndSortR1to4(repo.GetR2(), q, label(2));
             break;
         case 3:
+            showRoundTotal(repo.GetR3(), 3);
             AskAndSortR1to4(repo.GetR3(), q, label(3));
             break;
         case 4:
+            showRoundTotal(repo.GetR4(), 4);
             AskAndSortR1to4(repo.GetR4(), q, label(4));
             break;
         case 5:
+            if (showTotal)
+                cout << "\n<--- Displaying All Data For Final Round (Total: "
+                     << repo.CountInTree(repo.GetFR(), q) << ") --->\n";
             AskAndSortFR(q, "Final Round - " + filterDesc);
             break;
         default:
@@ -160,31 +176,7 @@ public:
         int choice;
         cin >> choice;
 
-        switch (choice)
-        {
-        case 1:
-            cout << "\n<--- Displaying All Data For Round 1 (Total: " << repo.CountInTree(repo.GetR1(), q) << ") --->\n";
-            AskAndSortR1to4(repo.GetR1(), q, "All Data - Round 1");
-            break;
-        case 2:
-            cout << "\n<--- Displaying All Data For Round 2 (Total: " << repo.CountInTree(repo.GetR2(), q) << ") --->\n";
-            AskAndSortR1to4(repo.GetR2(), q, "All Data - Round 2");
-            break;
-        case 3:
-            cout << "\n<--- Displaying All Data For Round 3 (Total: " << repo.CountInTree(repo.GetR3(), q) << ") --->\n";
-            AskAndSortR1to4(repo.GetR3(), q, "All Data - Round 3");
-            break;
-        case 4:
-            cout << "\n<--- Displaying All Data For Round 4 (Total: " << repo.CountInTree(repo.GetR4(), q) << ") --->\n";
-            AskAndSortR1to4(repo.GetR4(), q, "All Data - Round 4");
-            break;
-        case 5:
-            cout << "\n<--- Displaying All Data For Final Round (Total: " << repo.CountInTree(repo.GetFR(), q) << ") --->\n";
-            AskAndSortFR(q, "All Data - Final Round");
-            break;
-        default:
-            cout << "\n<--- Invalid Choice --->\n\n";
-        }
+        SortByRound(q, "All Data", true);
     }
 
     void SortDataBatchWise()
