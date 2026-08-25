@@ -16,6 +16,23 @@ A C++ based console application designed to manage, analyze, and organize studen
 - **Not Selected Student Details**  
   Identify and list students who were not placed, based on custom filters.
 
+## Architecture
+
+![System Architecture](docs/architecture.png)
+
+The application follows a modular architecture where each component has a specific responsibility.
+
+- **PlacementManager** - Coordinates the application.
+- **FileService** - Manages the placement data file loading.
+- **CSVService** - Reads and writes CSV files.
+- **QueryService** - Handles filtering, sorting, and not-selected student analysis.
+- **StatisticsService** - Calculates placement statistics.
+- **DisplayService** - Displays Sorted Data and Not Selected Students on the console.
+- **Repository** - Provides access to stored placement data.
+- **AVLTree** - Stores student records using a self-balancing binary search tree.
+- **Record** - Represents student placement information.
+- **Query** - Represents filtering conditions.
+
 ## Project Structure
 
 ```text
@@ -64,23 +81,6 @@ DA-IICT-Placement-Manager/
 - **tests/** — Contains sample CSV files for testing.
 - **docs/** — Contains project documentation and the architecture diagram.
 
-## Architecture
-
-![System Architecture](docs/architecture.png)
-
-The application follows a modular architecture where each component has a specific responsibility.
-
-- **PlacementManager** — Coordinates the application.
-- **FileService** — Manages the placement data file loading.
-- **CSVService** — Reads and writes CSV files.
-- **QueryService** — Handles filtering, sorting, and not-selected student analysis.
-- **StatisticsService** — Calculates placement statistics.
-- **DisplayService** — Displays Sorted Data and Not Selected Students on the console.
-- **Repository** — Provides access to stored placement data.
-- **AVLTree** — Stores student records using a self-balancing binary search tree.
-- **Record** — Represents student placement information.
-- **Query** — Represents filtering conditions.
-
 ## Data Flow
 
 ```text
@@ -116,6 +116,12 @@ PlacementManager
                     DisplayService/CSVService
 ```
 
+## Requirements
+
+- C++11-compatible compiler or newer.
+- GCC/MinGW-w64 is recommended on Windows. The project has been tested with MinGW-w64 GCC 16.2.0 (x86-64, POSIX threading model).
+- The program uses `std::thread` to load the five CSV files and calculate statistics concurrently.
+
 ## How to Run
 
 ### 1. Clone the Repository
@@ -125,18 +131,37 @@ git clone https://github.com/WAYWIDN/DA-IICT-Placement-Manager.git
 cd DA-IICT-Placement-Manager
 ```
 
-### 2. Compile
+### 2. Compile with GCC/MinGW-w64
 
+The `-pthread` option is required. It enables the C++ thread library and links the required threading support.
 
 ```bash
-g++ main.cpp -o main
+g++ --version
+g++ -std=c++11 -pthread main.cpp -o main.exe
 ```
 
-### 3. Run
+To confirm that the thread-enabled program builds successfully, the compile command above must finish without errors. On Windows PowerShell, run the program with:
+
+```powershell
+.\main.exe
+```
+
+On Linux or macOS, compile without the `.exe` extension and run:
 
 ```bash
+g++ -std=c++11 -pthread main.cpp -o main
 ./main
 ```
+
+### 3. Use the Precompiled Windows Executable
+
+The supplied `main.exe` can be used instead of compiling if the computer is running 64-bit Windows. Run it from PowerShell with:
+
+```powershell
+.\main.exe
+```
+
+A Windows x86-64 executable will not run on 32-bit Windows or Linux/macOS. If Windows reports that a DLL is missing, install the matching MinGW-w64 runtime or compile the project locally using the command above.
 
 ## Running with Sample Data
 

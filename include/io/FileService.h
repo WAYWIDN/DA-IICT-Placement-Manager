@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <thread>
 #include "../data/Repository.h"
 #include "./CSVService.h"
 
@@ -102,11 +103,22 @@ public:
         cout << "\n-----> All file paths are valid.";
         cout << "\n-----> Loading data...\n";
 
-        csvService.ReadFileForRound(repo.GetR1(), r1Path, company, "Round 1");
-        csvService.ReadFileForRound(repo.GetR2(), r2Path, company, "Round 2");
-        csvService.ReadFileForRound(repo.GetR3(), r3Path, company, "Round 3");
-        csvService.ReadFileForRound(repo.GetR4(), r4Path, company, "Round 4");
-        csvService.ReadFileForFinalRound(repo.GetFR(), frPath, company);
+        thread r1Thread([&]()
+                        { csvService.ReadFileForRound(repo.GetR1(), r1Path, company, "Round 1"); });
+        thread r2Thread([&]()
+                        { csvService.ReadFileForRound(repo.GetR2(), r2Path, company, "Round 2"); });
+        thread r3Thread([&]()
+                        { csvService.ReadFileForRound(repo.GetR3(), r3Path, company, "Round 3"); });
+        thread r4Thread([&]()
+                        { csvService.ReadFileForRound(repo.GetR4(), r4Path, company, "Round 4"); });
+        thread frThread([&]()
+                        { csvService.ReadFileForFinalRound(repo.GetFR(), frPath, company); });
+
+        r1Thread.join();
+        r2Thread.join();
+        r3Thread.join();
+        r4Thread.join();
+        frThread.join();
 
         cout << "\n-----> All data loaded successfully.\n";
     }

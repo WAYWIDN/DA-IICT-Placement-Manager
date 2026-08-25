@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <limits>
+#include <thread>
 #include "../data/Repository.h"
 #include "../models/Query.h"
 
@@ -21,7 +22,7 @@ private:
     struct PkgStats
     {
         float min, max, total;
-        int count;
+        int count, r1, r2, r3, r4;
         vector<float> list;
     };
 
@@ -32,9 +33,26 @@ private:
 
     PkgStats CalcPkgStats(Query &q)
     {
-        PkgStats s{numeric_limits<float>::max(), numeric_limits<float>::lowest(), 0, 0, {}};
+        PkgStats s{numeric_limits<float>::max(), numeric_limits<float>::lowest(), 0, 0, 0, 0, 0, 0, {}};
         vector<Record> all;
-        repo.CollectRecords(repo.GetFR(), q, all);
+
+        thread r1Thread([&]()
+                        { s.r1 = repo.CountInTree(repo.GetR1(), q); });
+        thread r2Thread([&]()
+                        { s.r2 = repo.CountInTree(repo.GetR2(), q); });
+        thread r3Thread([&]()
+                        { s.r3 = repo.CountInTree(repo.GetR3(), q); });
+        thread r4Thread([&]()
+                        { s.r4 = repo.CountInTree(repo.GetR4(), q); });
+        thread frThread([&]()
+                        { repo.CollectRecords(repo.GetFR(), q, all); });
+
+        r1Thread.join();
+        r2Thread.join();
+        r3Thread.join();
+        r4Thread.join();
+        frThread.join();
+
         for (auto &r : all)
         {
             s.count++;
@@ -48,17 +66,17 @@ private:
         return s;
     }
 
-    void PrintPkgStats(PkgStats &s, int r1att, int r2att, int r3att, int r4att, string label)
+    void PrintPkgStats(PkgStats &s, string label)
     {
         PrintHorizontalLine(60);
         cout << "\n# Placement Statistics - " << label << " :\n";
-        cout << "\nNo. Students Attempted in Round 1 : " << r1att;
-        cout << "\nNo. Students Attempted in Round 2 : " << r2att;
-        cout << "\nNo. Students Attempted in Round 3 : " << r3att;
-        cout << "\nNo. Students Attempted in Round 4 : " << r4att;
+        cout << "\nNo. Students Attempted in Round 1 : " << s.r1;
+        cout << "\nNo. Students Attempted in Round 2 : " << s.r2;
+        cout << "\nNo. Students Attempted in Round 3 : " << s.r3;
+        cout << "\nNo. Students Attempted in Round 4 : " << s.r4;
         cout << "\nNo. Students Got Job Offer        : " << s.count;
-        if (r1att > 0)
-            cout << "\nSuccess Rate                      : " << float(s.count) / r1att * 100 << "%";
+        if (s.r1 > 0)
+            cout << "\nSuccess Rate                      : " << float(s.count) / s.r1 * 100 << "%";
         if (s.count > 0)
         {
             cout << "\n\nMaximum Package Offered : " << s.max;
@@ -109,10 +127,6 @@ public:
         PrintHorizontalLine(60);
 
         Query q; // Empty Query
-        int r1 = repo.CountInTree(repo.GetR1(), q);
-        int r2 = repo.CountInTree(repo.GetR2(), q);
-        int r3 = repo.CountInTree(repo.GetR3(), q);
-        int r4 = repo.CountInTree(repo.GetR4(), q);
         PkgStats packageStats = CalcPkgStats(q);
 
         vector<Record> finalRecords;
@@ -125,12 +139,12 @@ public:
         }
 
         cout << "\n# Overall Placement Statistics :\n";
-        cout << "\nNo. Students Attempted in Round 1 : " << r1;
-        cout << "\nNo. Students Attempted in Round 2 : " << r2;
-        cout << "\nNo. Students Attempted in Round 3 : " << r3;
-        cout << "\nNo. Students Attempted in Round 4 : " << r4;
+        cout << "\nNo. Students Attempted in Round 1 : " << packageStats.r1;
+        cout << "\nNo. Students Attempted in Round 2 : " << packageStats.r2;
+        cout << "\nNo. Students Attempted in Round 3 : " << packageStats.r3;
+        cout << "\nNo. Students Attempted in Round 4 : " << packageStats.r4;
         cout << "\nNo. Students Got Job Offer        : " << packageStats.count;
-        cout << "\nSuccess Rate                      : " << float(packageStats.count) / r1 * 100 << "%";
+        cout << "\nSuccess Rate                      : " << float(packageStats.count) / packageStats.r1 * 100 << "%";
         cout << "\n\nMaximum Package Offered : " << packageStats.max;
         cout << "\nMinimum Package Offered : " << packageStats.min;
         cout << "\nAverage Package         : " << packageStats.total / packageStats.count;
@@ -178,10 +192,7 @@ public:
         Query q;
         q.setId(id);
 
-        int r1 = repo.CountInTree(repo.GetR1(), q);
-        int r2 = repo.CountInTree(repo.GetR2(), q);
-        int r3 = repo.CountInTree(repo.GetR3(), q);
-        int r4 = repo.CountInTree(repo.GetR4(), q);
+        PkgStats s = CalcPkgStats(q);
         int offers = repo.GetOfferCount(id);
 
         PrintHorizontalLine(60);
@@ -194,15 +205,15 @@ public:
         cout << "\nEmail          : " << info.email;
         cout << "\nContact Number : " << info.contactNO;
         cout << "\nWhatsApp Number: " << info.whatsappNO;
-        if (r1 > 0)
-            cout << "\nSuccess Rate   : " << float(offers) / r1 * 100 << "%\n\n";
+        if (s.r1 > 0)
+            cout << "\nSuccess Rate   : " << float(offers) / s.r1 * 100 << "%\n\n";
 
         PrintHorizontalLine(100);
 
-        cout << "\nNo. of Attempts in Round 1 : " << r1;
-        cout << "\nNo. of Attempts in Round 2 : " << r2;
-        cout << "\nNo. of Attempts in Round 3 : " << r3;
-        cout << "\nNo. of Attempts in Round 4 : " << r4;
+        cout << "\nNo. of Attempts in Round 1 : " << s.r1;
+        cout << "\nNo. of Attempts in Round 2 : " << s.r2;
+        cout << "\nNo. of Attempts in Round 3 : " << s.r3;
+        cout << "\nNo. of Attempts in Round 4 : " << s.r4;
         cout << "\nNo. of Job Offers           : " << offers;
 
         vector<Record> frRecords;
@@ -243,13 +254,9 @@ public:
             return;
         }
 
-        int r1 = repo.CountInTree(repo.GetR1(), q);
-        int r2 = repo.CountInTree(repo.GetR2(), q);
-        int r3 = repo.CountInTree(repo.GetR3(), q);
-        int r4 = repo.CountInTree(repo.GetR4(), q);
         PkgStats s = CalcPkgStats(q);
 
-        PrintPkgStats(s, r1, r2, r3, r4, "Batch " + to_string(batch));
+        PrintPkgStats(s, "Batch " + to_string(batch));
 
         set<string> companies;
         vector<Record> fr;
@@ -286,13 +293,9 @@ public:
             return;
         }
 
-        int r1 = repo.CountInTree(repo.GetR1(), q);
-        int r2 = repo.CountInTree(repo.GetR2(), q);
-        int r3 = repo.CountInTree(repo.GetR3(), q);
-        int r4 = repo.CountInTree(repo.GetR4(), q);
         PkgStats s = CalcPkgStats(q);
 
-        PrintPkgStats(s, r1, r2, r3, r4, "Program " + program);
+        PrintPkgStats(s, "Program " + program);
 
         set<string> companies;
         vector<Record> fr;
@@ -329,13 +332,9 @@ public:
             return;
         }
 
-        int r1 = repo.CountInTree(repo.GetR1(), q);
-        int r2 = repo.CountInTree(repo.GetR2(), q);
-        int r3 = repo.CountInTree(repo.GetR3(), q);
-        int r4 = repo.CountInTree(repo.GetR4(), q);
         PkgStats s = CalcPkgStats(q);
 
-        PrintPkgStats(s, r1, r2, r3, r4, "Company " + company);
+        PrintPkgStats(s, "Company " + company);
 
         set<int> batches;
         vector<Record> fr;
@@ -377,13 +376,9 @@ public:
             return;
         }
 
-        int r1 = repo.CountInTree(repo.GetR1(), q);
-        int r2 = repo.CountInTree(repo.GetR2(), q);
-        int r3 = repo.CountInTree(repo.GetR3(), q);
-        int r4 = repo.CountInTree(repo.GetR4(), q);
         PkgStats s = CalcPkgStats(q);
 
-        PrintPkgStats(s, r1, r2, r3, r4, "Year " + to_string(year));
+        PrintPkgStats(s, "Year " + to_string(year));
 
         set<string> companies;
         vector<Record> fr;
@@ -435,13 +430,9 @@ public:
             return;
         }
 
-        int r1 = repo.CountInTree(repo.GetR1(), q);
-        int r2 = repo.CountInTree(repo.GetR2(), q);
-        int r3 = repo.CountInTree(repo.GetR3(), q);
-        int r4 = repo.CountInTree(repo.GetR4(), q);
         PkgStats s = CalcPkgStats(q);
 
-        PrintPkgStats(s, r1, r2, r3, r4, "Batch " + to_string(batch) + " Company " + company);
+        PrintPkgStats(s, "Batch " + to_string(batch) + " Company " + company);
     }
 
     void FindBatchAndProgramWisePlacementStatistics()
@@ -471,13 +462,9 @@ public:
             return;
         }
 
-        int r1 = repo.CountInTree(repo.GetR1(), q);
-        int r2 = repo.CountInTree(repo.GetR2(), q);
-        int r3 = repo.CountInTree(repo.GetR3(), q);
-        int r4 = repo.CountInTree(repo.GetR4(), q);
         PkgStats s = CalcPkgStats(q);
 
-        PrintPkgStats(s, r1, r2, r3, r4, "Batch " + to_string(batch) + " Program " + program);
+        PrintPkgStats(s, "Batch " + to_string(batch) + " Program " + program);
     }
 
     void FindProgramAndCompanyWisePlacementStatistics()
@@ -507,13 +494,9 @@ public:
             return;
         }
 
-        int r1 = repo.CountInTree(repo.GetR1(), q);
-        int r2 = repo.CountInTree(repo.GetR2(), q);
-        int r3 = repo.CountInTree(repo.GetR3(), q);
-        int r4 = repo.CountInTree(repo.GetR4(), q);
         PkgStats s = CalcPkgStats(q);
 
-        PrintPkgStats(s, r1, r2, r3, r4, "Program " + program + " Company " + company);
+        PrintPkgStats(s, "Program " + program + " Company " + company);
     }
 
     void FindYearAndBatchWisePlacementStatistics()
@@ -541,13 +524,9 @@ public:
             return;
         }
 
-        int r1 = repo.CountInTree(repo.GetR1(), q);
-        int r2 = repo.CountInTree(repo.GetR2(), q);
-        int r3 = repo.CountInTree(repo.GetR3(), q);
-        int r4 = repo.CountInTree(repo.GetR4(), q);
         PkgStats s = CalcPkgStats(q);
 
-        PrintPkgStats(s, r1, r2, r3, r4, "Year " + to_string(year) + " Batch " + to_string(batch));
+        PrintPkgStats(s, "Year " + to_string(year) + " Batch " + to_string(batch));
     }
 
     void FindYearAndProgramWisePlacementStatistics()
@@ -577,13 +556,9 @@ public:
             return;
         }
 
-        int r1 = repo.CountInTree(repo.GetR1(), q);
-        int r2 = repo.CountInTree(repo.GetR2(), q);
-        int r3 = repo.CountInTree(repo.GetR3(), q);
-        int r4 = repo.CountInTree(repo.GetR4(), q);
         PkgStats s = CalcPkgStats(q);
 
-        PrintPkgStats(s, r1, r2, r3, r4, "Year " + to_string(year) + " Program " + program);
+        PrintPkgStats(s, "Year " + to_string(year) + " Program " + program);
     }
 
     void FindYearAndCompanyWisePlacementStatistics()
@@ -613,13 +588,9 @@ public:
             return;
         }
 
-        int r1 = repo.CountInTree(repo.GetR1(), q);
-        int r2 = repo.CountInTree(repo.GetR2(), q);
-        int r3 = repo.CountInTree(repo.GetR3(), q);
-        int r4 = repo.CountInTree(repo.GetR4(), q);
         PkgStats s = CalcPkgStats(q);
 
-        PrintPkgStats(s, r1, r2, r3, r4, "Year " + to_string(year) + " Company " + company);
+        PrintPkgStats(s, "Year " + to_string(year) + " Company " + company);
     }
 };
 

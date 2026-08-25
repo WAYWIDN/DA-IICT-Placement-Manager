@@ -58,7 +58,7 @@ public:
             return;
         }
 
-        cout << "\n---> Fetching " << roundLabel << " data for " << company << " ...\n";
+        // cout << "\n---> Fetching " << roundLabel << " data for " << company << " ...\n";
         string line;
         getline(file, line); // skip header
 
@@ -91,7 +91,7 @@ public:
             tree.insert(r.id, r);
         }
         file.close();
-        cout << "<--- Done: " << roundLabel << " for " << company << " <---\n\n";
+        // cout << "<--- Done: " << roundLabel << " for " << company << " <---\n\n";
     }
 
     void ReadFileForFinalRound(AVLTree<long long, Record> &tree, string filepath, string company)
@@ -113,7 +113,7 @@ public:
             return;
         }
 
-        cout << "\n---> Fetching Final Round data for " << company << " ...\n";
+        // cout << "\n---> Fetching Final Round data for " << company << " ...\n";
         string line;
         getline(file, line); // skip header
 
@@ -147,7 +147,7 @@ public:
             tree.insert(r.id, r);
         }
         file.close();
-        cout << "<--- Done: Final Round for " << company << " <---\n\n";
+        // cout << "<--- Done: Final Round for " << company << " <---\n\n";
     }
 
     void WriteR1to4(vector<Record> &records, string filepath)
